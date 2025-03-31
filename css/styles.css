@@ -1,4 +1,4 @@
-/* 
+/*
 CSS Table of Contents
 
 - CSS Variables
@@ -53,7 +53,7 @@ a /* Links */ {
     overflow: hidden;
     margin: auto;
   }
-  
+
   /* Month-Year Header */
   #month-year {
     width: fit-content;
@@ -66,7 +66,7 @@ a /* Links */ {
     border-radius: 1rem;
     margin-top: 1rem;
   }
-  
+
   /* Green Line */
   #line {
     height: 4px;
@@ -75,7 +75,7 @@ a /* Links */ {
     border-right: 1px solid var(--gray);
     margin: 0.5rem 0;
   }
-  
+
   /* Grid Setup */
   #days-of-week, #date-grid {
     display: grid;
@@ -84,14 +84,14 @@ a /* Links */ {
     gap: 2px;
     padding: 2px;
   }
-  
+
   /* Weekday Header */
   #days-of-week {
     display: flex;
     justify-content: space-around;
     align-items: center;
   }
-  
+
   #days-of-week > div {
     background-color: white;
     border: 1px solid var(--gray);
@@ -102,7 +102,7 @@ a /* Links */ {
     flex: 1;
     min-width: 0;
   }
-  
+
   #date-grid > .day::before {
     content: attr(data-date);
     font-size: clamp(1rem, 2vw, 1.3rem);
@@ -111,7 +111,7 @@ a /* Links */ {
     top: 5px;
     left: 5px;
   }
-  
+
   #date-grid > .day.special {
     background-color: white;
     border: 1px solid var(--gray);
@@ -128,7 +128,7 @@ a /* Links */ {
     position: relative;
     padding: 5px;
   }
-  
+
   /* Date Cells */
   #date-grid > .day {
     background-color: white;
@@ -146,7 +146,7 @@ a /* Links */ {
     position: relative;
     padding: 5px;
   }
-  
+
   #date-grid > .day.special .event-type {
     font-size: clamp(0.8rem, 1.5vw, 1rem);
     white-space: nowrap;
@@ -159,7 +159,7 @@ a /* Links */ {
     padding: 0.2rem 0.5rem;
     box-sizing: border-box;
   }
-  
+
   @media (max-width: 768px) {
     #days-of-week > div {
         font-size: clamp(0.9rem, 2vw, 1.1rem);
@@ -389,7 +389,14 @@ a:hover {
   padding: 15px 30px;
   box-sizing: border-box;
 }
-  
+
+  .navbar search {
+    position: relative;
+    width: 10vw;
+    height: 25vh;
+    background-color: var(--secondary-color);
+  }
+
   .navbar a {
     text-decoration: none;
     color: white;
@@ -397,21 +404,21 @@ a:hover {
     margin: 0 1rem;
     transition: color 0.3s ease;
   }
-  
+
   .navbar a:hover {
     color: #FFD700;
   }
-  
+
   .nav-links {
     display: flex;
     gap: 1rem;
   }
-  
+
   .navbar img {
     max-height: 2em; /* Reduce size */
     width: auto; /* Maintain aspect ratio */
   }
-  
+
   /* Responsive Navbar */
   @media (max-width: 768px) {
     .navbar {
@@ -419,23 +426,23 @@ a:hover {
       align-items: center;
       text-align: center;
     }
-  
+
     .nav-links {
       flex-direction: column;
       gap: 0.5rem;
     }
-  
+
     .navbar a {
       font-size: 1rem;
     }
   }
-  
+
 
 /* Footer */
 footer {
   width: 100vw; /* Ensures it spans the full viewport width */
   max-width: 100%;
-  background-color: #1B3054 !important; 
+  background-color: #1B3054 !important;
   color: white;
   text-align: center;
   padding: 1rem;
