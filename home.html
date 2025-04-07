@@ -5,7 +5,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div id="header"></div>
+    <div id="header">
+        <header>
+            <nav class="navbar">
+                <a href="index.html">
+                    <img src="_includes/images/logosimple.png" alt="Site Logo">
+                </a>
+                <div id="search-bar">
+                    <input type="text" id="search-input" placeholder="Search...">
+                    <button id="search-button">Search</button>
+                </div>
+                <div class="nav-links">
+                    <a href="home.html">Home</a>
+                    <a href="syllabus.html">Syllabus</a>
+                    <a href="calendar.html">Calendar</a>
+                    <a href="resources.html">Resources</a>
+                    <a href="contributors.html">Contributors</a>
+                </div>
+            </nav>
+        </header>
+    </div>
     <div id="snap_calendar">
         <div id="month-year">
             <!-- See script -->
@@ -61,12 +80,25 @@
             <p>This course introduces the foundational principles and practices of web design. Students develop the skills to create responsive, accessible, and aesthetically engaging websites that adhere to web standards and design principles. Students explore web technologies, including HTML, CSS, JavaScript, Markdown, React, and 11ty (Eleventy) static site generators, while learning about web accessibility, design patterns, and wireframing with Figma.</p>
         </div>
     </div>
-    <footer id="footer"></footer>
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div><img src="/_includes/images/location.png" alt="Location Icon"></div>
+                <div><p>475 N Main St,<br>Meadville, PA 16335<br>Alden Room 109</p></div>
+            </div>
+            <div class="footer-col">
+                <div><img src="/_includes/images/mail.png" alt="Mail Icon"></div>
+                <div><p>Email the professor <br><a href="mailto:jjumadinova@allegheny.edu">here</a></p></div>
+            </div>
+            <div class="footer-col">
+                <div><img src="/_includes/images/github.png" alt="GitHub Icon"></div>
+                <div><p>Check out the GitHub repo <a href="#">here</a></p></div>
+            </div>
+        </div>
+        <div class="footer-row">
+            <p>&copy; 2025 All Rights Reserved | Allegheny College</p>
+        </div>
+    </footer>
 </body>
-<script>
-    $(document).ready(function(){
-        $("#header").load("/_includes/header.html");
-        $("#footer").load("/_includes/footer.html");
-    });
-</script>
+<script src="../scripts/search.js"></script>
 </html>

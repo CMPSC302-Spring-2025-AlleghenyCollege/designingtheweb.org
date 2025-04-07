@@ -469,6 +469,12 @@ a {
   color: #FFEB96;
 }
 
+/* Search */
+
+.highlight {
+    background-color: yellow;
+}
+
 /* Responsive Styles for Small Screens */
 @media (max-width: 768px) {
   .footer-container {
