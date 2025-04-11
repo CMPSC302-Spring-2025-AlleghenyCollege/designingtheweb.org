@@ -1,9 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Learn New Skills</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="resources.css">
 </head>
 <body>
-    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/"><img src="/images/logo.png" alt="Logo"></a>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/resources">Resources</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Resource Type Navigation -->
+    <div class="resource-nav">
+        <a href="#" class="active">All resources</a>
+        <a href="#"><i class="fas fa-file-alt"></i> Articles</a>
+        <a href="#"><i class="fas fa-graduation-cap"></i> Courses</a>
+        <a href="#">Videos</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>All resources</h1>
+        <p>Learn new skills, get unstuck, and find resources for building powerful websites.</p>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Search courses, articles, and videos" class="search-input">
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <span class="filter-label">Filter by:</span>
+        <div class="filter-tags">
+            <button class="filter-tag">HTML</button>
+            <button class="filter-tag">TailwindCSS</button>
+            <button class="filter-tag">React</button>
+            <button class="filter-tag">Agile Development</button>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Featured Article -->
+    <div class="featured-article">
+        <div class="content">
+            <span class="badge">FEATURED ARTICLE</span>
+            <h2>What is CSS?</h2>
+            <p>This course introduces the foundational principles and practices of web design. Students develop the skills to create responsive, accessible, and aesthetically engaging websites that adhere to web standards and design principles. This course introduces the foundational principles and practices of web design [...]</p>
+            <a href="#" class="btn">Read the article</a>
+        </div>
+    </div>
+
+    <!-- Getting Started Section -->
+    <section class="resource-section">
+        <div class="section-header">
+            <h2>Getting started</h2>
+            <p>Build a good foundation with web development with these courses.</p>
+        </div>
+        
+        <div class="see-more">
+            <a href="#" class="btn-outline">See more courses</a>
+        </div>
+        
+        <div class="resource-cards">
+            <!-- Course Card 1 -->
+            <a href="#" class="resource-card course-card">
+                <div class="card-img"></div>
+                <div class="card-title">Introduction to HTML</div>
+            </a>
+            
+            <!-- Course Card 2 -->
+            <a href="#" class="resource-card course-card">
+                <div class="card-img"></div>
+                <div class="card-title">Introduction to CSS</div>
+            </a>
+            
+            <!-- Course Card 3 -->
+            <a href="#" class="resource-card course-card">
+                <div class="card-img"></div>
+                <div class="card-title">Introduction to JavaScript</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="resource-section">
+        <div class="section-header">
+            <h2>Articles</h2>
+            <p>Learn web development from folks who know them best.</p>
+        </div>
+        
+        <div class="see-more">
+            <a href="#" class="btn-outline">See more articles</a>
+        </div>
+        
+        <div class="resource-cards">
+            <!-- Article Card 1 -->
+            <a href="#" class="resource-card article-card">
+                <div class="article-content">
+                    <h3>Core Web Vitals workflows with Google tools</h3>
+                    <p>With the growing importance of Core Web Vitals, site owners and developer increasingly focus on performance...</p>
+                </div>
+                <div class="arrow-icon">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <!-- Article Card 2 -->
+            <a href="#" class="resource-card article-card">
+                <div class="article-content">
+                    <h3>Debug layout shifts</h3>
+                    <p>Learn how to identify and fix layout shifts.</p>
+                </div>
+                <div class="arrow-icon">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <!-- Article Card 3 -->
+            <a href="#" class="resource-card article-card">
+                <div class="article-content">
+                    <h3>CSS scrollbar-gutter</h3>
+                    <p>CSS scrollbar-gutter and scrollbar-width have landed in all major browser engines, making...</p>
+                </div>
+                <div class="arrow-icon">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Videos Section (Optional - Add more sections as needed) -->
+    <section class="resource-section">
+        <div class="section-header">
+            <h2>Videos</h2>
+            <p>Watch tutorials and learn through visual instruction.</p>
+        </div>
+        
+        <div class="see-more">
+            <a href="#" class="btn-outline">See more videos</a>
+        </div>
+        
+        <div class="resource-cards">
+            <!-- Video Card 1 -->
+            <a href="#" class="resource-card course-card">
+                <div class="card-img video-img">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="card-title">HTML Basics Tutorial</div>
+            </a>
+            
+            <!-- Video Card 2 -->
+            <a href="#" class="resource-card course-card">
+                <div class="card-img video-img">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="card-title">CSS Layout Techniques</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+            <div class="footer-col">
+                <p>&copy; 2025 Your Company Name</p>
+            </div>
+            <div class="footer-col">
+                <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+                <a href="https://github.com"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
