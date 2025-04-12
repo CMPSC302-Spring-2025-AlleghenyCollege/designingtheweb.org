@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resources - Learn New Skills</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="resources.css">
+    <style>
+        /* Additional styles for active filter buttons */
+        .filter-tag.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Hide filtered-out resources */
+        .resource-card.hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar">    
         <div class="logo">
             <a href="/"><img src="/images/logo.png" alt="Logo"></a>
         </div>
@@ -24,10 +36,10 @@
 
     <!-- Resource Type Navigation -->
     <div class="resource-nav">
-        <a href="#" class="active">All resources</a>
-        <a href="#"><i class="fas fa-file-alt"></i> Articles</a>
-        <a href="#"><i class="fas fa-graduation-cap"></i> Courses</a>
-        <a href="#">Videos</a>
+        <a href="#" class="active" data-type="all">All resources</a>
+        <a href="#articles" data-type="article"><i class="fas fa-file-alt"></i> Articles</a>
+        <a href="#courses" data-type="course"><i class="fas fa-graduation-cap"></i> Courses</a>
+        <a href="#videos" data-type="video">Videos</a>
     </div>
 
     <!-- Hero Section -->
@@ -44,10 +56,10 @@
     <div class="filter-section">
         <span class="filter-label">Filter by:</span>
         <div class="filter-tags">
-            <button class="filter-tag">HTML</button>
-            <button class="filter-tag">TailwindCSS</button>
-            <button class="filter-tag">React</button>
-            <button class="filter-tag">Agile Development</button>
+            <button class="filter-tag" data-tag="html">HTML</button>
+            <button class="filter-tag" data-tag="tailwindcss">TailwindCSS</button>
+            <button class="filter-tag" data-tag="react">React</button>
+            <button class="filter-tag" data-tag="agile">Agile Development</button>
         </div>
     </div>
 
@@ -64,7 +76,7 @@
     </div>
 
     <!-- Getting Started Section -->
-    <section class="resource-section">
+    <section id="courses" class="resource-section">
         <div class="section-header">
             <h2>Getting started</h2>
             <p>Build a good foundation with web development with these courses.</p>
@@ -76,19 +88,19 @@
         
         <div class="resource-cards">
             <!-- Course Card 1 -->
-            <a href="#" class="resource-card course-card">
+            <a href="#" class="resource-card course-card" data-type="course" data-tags="html">
                 <div class="card-img"></div>
                 <div class="card-title">Introduction to HTML</div>
             </a>
             
             <!-- Course Card 2 -->
-            <a href="#" class="resource-card course-card">
+            <a href="#" class="resource-card course-card" data-type="course" data-tags="css">
                 <div class="card-img"></div>
                 <div class="card-title">Introduction to CSS</div>
             </a>
             
             <!-- Course Card 3 -->
-            <a href="#" class="resource-card course-card">
+            <a href="#" class="resource-card course-card" data-type="course" data-tags="javascript">
                 <div class="card-img"></div>
                 <div class="card-title">Introduction to JavaScript</div>
             </a>
@@ -96,7 +108,7 @@
     </section>
 
     <!-- Articles Section -->
-    <section class="resource-section">
+    <section id="articles" class="resource-section">
         <div class="section-header">
             <h2>Articles</h2>
             <p>Learn web development from folks who know them best.</p>
@@ -108,7 +120,7 @@
         
         <div class="resource-cards">
             <!-- Article Card 1 -->
-            <a href="#" class="resource-card article-card">
+            <a href="#" class="resource-card article-card" data-type="article" data-tags="performance,html">
                 <div class="article-content">
                     <h3>Core Web Vitals workflows with Google tools</h3>
                     <p>With the growing importance of Core Web Vitals, site owners and developer increasingly focus on performance...</p>
@@ -143,7 +155,7 @@
     </section>
 
     <!-- Videos Section (Optional - Add more sections as needed) -->
-    <section class="resource-section">
+    <section id="videos" class="resource-section">
         <div class="section-header">
             <h2>Videos</h2>
             <p>Watch tutorials and learn through visual instruction.</p>
@@ -155,7 +167,7 @@
         
         <div class="resource-cards">
             <!-- Video Card 1 -->
-            <a href="#" class="resource-card course-card">
+            <a href="#" class="resource-card course-card" data-type="video" data-tags="html">
                 <div class="card-img video-img">
                     <i class="fas fa-play-circle"></i>
                 </div>
@@ -163,7 +175,7 @@
             </a>
             
             <!-- Video Card 2 -->
-            <a href="#" class="resource-card course-card">
+            <a href="#" class="resource-card course-card" data-type="video" data-tags="css,layout">
                 <div class="card-img video-img">
                     <i class="fas fa-play-circle"></i>
                 </div>
@@ -189,5 +201,164 @@
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript for Search and Filter Functionality -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Get all resource cards
+    const resourceCards = document.querySelectorAll('.resource-card');
+    console.log('Found resource cards:', resourceCards.length);
+    
+    // Get search input
+    const searchInput = document.querySelector('.search-input');
+    
+    // Get filter buttons
+    const filterButtons = document.querySelectorAll('.filter-tag');
+    
+    // Get resource type navigation
+    const resourceTypeLinks = document.querySelectorAll('.resource-nav a');
+    
+    // Active filters
+    let activeFilters = [];
+    let activeType = 'all';
+    
+    // Make sure all cards are visible initially
+    resourceCards.forEach(card => {
+        card.classList.remove('hidden');
+        // Add data attributes if missing
+        if (!card.getAttribute('data-type')) {
+            // Try to determine type from class names
+            if (card.classList.contains('article-card')) {
+                card.setAttribute('data-type', 'article');
+            } else if (card.classList.contains('course-card')) {
+                card.setAttribute('data-type', 'course');
+            } else if (card.classList.contains('video-card') || 
+                      (card.querySelector('.video-img'))) {
+                card.setAttribute('data-type', 'video');
+            }
+        }
+    });
+    
+    // Add event listener for search input
+    searchInput.addEventListener('input', function() {
+        filterResources();
+        checkSingleCard();
+    });
+    
+    // Add event listeners to filter buttons
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tag = this.getAttribute('data-tag');
+            
+            // Toggle active state
+            if (this.classList.contains('active')) {
+                this.classList.remove('active');
+                activeFilters = activeFilters.filter(filter => filter !== tag);
+            } else {
+                this.classList.add('active');
+                activeFilters.push(tag);
+            }
+            
+            filterResources();
+            checkSingleCard();
+        });
+    });
+    
+    // Add event listeners to resource type links
+    resourceTypeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Handle filtering
+            const type = this.getAttribute('data-type');
+            if (type) {
+                resourceTypeLinks.forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Set active type
+                activeType = type;
+                
+                // Apply filtering
+                filterResources();
+                checkSingleCard();
+            }
+            
+            // Handle smooth scrolling if it's a valid section link
+            if (this.getAttribute('href') !== '#') {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Function to center single cards
+    function checkSingleCard() {
+        const sections = document.querySelectorAll('.resource-section');
+        
+        sections.forEach(section => {
+            const cards = section.querySelectorAll('.resource-card:not(.hidden)');
+            const cardContainer = section.querySelector('.resource-cards');
+            
+            if (cards.length === 1) {
+                cardContainer.style.display = 'flex';
+                cardContainer.style.justifyContent = 'center';
+            } else if (cards.length > 1) {
+                cardContainer.style.display = 'grid';
+                cardContainer.style.justifyContent = '';
+            }
+        });
+    }
+    
+    // Function to filter resources
+    function filterResources() {
+        const searchTerm = searchInput.value.toLowerCase();
+        let visibleCount = 0;
+        
+        resourceCards.forEach(card => {
+            const title = card.querySelector('.card-title') ? 
+                card.querySelector('.card-title').textContent.toLowerCase() : '';
+            const content = card.querySelector('p') ? 
+                card.querySelector('p').textContent.toLowerCase() : '';
+            const h3 = card.querySelector('h3') ? 
+                card.querySelector('h3').textContent.toLowerCase() : '';
+            const cardType = card.getAttribute('data-type');
+            const cardTags = card.getAttribute('data-tags') ? 
+                card.getAttribute('data-tags').split(',') : [];
+            
+            // Search filter
+            const matchesSearch = searchTerm === '' || 
+                title.includes(searchTerm) || 
+                content.includes(searchTerm) || 
+                h3.includes(searchTerm);
+            
+            // Tag filter
+            const matchesTags = activeFilters.length === 0 || 
+                activeFilters.some(filter => cardTags.includes(filter));
+            
+            // Type filter
+            const matchesType = activeType === 'all' || cardType === activeType;
+            
+            // Show or hide card based on filters
+            if (matchesSearch && matchesTags && matchesType) {
+                card.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+        
+        console.log('Visible cards after filtering:', visibleCount);
+    }
+    
+    // Show all cards initially
+    filterResources();
+    checkSingleCard();
+});
+    </script>
 </body>
 </html>
