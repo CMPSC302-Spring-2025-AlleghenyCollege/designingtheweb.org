@@ -21,6 +21,10 @@ CSS Table of Contents
   --accent-color: #FFEB96;
   --gray: #D9D9D9;
   --font-family: 'Inconsolata', monospace;
+  --toggle-bg: #ccc;
+  --toggle-circle: #FFFDFA;
+  --toggle-icon-size: 12px;
+  --toggle-border-color: #050505;
 }
 
 /* Base Styles */
@@ -36,6 +40,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+body.dark-mode {
+  --toggle-bg: #333;
+  --toggle-circle: #E0E0E0;
+  --toggle-border-color: #E0E0E0;}
 
 a /* Links */ {
   color: var(--accent-color);
