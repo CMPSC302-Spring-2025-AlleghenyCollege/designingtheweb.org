@@ -1,9 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Snapshot Calendar</title>
 </head>
+
 <body>
-    
+    <div class="calendar-container">
+        <div id="calendar">
+            <div class="navigation">
+                <button class="nav-button" id="prev-month">Previous</button>
+                <div id="month-year">Month Year</div>
+                <button class="nav-button" id="next-month">Next</button>
+            </div>
+            <div id="line"></div>
+            <div id="days-of-week">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div id="date-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const monthYearElement = document.getElementById('month-year');
+            const dateGridElement = document.getElementById('date-grid');
+            const prevMonthButton = document.getElementById('prev-month');
+            const nextMonthButton = document.getElementById('next-month');
+
+            let currentDate = new Date();
+
+            function renderCalendar() {
+                // Clear previous dates
+                dateGridElement.innerHTML = '';
+
+                // Set month and year in header
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+                // Get first day of month and total days in month
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDay = firstDay.getDay();
+
+                // Add empty cells for days before the first day of the month
+                for (let i = 0; i < startingDay; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.classList.add('day');
+                    dateGridElement.appendChild(emptyDay);
+                }
+
+                // Add cells for each day of the month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('day');
+                    dayElement.setAttribute('data-date', day);
+
+                    // Add special class to weekends for demonstration
+                    const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+                    if (currentDay.getDay() === 0 || currentDay.getDay() === 6) {
+                        dayElement.classList.add('special');
+
+                        // Add sample event to weekends
+                        const eventElement = document.createElement('div');
+                        eventElement.classList.add('event-type');
+                        eventElement.textContent = 'Weekend';
+                        dayElement.appendChild(eventElement);
+                    }
+
+                    // Highlight current day
+                    const today = new Date();
+                    if (day === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
+                        dayElement.style.backgroundColor = '#E3F2FD';
+                    }
+
+                    dateGridElement.appendChild(dayElement);
+                }
+            }
+
+            // Navigation event listeners
+            prevMonthButton.addEventListener('click', function () {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+
+            nextMonthButton.addEventListener('click', function () {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+
+            // Initial render
+            renderCalendar();
+        });
+    </script>
 </body>
+
 </html>
