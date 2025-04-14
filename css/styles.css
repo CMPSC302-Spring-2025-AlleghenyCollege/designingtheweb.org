@@ -27,6 +27,17 @@ CSS Table of Contents
   --toggle-border-color: #050505;
 }
 
+body.dark-mode {
+  --background-color: #121212;
+  --primary-color: #1B3054;
+  --secondary-color: #80BD41;
+  --tertiary-color: #CEF7A0;
+  --accent-color: #FFEB96;
+  --toggle-bg: #333;
+  --toggle-circle: #E0E0E0;
+  --toggle-border-color: #E0E0E0;
+}
+
 /* Base Styles */
 
 body {
@@ -393,7 +404,9 @@ a:hover {
   color: white;
   padding: 15px 30px;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
+.navbar.d
   
   .navbar a {
     text-decoration: none;
