@@ -885,4 +885,114 @@
     .resource-section:has(.resource-cards:has(.resource-card:only-child)) .resource-card {
       max-width: 400px;
     }
-  }
+}
+
+/* Carousel Styling */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 40px;
+    margin: 0 auto;
+}
+
+.resource-cards.carousel {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+    gap: 20px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    width: 100%;
+}
+
+.resource-cards.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* Set fixed width for carousel items */
+.resource-cards.carousel .resource-card {
+    flex: 0 0 300px !important;
+    min-width: 300px !important;
+    width: 300px !important;
+    margin-right: 0;
+    scroll-snap-align: start;
+}
+
+/* Make sure carousel arrows are visible */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #333;
+}
+
+.carousel-arrow.left {
+    left: 0;
+}
+
+.carousel-arrow.right {
+    right: 0;
+}
+
+/* Make sure other resource grids don't get affected */
+.resource-section:not(#articles) .resource-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Carousel Progress Bar Styles */
+.carousel-progress-container {
+    display: none; /* Hidden by default on desktop */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0;
+}
+
+.carousel-progress {
+    width: 0%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    transition: width 0.3s;
+}
+
+/* Responsive adjustments: hide arrows and show progress bar on mobile */
+@media (max-width: 768px) {
+    .carousel-arrow {
+        display: none !important;
+    }
+    
+    .carousel-progress-container {
+        display: block;
+    }
+    
+    .carousel-wrapper {
+        padding: 0 0 20px 0;
+    }
+    
+    /* Make the carousel take full width on mobile */
+    .resource-cards.carousel .resource-card {
+        flex: 0 0 85% !important;
+        min-width: 85% !important;
+        width: 85% !important;
+    }
+}

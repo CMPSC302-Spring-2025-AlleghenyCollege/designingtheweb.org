@@ -95,39 +95,25 @@
             <a href="#" class="btn-outline">See more articles</a>
         </div>
         
-        <div class="resource-cards">
-            <!-- Article Card 1 -->
-            <a href="#" class="resource-card article-card" data-type="article" data-tags="performance,html">
-                <div class="article-content">
-                    <h3>Core Web Vitals workflows with Google tools</h3>
-                    <p>With the growing importance of Core Web Vitals, site owners and developer increasingly focus on performance...</p>
-                </div>
-                <div class="arrow-icon">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </a>
+        <!-- Wrap carousel in proper container -->
+        <div class="carousel-wrapper">
+            <!-- Add navigation arrows -->
+            <button class="carousel-arrow left">
+                <i class="fas fa-chevron-left"></i>
+            </button>
             
-            <!-- Article Card 2 -->
-            <a href="#" class="resource-card article-card">
-                <div class="article-content">
-                    <h3>Debug layout shifts</h3>
-                    <p>Learn how to identify and fix layout shifts.</p>
-                </div>
-                <div class="arrow-icon">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </a>
+            <div id="articles-cards" class="resource-cards carousel">
+                <!-- Dynamic articles will be inserted here by JavaScript -->
+            </div>
             
-            <!-- Article Card 3 -->
-            <a href="#" class="resource-card article-card">
-                <div class="article-content">
-                    <h3>CSS scrollbar-gutter</h3>
-                    <p>CSS scrollbar-gutter and scrollbar-width have landed in all major browser engines, making...</p>
-                </div>
-                <div class="arrow-icon">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-            </a>
+            <button class="carousel-arrow right">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            
+            <!-- Add this progress bar container -->
+            <div class="carousel-progress-container">
+                <div class="carousel-progress"></div>
+            </div>
         </div>
     </section>
 
@@ -182,160 +168,301 @@
     <!-- JavaScript for Search and Filter Functionality -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-    // Get all resource cards
-    const resourceCards = document.querySelectorAll('.resource-card');
-    console.log('Found resource cards:', resourceCards.length);
-    
-    // Get search input
-    const searchInput = document.querySelector('.search-input');
-    
-    // Get filter buttons
-    const filterButtons = document.querySelectorAll('.filter-tag');
-    
-    // Get resource type navigation
-    const resourceTypeLinks = document.querySelectorAll('.resource-nav a');
-    
-    // Active filters
-    let activeFilters = [];
-    let activeType = 'all';
-    
-    // Make sure all cards are visible initially
-    resourceCards.forEach(card => {
-        card.classList.remove('hidden');
-        // Add data attributes if missing
-        if (!card.getAttribute('data-type')) {
-            // Try to determine type from class names
-            if (card.classList.contains('article-card')) {
+        // Dynamic Article Rendering
+        const articles = [
+            {
+                title: "Core Web Vitals workflows with Google tools",
+                summary: "With the growing importance of Core Web Vitals, site owners and developer increasingly focus on performance...",
+                link: "#",
+                tags: "performance,html"
+            },
+            {
+                title: "Debug layout shifts",
+                summary: "Learn how to identify and fix layout shifts.",
+                link: "#",
+                tags: ""
+            },
+            {
+                title: "CSS scrollbar-gutter",
+                summary: "CSS scrollbar-gutter and scrollbar-width have landed in all major browser engines, making...",
+                link: "#",
+                tags: "css,layout"
+            },
+            {
+                title: "Test",
+                summary: "CSS scrollbar-gutter and scrollbar-width have landed in all major browser engines, making...",
+                link: "#",
+                tags: "css,layout"
+            },
+            {
+                title: "Test1",
+                summary: "CSS scrollbar-gutter and scrollbar-width have landed in all major browser engines, making...",
+                link: "#",
+                tags: "react,layout"
+            },
+        ];
+
+        // Function to render articles dynamically
+        function renderArticles() {
+            const container = document.querySelector('#articles .resource-cards.carousel');
+            container.innerHTML = '';
+            articles.forEach(article => {
+                const card = document.createElement('a');
+                card.href = article.link;
+                card.className = 'resource-card article-card';
+                if (article.tags) {
+                    card.setAttribute('data-tags', article.tags);
+                }
                 card.setAttribute('data-type', 'article');
-            } else if (card.classList.contains('course-card')) {
-                card.setAttribute('data-type', 'course');
-            } else if (card.classList.contains('video-card') || 
-                      (card.querySelector('.video-img'))) {
-                card.setAttribute('data-type', 'video');
+                card.innerHTML = `
+                    <div class="article-content">
+                        <h3>${article.title}</h3>
+                        <p>${article.summary}</p>
+                    </div>
+                    <div class="arrow-icon">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Render dynamic articles before initializing filtering and other event listeners
+        renderArticles();
+
+        // Update these selectors to target only within the #articles section
+        const articlesContainer = document.querySelector('#articles .resource-cards.carousel');
+        const leftArrow = document.querySelector('#articles .carousel-arrow.left');
+        const rightArrow = document.querySelector('#articles .carousel-arrow.right');
+        const progressBar = document.querySelector('#articles .carousel-progress');
+        const progressContainer = document.querySelector('#articles .carousel-progress-container');
+
+        leftArrow.addEventListener('click', function() {
+            articlesContainer.scrollBy({
+                left: -articlesContainer.clientWidth,
+                behavior: 'smooth'
+            });
+        });
+
+        rightArrow.addEventListener('click', function() {
+            articlesContainer.scrollBy({
+                left: articlesContainer.clientWidth,
+                behavior: 'smooth'
+            });
+        });
+
+        // Progress bar functionality
+        articlesContainer.addEventListener('scroll', function() {
+            // Calculate progress percentage
+            const scrollPosition = articlesContainer.scrollLeft;
+            const maxScroll = articlesContainer.scrollWidth - articlesContainer.clientWidth;
+            const scrollPercentage = (scrollPosition / maxScroll) * 100;
+            
+            // Update the progress bar width
+            if (progressBar) {
+                progressBar.style.width = `${scrollPercentage}%`;
+            }
+            
+            // Show left arrow only if scrolled right
+            if (leftArrow) {
+                leftArrow.style.opacity = articlesContainer.scrollLeft > 0 ? '1' : '0.5';
+            }
+            
+            // Show right arrow only if there's more content to scroll to
+            if (rightArrow) {
+                rightArrow.style.opacity = articlesContainer.scrollLeft < maxScroll - 5 ? '1' : '0.5';
+            }
+        });
+
+        // Handle responsive layout changes with media query
+        function checkResponsiveMode() {
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            
+            if (progressContainer) {
+                progressContainer.style.display = isMobile ? 'block' : 'none';
+            }
+            
+            if (leftArrow && rightArrow) {
+                const displayValue = isMobile ? 'none' : 'flex';
+                leftArrow.style.display = displayValue;
+                rightArrow.style.display = displayValue;
+            }
+            
+            // Initialize progress bar on mobile
+            if (isMobile && progressBar) {
+                // Calculate initial progress
+                const scrollPosition = articlesContainer.scrollLeft;
+                const maxScroll = articlesContainer.scrollWidth - articlesContainer.clientWidth;
+                const scrollPercentage = (scrollPosition / maxScroll) * 100;
+                progressBar.style.width = `${scrollPercentage}%`;
             }
         }
-    });
-    
-    // Add event listener for search input
-    searchInput.addEventListener('input', function() {
-        filterResources();
-        checkSingleCard();
-    });
-    
-    // Add event listeners to filter buttons
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tag = this.getAttribute('data-tag');
-            
-            // Toggle active state
-            if (this.classList.contains('active')) {
-                this.classList.remove('active');
-                activeFilters = activeFilters.filter(filter => filter !== tag);
-            } else {
-                this.classList.add('active');
-                activeFilters.push(tag);
-            }
-            
-            filterResources();
-            checkSingleCard();
-        });
-    });
-    
-    // Add event listeners to resource type links
-    resourceTypeLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            // Handle filtering
-            const type = this.getAttribute('data-type');
-            if (type) {
-                resourceTypeLinks.forEach(link => link.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Set active type
-                activeType = type;
-                
-                // Apply filtering
-                filterResources();
-                checkSingleCard();
-            }
-            
-            // Handle smooth scrolling if it's a valid section link
-            if (this.getAttribute('href') !== '#') {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+
+        // Initialize responsive mode
+        checkResponsiveMode();
+
+        // Listen for window resize events to update responsive features
+        window.addEventListener('resize', checkResponsiveMode);
+
+        // Trigger scroll event once to initialize arrow states and progress bar
+        setTimeout(() => {
+            articlesContainer.dispatchEvent(new Event('scroll'));
+        }, 100);
+
+        // Get all resource cards
+        const resourceCards = document.querySelectorAll('.resource-card');
+        console.log('Found resource cards:', resourceCards.length);
+        
+        // Get search input
+        const searchInput = document.querySelector('.search-input');
+        
+        // Get filter buttons
+        const filterButtons = document.querySelectorAll('.filter-tag');
+        
+        // Get resource type navigation
+        const resourceTypeLinks = document.querySelectorAll('.resource-nav a');
+        
+        // Active filters
+        let activeFilters = [];
+        let activeType = 'all';
+        
+        // Make sure all cards are visible initially
+        resourceCards.forEach(card => {
+            card.classList.remove('hidden');
+            // Add data attributes if missing
+            if (!card.getAttribute('data-type')) {
+                // Try to determine type from class names
+                if (card.classList.contains('article-card')) {
+                    card.setAttribute('data-type', 'article');
+                } else if (card.classList.contains('course-card')) {
+                    card.setAttribute('data-type', 'course');
+                } else if (card.classList.contains('video-card') || 
+                          (card.querySelector('.video-img'))) {
+                    card.setAttribute('data-type', 'video');
                 }
             }
         });
+        
+        // Add event listener for search input
+        searchInput.addEventListener('input', function() {
+            filterResources();
+            checkSingleCard();
+        });
+        
+        // Add event listeners to filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tag = this.getAttribute('data-tag');
+                
+                // Toggle active state
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    activeFilters = activeFilters.filter(filter => filter !== tag);
+                } else {
+                    this.classList.add('active');
+                    activeFilters.push(tag);
+                }
+                
+                filterResources();
+                checkSingleCard();
+            });
+        });
+        
+        // Add event listeners to resource type links
+        resourceTypeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Handle filtering
+                const type = this.getAttribute('data-type');
+                if (type) {
+                    resourceTypeLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Set active type
+                    activeType = type;
+                    
+                    // Apply filtering
+                    filterResources();
+                    checkSingleCard();
+                }
+                
+                // Handle smooth scrolling if it's a valid section link
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Function to center single cards
+        function checkSingleCard() {
+            const sections = document.querySelectorAll('.resource-section');
+            
+            sections.forEach(section => {
+                const cards = section.querySelectorAll('.resource-card:not(.hidden)');
+                const cardContainer = section.querySelector('.resource-cards');
+                
+                if (cards.length === 1) {
+                    cardContainer.style.display = 'flex';
+                    cardContainer.style.justifyContent = 'center';
+                } else if (cards.length > 1) {
+                    cardContainer.style.display = 'grid';
+                    cardContainer.style.justifyContent = '';
+                }
+            });
+        }
+        
+        // Function to filter resources
+        function filterResources() {
+            const searchTerm = searchInput.value.toLowerCase();
+            let visibleCount = 0;
+            
+            resourceCards.forEach(card => {
+                const title = card.querySelector('.card-title') ? 
+                    card.querySelector('.card-title').textContent.toLowerCase() : '';
+                const content = card.querySelector('p') ? 
+                    card.querySelector('p').textContent.toLowerCase() : '';
+                const h3 = card.querySelector('h3') ? 
+                    card.querySelector('h3').textContent.toLowerCase() : '';
+                const cardType = card.getAttribute('data-type');
+                const cardTags = card.getAttribute('data-tags') ? 
+                    card.getAttribute('data-tags').split(',') : [];
+                
+                // Search filter
+                const matchesSearch = searchTerm === '' || 
+                    title.includes(searchTerm) || 
+                    content.includes(searchTerm) || 
+                    h3.includes(searchTerm);
+                
+                // Tag filter
+                const matchesTags = activeFilters.length === 0 || 
+                    activeFilters.some(filter => cardTags.includes(filter));
+                
+                // Type filter
+                const matchesType = activeType === 'all' || cardType === activeType;
+                
+                // Show or hide card based on filters
+                if (matchesSearch && matchesTags && matchesType) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            console.log('Visible cards after filtering:', visibleCount);
+        }
+        
+        // Show all cards initially
+        filterResources();
+        checkSingleCard();
     });
-    
-    // Function to center single cards
-    function checkSingleCard() {
-        const sections = document.querySelectorAll('.resource-section');
-        
-        sections.forEach(section => {
-            const cards = section.querySelectorAll('.resource-card:not(.hidden)');
-            const cardContainer = section.querySelector('.resource-cards');
-            
-            if (cards.length === 1) {
-                cardContainer.style.display = 'flex';
-                cardContainer.style.justifyContent = 'center';
-            } else if (cards.length > 1) {
-                cardContainer.style.display = 'grid';
-                cardContainer.style.justifyContent = '';
-            }
-        });
-    }
-    
-    // Function to filter resources
-    function filterResources() {
-        const searchTerm = searchInput.value.toLowerCase();
-        let visibleCount = 0;
-        
-        resourceCards.forEach(card => {
-            const title = card.querySelector('.card-title') ? 
-                card.querySelector('.card-title').textContent.toLowerCase() : '';
-            const content = card.querySelector('p') ? 
-                card.querySelector('p').textContent.toLowerCase() : '';
-            const h3 = card.querySelector('h3') ? 
-                card.querySelector('h3').textContent.toLowerCase() : '';
-            const cardType = card.getAttribute('data-type');
-            const cardTags = card.getAttribute('data-tags') ? 
-                card.getAttribute('data-tags').split(',') : [];
-            
-            // Search filter
-            const matchesSearch = searchTerm === '' || 
-                title.includes(searchTerm) || 
-                content.includes(searchTerm) || 
-                h3.includes(searchTerm);
-            
-            // Tag filter
-            const matchesTags = activeFilters.length === 0 || 
-                activeFilters.some(filter => cardTags.includes(filter));
-            
-            // Type filter
-            const matchesType = activeType === 'all' || cardType === activeType;
-            
-            // Show or hide card based on filters
-            if (matchesSearch && matchesTags && matchesType) {
-                card.classList.remove('hidden');
-                visibleCount++;
-            } else {
-                card.classList.add('hidden');
-            }
-        });
-        
-        console.log('Visible cards after filtering:', visibleCount);
-    }
-    
-    // Show all cards initially
-    filterResources();
-    checkSingleCard();
-});
     </script>
 </body>
 </html>
