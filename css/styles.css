@@ -29,7 +29,15 @@ CSS Table of Contents
 
 /*Switch this up */
 body.dark-mode {
-  filter: invert(1);
+  --background-color: #050505;
+  --primary-color: #80BD41;
+  --secondary-color: #1B3054;
+  --tertiary-color: #FFEB96;
+  --toggle-border-color: #80BD41;
+  --toggle-bg: ##050505;
+  --toggle-circle: #FFFDFA;
+  --toggle-icon-size: 12px;
+  --toggle-border-color: #FFEB96;
 }
 
 /* Base Styles */
