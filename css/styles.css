@@ -28,14 +28,7 @@ CSS Table of Contents
 }
 
 body.dark-mode {
-  --background-color: #121212;
-  --primary-color: #1B3054;
-  --secondary-color: #80BD41;
-  --tertiary-color: #CEF7A0;
-  --accent-color: #FFEB96;
-  --toggle-bg: #333;
-  --toggle-circle: #E0E0E0;
-  --toggle-border-color: #E0E0E0;
+  filter: invert(1);
 }
 
 /* Base Styles */
