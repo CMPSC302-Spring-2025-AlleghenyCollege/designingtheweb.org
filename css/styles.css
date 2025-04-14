@@ -27,6 +27,7 @@ CSS Table of Contents
   --toggle-border-color: #050505;
 }
 
+/*Switch this up */
 body.dark-mode {
   filter: invert(1);
 }
