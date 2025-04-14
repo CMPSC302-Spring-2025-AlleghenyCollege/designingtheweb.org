@@ -1,57 +1,53 @@
 /* Days of the Week */
-const daysOfWeek = {
-    0: "Monday",
-    1: "Tuesday",
-    2: "Wednesday",
-    3: "Thursday",
-    4: "Friday",
-    5: "Saturday",
-    6: "Sunday"
-}
+const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 /* Months */
 const months = [
-    "January", 
-    "February", 
-    "March", 
-    "April", 
-    "May", 
-    "June", 
-    "July", 
-    "August", 
-    "September", 
-    "October", 
-    "November", 
-    "December"
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
 ];
 
-/* Finding First & Last Date of Month */
-var date = new Date();
-var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-/* Sending month and year */
-document.querySelector("#month-year").innerHTML = months[date.getMonth()] + " " + date.getFullYear();
-
-/* Define Special Event Days with Event Types */
+/* Special Event Days */
 const specialEventDays = [
-    { day: 24, type: "Sprint 2" },
-    { day: 15, type: "Activity" }
+    { day: 15, type: "Activity" },
+    { day: 24, type: "Sprint 2" }
 ];
 
-/* Creating Date Array */
-var datesArray = "";
-for (let i = 1; i <= lastDay.getDate(); i++) {
-    const specialEvent = specialEventDays.find(event => event.day === i);
-    if (specialEvent) {
-        datesArray += `<div class="day special" id="day${String(i)}" data-date="${i}"><span class="event-type">${specialEvent.type}</span></div>`;
-    } else {
-        datesArray += `<div class="day" id="day${String(i)}" data-date="${i}"></div>`;
-    }
+/* Current Date Setup */
+const today = new Date();
+const year = today.getFullYear();
+const month = today.getMonth();
+const firstDay = new Date(year, month, 1);
+const lastDay = new Date(year, month + 1, 0);
+
+/* Render Month-Year */
+document.querySelector("#month-year").innerText = `${months[month]} ${year}`;
+
+/* Render Weekday Headers */
+const weekdayRow = daysOfWeek.map(day => `<div class="weekday">${day}</div>`).join("");
+document.querySelector("#date-grid").innerHTML = weekdayRow;
+
+/* Generate Date Grid */
+let dateCells = "";
+for (let i = 0; i < firstDay.getDay(); i++) {
+    dateCells += `<div class="empty"></div>`; // Empty slots
 }
 
-/* Sending Dates to Grid */
-document.querySelector("#date-grid").innerHTML = datesArray;
+for (let i = 1; i <= lastDay.getDate(); i++) {
+    const isToday = i === today.getDate();
+    const specialEvent = specialEventDays.find(event => event.day === i);
+    const classes = [
+        "day",
+        isToday ? "today" : "",
+        specialEvent ? "special" : ""
+    ].join(" ").trim();
 
-/* Setting First day of the Month */
-document.querySelector("#date-grid div").style.gridColumnStart = (firstDay.getDay() + 1);
+    const eventTag = specialEvent ? `<span class="event-type">${specialEvent.type}</span>` : "";
+
+    dateCells += `<div class="${classes}" data-date="${i}">
+        <span class="date-number">${i}</span>
+        ${eventTag}
+    </div>`;
+}
+
+document.querySelector("#date-grid").innerHTML += dateCells;
