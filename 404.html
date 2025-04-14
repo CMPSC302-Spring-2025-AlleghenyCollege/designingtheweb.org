@@ -4,52 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>404 - Page Not Found</title>
-  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">
-      <a href="../index.html">
-        <img src="../assets/images/transparent_black.svg" alt="Designing the Web's Logo" class="logo">
-      </a>
-    </div>
-    <div class="nav-links">
-      <div class="dropdown">
-        <button class="dropdown-btn">
-          Course
-          <span>▾</span>
-        </button>
-        <div class="dropdown-content">
-          <a href="syllabus.html">Syllabus</a>
-          <a href="schedule.html">Schedule</a>
-          <a href="office_hours.html">Office Hours</a>
-          <a href="contributors.html">Contributors</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropdown-btn">
-          Resources
-          <span>▾</span>
-        </button>
-        <div class="dropdown-content">
-          <a href="external_links.html">External Links</a>
-          <a href="practice.html">Practice</a>
-          <a href="documentation.html">Documentation</a>
-        </div>
-      </div>
-    </div>
-    <div class="search-container">
-      <input type="text" placeholder="Search" oninput="performSearch()">
-      <div id="searchResults" class="search-results"></div>
-      <div class="toggle-container">
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle" />
-          <span class="slider"></span>
-        </label>
-      </div>
-    </div>
-  </nav>
-
   <div class="error-container">
     <h1>404</h1>
     <p>Oops! Page not found. While you're here, try our mini-game!</p>
@@ -64,19 +21,6 @@
       <p>Click anywhere to start, or click after game over to restart</p>
     </div>
   </div>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <a href="https://github.com" target="_blank">
-        <img src="../assets/images/github-mark.svg" alt="GitHub Logo" class="footer-image github-logo">
-      </a>
-      <a href="https://discord.com/channels/877320365825749002/1326587668720783401" target="_blank">
-        <img src="../assets/images/discord-mark-black.svg" alt="Discord Logo" class="footer-image discord-logo">
-      </a>
-    </div>
-  </footer>
-
-  <script src="../assets/js/theme_toggle.js"></script>
-  <script src="../assets/js/404.js"></script>
+  <script src="../scripts/404.js"></script>
 </body>
 </html>
