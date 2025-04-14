@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="css/resources.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
     <div id="header"></div>
+
     <!-- Resource Type Navigation -->
     <div class="resource-nav">
         <a href="#" class="active" data-type="all">All resources</a>
@@ -131,7 +133,7 @@
         </div>
     </section>
 
-    <!-- Videos Section (Optional - Add more sections as needed) -->
+    <!-- Videos Section -->
     <section id="videos" class="resource-section">
         <div class="section-header">
             <h2>Videos</h2>
@@ -162,22 +164,15 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <a href="/privacy">Privacy Policy</a>
-                <a href="/terms">Terms of Service</a>
-            </div>
-            <div class="footer-col">
-                <p>&copy; Allegheny College</p>
-            </div>
-            <div class="footer-col">
-                <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
-                <a href="https://github.com"><i class="fab fa-github"></i></a>
-                <a href="https://linkedin.com"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div>
-    </footer>
+    <div id="footer"></div>
+
+    <!-- JavaScript for Header and Footer -->
+    <script>
+        $(document).ready(function() {
+            $("#header").load("/_includes/header.html");
+            $("#footer").load("/_includes/footer.html");
+        });
+    </script>
 
     <!-- JavaScript for Search and Filter Functionality -->
     <script>
