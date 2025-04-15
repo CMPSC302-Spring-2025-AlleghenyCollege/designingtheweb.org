@@ -34,7 +34,7 @@ body.dark-mode {
   --secondary-color: #1B3054;
   --tertiary-color: #FFEB96;
   --toggle-border-color: #80BD41;
-  --toggle-bg: ##050505;
+  --toggle-bg: #050505;
   --toggle-circle: #FFFDFA;
   --toggle-icon-size: 12px;
   --toggle-border-color: #FFEB96;
@@ -447,17 +447,20 @@ a:hover {
 }
 
 .slider {
-    --background: #1B305400;
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--background);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    border-radius: 30px;
-    border: 2px solid var(--secondary-color);
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent; /* Make background transparent */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border-radius: 30px;
+  border: 2px solid var(--secondary-color);
+}
+
+body.dark-mode .slider {
+  border-color: var(--toggle-border-color); /* Use the bright yellow in dark mode */
 }
 
 .slider:before {
@@ -471,6 +474,19 @@ a:hover {
     box-shadow: inset 6px -4px 0px 0px var(--secondary-color);
     background: var(--background);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .slider:before {
+  box-shadow: inset 6px -4px 0px 0px var(--tertiary-color); /* use bright yellow for moon */
+}
+
+input:checked + .slider:before {
+  transform: translateX(120%);
+  box-shadow: inset 15px -4px 0px 15px var(--secondary-color);
+}
+
+body.dark-mode input:checked + .slider:before {
+  box-shadow: inset 15px -4px 0px 15px var(--tertiary-color); /* use bright yellow for sun in dark mode */
 }
 
 input:checked + .slider {
