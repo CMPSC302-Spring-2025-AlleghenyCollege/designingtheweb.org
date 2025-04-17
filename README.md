@@ -1,5 +1,5 @@
 # Project 1, Sprint 4: Course Website
-## DUE: implementation teams' features completed by 10am, April 23rd; final PRs approved and merged by 9am on May 5th, 2025
+## DUE: implementation teams' features completed by 10am, April 23rd; final content added, PRs approved, merged, website deployed by 9am on May 5th, 2025
 
 ## Objective
 
