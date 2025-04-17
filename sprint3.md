@@ -1,21 +1,22 @@
-# Project 1, Sprint 4: Course Website
-## DUE: implementation teams' features completed by 10am, April 23rd; final PRs approved and merged by 9am on May 5th, 2025
+# Project 1, Sprint 3: Course Website
+## DUE: by 10am on April 14th, 2025
 
 ## Objective
 
-Collaboratively complete the course website, [designingtheweb.org](https://designingtheweb.org/), with all features functioning correctly. 
+Collaboratively implement all desired features for the course website, [designingtheweb.org](https://designingtheweb.org/), to improve functionality, design, and accessibility. 
 
 ## Overview
 
 - **Teams:** Teams are restructured based on features to implement. Each team is responsible for one "big" and one "small" feature.
 - **Deliverables:** Incremental updates to the website, documentation of the development process, and engagement in software engineering practices.
-- **Repository:** All work will be done in branches of the course website GitHub repository.
+- **Repository:** Website work will be done in branches of the [course website GitHub repository](https://github.com/CMPSC302-Spring-2025-AlleghenyCollege/designingtheweb.org).
 
-## Sprint 4 Details
+## Sprint 3 Details
 
 - **Key Dates:**
-  - April 23rd: Complete all features remaining from sprint 3. Present your work. 
-  - May 5th: Deadline - Final PR approvals.
+  - March 24th: Organizing - Identify individual tasks to complete
+  - March 31st: Peer Reviews - Show your implemented tasks to your team and the lead team, and identify the remaining tasks to complete the sprint
+  - April 14th: Deadline
 
 - **Lead Team:** Our winning team will:
   - Manage the project board, with the communication with the teams, assigning tasks as necessary
@@ -31,7 +32,7 @@ Collaboratively complete the course website, [designingtheweb.org](https://desig
   - Minimum of **2 of your team members** AND **1 lead team member** must review each PR
 
 - **Required Features:**
-  Each team must complete the implementation of one "big item" and one "small item" feature. Also each member of the team must have a contributable task (must show up on GitHub). If the team's features are not sufficient to be distributed across members, members must work with the lead team to determine additional features to implement.
+  Each team must implement one "big item" and one "small item" feature. Also each member of the team must have a contributable task (must show up on GitHub). If the team's features are not sufficient to be distributed across members, members must work with the lead team to determine additional features to implement.
   * indicates that those features need to be undertaken by the same team.
     
   **Big Items:**
