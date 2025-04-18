@@ -1,207 +1,194 @@
+<!-- 
+====================================================================
+IMPORTANT FILE NAMING INSTRUCTIONS
+====================================================================
+
+1. RENAMING THE CSV FILE:
+   - The default expected filename is: "SemesterYear_Class_Schedule.csv"
+   - Rename this file to match your specific term, for example:
+     * "Fall2024_CMPSC101_Schedule.csv"
+     * "Spring2025_CMPSC404_Schedule.csv"
+
+2. UPDATING THE HTML FILE:
+   - After renaming your CSV file, you MUST update the filename in this HTML file:
+     1. Find this line in the <script> section:
+        const CSV_FILENAME = "SemesterYear_Class_Schedule.csv";
+     2. Change it to match your new filename, for example:
+        const CSV_FILENAME = "Spring2025_CMPSC404_Schedule.csv";
+
+3. FILE LOCATION:
+   - Both files (HTML and CSV) must be in the SAME directory/folder
+   - The system will not work if:
+     * The names don't match exactly (including capitalization)
+     * The files are in different locations
+
+====================================================================
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programmable Calendar</title>
-  <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule Calendar</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-  <div class="calendar-container">
     <div id="calendar">
-      <div class="navigation">
-        <button class="nav-button" id="prev-month">Previous</button>
-        <div id="month-year">Month Year</div>
-        <button class="nav-button" id="next-month">Next</button>
-      </div>
-      <div id="line"></div>
-      <div id="days-of-week">
-        <div>Sun</div>
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-      </div>
-      <div id="date-grid"></div>
+        <div class="navigation">
+            <button class="nav-button" id="prev-month">Previous</button>
+            <div id="month-year">Month Year</div>
+            <button class="nav-button" id="next-month">Next</button>
+        </div>
+        <div id="line"></div>
+        <div id="days-of-week">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div id="date-grid">
+            <div class="loading-message">Loading schedule...</div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    // =============================================
-    // PROGRAMMABLE EVENTS - ADD YOUR EVENTS HERE
-    // =============================================
-    const predefinedEvents = [
-      {
-        date: "2025-05-15", // YYYY-MM-DD format
-        title: "Project 1 DUE",
-        color: "#FF9800" // Optional color
-      },
-      {
-        date: "2025-05-15",
-        title: "Project 2 DUE",
-        color: "#FF9800" // Optional color
-      },
-      {
-        date: "2025-05-15",
-        title: "Project 3 DUE",
-        color: "#FF9800" // Optional color
-      }
-    ];
-    // =============================================
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const monthYearElement = document.getElementById('month-year');
+            const dateGridElement = document.getElementById('date-grid');
+            const prevMonthButton = document.getElementById('prev-month');
+            const nextMonthButton = document.getElementById('next-month');
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const monthYearElement = document.getElementById('month-year');
-      const dateGridElement = document.getElementById('date-grid');
-      const prevMonthButton = document.getElementById('prev-month');
-      const nextMonthButton = document.getElementById('next-month');
-      const weekViewButton = document.createElement('button');
-      weekViewButton.textContent = 'Week View';
-      weekViewButton.classList.add('nav-button');
-      document.querySelector('.navigation').appendChild(weekViewButton);
+            let currentDate = new Date();
+            let eventsData = [];
+            const CSV_FILENAME = "SemesterYear_Class_Schedule.csv";
 
-      let isWeekView = false;
-
-      weekViewButton.addEventListener('click', function () {
-        isWeekView = !isWeekView;
-        weekViewButton.textContent = isWeekView ? 'Month View' : 'Week View';
-        renderCalendar();
-      });
-
-      function renderWeekView(startDate) {
-        dateGridElement.innerHTML = '';
-
-        const weekDays = [];
-        for (let i = 0; i < 7; i++) {
-          const date = new Date(startDate);
-          date.setDate(startDate.getDate() + i);
-          weekDays.push(date);
-        }
-
-        weekDays.forEach(date => {
-          const dayElement = document.createElement('div');
-          dayElement.classList.add('day');
-
-          const dayNumber = document.createElement('div');
-          dayNumber.classList.add('day-number');
-          dayNumber.textContent = date.getDate();
-          dayElement.appendChild(dayNumber);
-
-          const currentDateStr = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-
-          const dayEvents = predefinedEvents.filter(event => event.date === currentDateStr);
-
-          const eventsContainer = document.createElement('div');
-          eventsContainer.classList.add('events-container');
-
-          dayEvents.forEach(event => {
-            const eventElement = document.createElement('div');
-            eventElement.classList.add('event');
-            eventElement.textContent = event.title;
-            if (event.color) {
-              eventElement.style.backgroundColor = event.color;
+            async function loadCalendarData() {
+                try {
+                    const response = await fetch(CSV_FILENAME);
+                    if (!response.ok) throw new Error('Schedule file not found');
+                    const csvText = await response.text();
+                    eventsData = parseCSV(csvText);
+                    renderCalendar();
+                } catch (error) {
+                    console.error('Error loading schedule:', error);
+                    dateGridElement.innerHTML = `<div class="loading-message">Error loading schedule data. Please ensure ${CSV_FILENAME} exists.</div>`;
+                }
             }
-            eventsContainer.appendChild(eventElement);
-          });
 
-          dayElement.appendChild(eventsContainer);
+            function parseCSV(csvText) {
+                const lines = csvText.split('\n').filter(line => line.trim() !== '');
+                const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
 
-          const today = new Date();
-          if (date.getDate() === today.getDate() &&
-            date.getMonth() === today.getMonth() &&
-            date.getFullYear() === today.getFullYear()) {
-            dayElement.classList.add('today');
-          }
+                const dateIndex = headers.indexOf('date');
+                const titleIndex = headers.indexOf('title');
+                const colorIndex = headers.indexOf('color');
 
-          dateGridElement.appendChild(dayElement);
+                if (dateIndex === -1 || titleIndex === -1) {
+                    throw new Error('CSV must contain "date" and "title" columns');
+                }
+
+                return lines.slice(1).map(line => {
+                    const values = line.split(',');
+                    const event = {
+                        date: values[dateIndex].trim(),
+                        title: values[titleIndex].trim()
+                    };
+
+                    if (colorIndex !== -1 && values[colorIndex]) {
+                        event.color = values[colorIndex].trim();
+                    }
+
+                    return event;
+                });
+            }
+
+            function renderCalendar() {
+                dateGridElement.innerHTML = '';
+
+
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDay = firstDay.getDay();
+
+
+                for (let i = 0; i < startingDay; i++) {
+                    dateGridElement.appendChild(document.createElement('div')).className = 'day';
+                }
+
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'day';
+
+
+                    const dayNumber = document.createElement('div');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = day;
+                    dayElement.appendChild(dayNumber);
+
+
+                    const currentDateStr = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+
+                    const dayEvents = eventsData.filter(event => event.date === currentDateStr);
+
+
+                    if (dayEvents.length > 0) {
+                        const eventsContainer = document.createElement('div');
+                        eventsContainer.className = 'events-container';
+
+                        dayEvents.forEach(event => {
+                            const eventElement = document.createElement('div');
+                            eventElement.className = 'event';
+                            eventElement.textContent = event.title;
+                            if (event.color) {
+                                eventElement.style.backgroundColor = event.color;
+                            }
+                            eventsContainer.appendChild(eventElement);
+                        });
+
+                        dayElement.appendChild(eventsContainer);
+                    }
+
+
+                    const today = new Date();
+                    if (day === today.getDate() &&
+                        currentDate.getMonth() === today.getMonth() &&
+                        currentDate.getFullYear() === today.getFullYear()) {
+                        dayElement.classList.add('today');
+                    }
+
+                    dateGridElement.appendChild(dayElement);
+                }
+            }
+
+
+            prevMonthButton.addEventListener('click', function () {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+
+            nextMonthButton.addEventListener('click', function () {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+
+
+            loadCalendarData();
         });
-      }
-
-      const originalRenderCalendar = renderCalendar;
-      renderCalendar = function () {
-        if (isWeekView) {
-          const startOfWeek = new Date(currentDate);
-          startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
-          renderWeekView(startOfWeek);
-        } else {
-          originalRenderCalendar();
-        }
-      };
-      let currentDate = new Date();
-
-      function renderCalendar() {
-        dateGridElement.innerHTML = '';
-
-        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December'];
-        monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-
-        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-        const daysInMonth = lastDay.getDate();
-        const startingDay = firstDay.getDay();
-
-        for (let i = 0; i < startingDay; i++) {
-          const emptyDay = document.createElement('div');
-          emptyDay.classList.add('day');
-          dateGridElement.appendChild(emptyDay);
-        }
-
-        for (let day = 1; day <= daysInMonth; day++) {
-          const dayElement = document.createElement('div');
-          dayElement.classList.add('day');
-
-          const dayNumber = document.createElement('div');
-          dayNumber.classList.add('day-number');
-          dayNumber.textContent = day;
-          dayElement.appendChild(dayNumber);
-
-          const currentDateStr = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-
-          const dayEvents = predefinedEvents.filter(event => event.date === currentDateStr);
-
-          const eventsContainer = document.createElement('div');
-          eventsContainer.classList.add('events-container');
-
-          dayEvents.forEach(event => {
-            const eventElement = document.createElement('div');
-            eventElement.classList.add('event');
-            eventElement.textContent = event.title;
-            if (event.color) {
-              eventElement.style.backgroundColor = event.color;
-            }
-            eventsContainer.appendChild(eventElement);
-          });
-
-          dayElement.appendChild(eventsContainer);
-
-          const today = new Date();
-          if (day === today.getDate() &&
-            currentDate.getMonth() === today.getMonth() &&
-            currentDate.getFullYear() === today.getFullYear()) {
-            dayElement.classList.add('today');
-          }
-
-          dateGridElement.appendChild(dayElement);
-        }
-      }
-
-      prevMonthButton.addEventListener('click', function () {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        renderCalendar();
-      });
-
-      nextMonthButton.addEventListener('click', function () {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        renderCalendar();
-      });
-
-      renderCalendar();
-    });
-  </script>
+    </script>
 </body>
 
 </html>
