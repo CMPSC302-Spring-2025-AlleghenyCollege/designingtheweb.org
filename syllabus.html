@@ -2,8 +2,77 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .section {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .header {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .content {
+            padding: 10px;
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleContent(element) {
+            const content = element.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+    </script>
 </head>
 <body>
+
+    <h1>Course Details</h1>
+
+    <div class="section">
+        <div class="header" onclick="toggleContent(this)">Instructor</div>
+        <div class="content">
+            <p>Professor John Doe<br>Email: john.doe@example.com<br>Office: Carr Hall 123</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="header" onclick="toggleContent(this)">Description</div>
+        <div class="content">
+            <p>This course provides an introduction to [Course Subject]. Students will explore fundamental concepts and develop practical skills in [Specific Skills].</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="header" onclick="toggleContent(this)">Learning Outcomes</div>
+        <div class="content">
+            <ol>
+                <li>Understand the core principles of [Topic 1].</li>
+                <li>Apply [Skill 1] to solve real-world problems.</li>
+                <li>Analyze and interpret [Data/Information].</li>
+                <li>Communicate effectively about [Subject Matter].</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="header" onclick="toggleContent(this)">Policies</div>
+        <div class="content">
+            <p>Attendance is mandatory. Late assignments will be penalized. Academic honesty is expected. Please refer to the syllabus for detailed policies.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="header" onclick="toggleContent(this)">Allegheny College Policy</div>
+        <div class="content">
+            <p>Allegheny College is committed to providing a safe and inclusive learning environment. The college adheres to all applicable federal and state laws regarding non-discrimination and harassment. For more information, please visit the college's official website.</p>
+        </div>
+    </div>
 
 </body>
 </html>
