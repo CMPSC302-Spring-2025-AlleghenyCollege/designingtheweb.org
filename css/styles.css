@@ -54,6 +54,10 @@ body {
   align-items: center;
 }
 
+body.dark-mode img {
+  filter: invert(1);
+}
+
 
 a /* Links */ {
   color: var(--accent-color);
