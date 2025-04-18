@@ -478,3 +478,258 @@ a {
     justify-content: center; /* Ensure content is centered vertically */
   }
 }
+
+/* 404 Page Styles */
+.error-container {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.error-container h1 {
+  font-size: 72px;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.error-container p {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.game-controls {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.game-button {
+  padding: 8px 16px;
+  font-family: var(--font-primary);
+  font-size: var(--p-size);
+  color: var(--text-color);
+  background: transparent;
+  border: 2px solid var(--text-color);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.game-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 450px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--text-color);
+  margin: 0 auto;
+  border-radius: 10px;
+  
+  /* Add jungle background */
+  background-image: url('../images/jungle.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.game-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Using your current background color with opacity */
+  z-index: 0; /* Position between background and game elements */
+}
+
+#dino {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 50px;
+  background-color: var(--text-color);
+}
+
+.cactus {
+  width: 20px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+  background-color: var(--text-color);
+}
+
+.game-over {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.score {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  background: white;
+  color: white;
+}
+
+
+.instructions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.instructions p {
+  color: var(--text-color);
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .game-container {
+      width: 90%;
+      max-width: 600px;
+  }
+}
+
+/* ---------- 404 PAGE ---------- */
+
+.error-container {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.error-container h1 {
+  font-size: 72px;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.error-container p {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.game-controls {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.game-button {
+  padding: 8px 16px;
+  font-family: var(--font-primary);
+  font-size: var(--p-size);
+  color: var(--text-color);
+  background: transparent;
+  border: 2px solid var(--text-color);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.game-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 450px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--text-color);
+  background-color: var(--bg-color);
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+#dino {
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  bottom: 0;
+  left: 75px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.cactus {
+  width: 45px;
+  height: 90px;
+  position: absolute;
+  bottom: 0;
+  right: -45px;
+  background-color: white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.game-over-message {
+  display: none;
+  font-size: 36px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.score {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.instructions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.instructions p {
+  color: var(--text-color);
+  margin: 5px 0;
+}
+
+.instructions-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-color);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.instructions-overlay p {
+  margin: 5px 0;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .game-container {
+      width: 90%;
+      max-width: 1200px;
+  }
+}
