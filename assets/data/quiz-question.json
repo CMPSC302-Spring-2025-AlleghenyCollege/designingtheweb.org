@@ -1,0 +1,202 @@
+[
+    {
+        "question": "What does HTML stand for?",
+        "options": [
+            "Hyper Text Markup Language",
+            "High Tech Modern Language",
+            "Hyper Transfer Method Language",
+            "Home Tool Markup Language"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "question": "Which CSS property is used to control the text size?",
+        "options": [
+            "text-style",
+            "font-size",
+            "text-size",
+            "font-style"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "question": "Which HTML tag is used to define an internal style sheet?",
+        "options": [
+            "css",
+            "script",
+            "style",
+            "design"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "question": "What is the correct HTML element for inserting a line break?",
+        "options": [
+            "break",
+            "lb",
+            "newline",
+            "br"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "question": "Which property is used to change the background color in CSS?",
+        "options": [
+            "background-color",
+            "bgcolor",
+            "color",
+            "background-style"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "question": "What does CSS stand for?",
+        "options": [
+            "Creative Style Sheets",
+            "Computer Style Sheets",
+            "Cascading Style Sheets",
+            "Colorful Style Sheets"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "question": "Which HTML attribute is used to define inline styles?",
+        "options": [
+            "styles",
+            "class",
+            "style",
+            "font"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "question": "What is the correct CSS syntax for making all paragraph elements bold?",
+        "options": [
+            "p {font-weight: bold;}",
+            "p {text-style: bold;}",
+            "p style='font-size: bold;",
+            "p.all {font-weight: bold;}"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "question": "Which JavaScript function is used to access HTML elements by their ID?",
+        "options": [
+            "findElementById()",
+            "getElementById()",
+            "querySelector()",
+            "getElement()"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "question": "What is the purpose of responsive web design?",
+        "options": [
+            "To make websites load faster",
+            "To make websites look good on all devices",
+            "To create interactive websites",
+            "To implement security features"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "question": "What is the correct HTML for creating a hyperlink?",
+        "options": [
+            "a url='http://example.com'>Example</a",
+            "a href='http://example.com'>Example</a",
+            "hyperlink>http://example.com</hyperlink",
+            "link>http://example.com</link"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "question": "Which CSS property is used to control the space between elements?",
+        "options": [
+            "spacing",
+            "margin",
+            "padding",
+            "border"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "question": "Which of these is NOT a valid CSS framework?",
+        "options": [
+            "Bootstrap",
+            "Tailwind CSS",
+            "Foundation",
+            "HTMLplus"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "question": "What does the 'viewport' meta tag do?",
+        "options": [
+            "Increases website security",
+            "Controls how a page is displayed on mobile devices",
+            "Improves SEO rankings",
+            "Adds animations to the website"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "question": "Which file format is NOT commonly used for web images?",
+        "options": [
+            "JPEG",
+            "PNG",
+            "SVG",
+            "DOCX"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "question": "What is the purpose of the alt attribute in an image tag?",
+        "options": [
+            "To provide alternative text for screen readers",
+            "To display a tooltip when hovering over the image",
+            "To specify image dimensions",
+            "To create a link from the image"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "question": "Which HTML5 element is used to specify a footer for a document or section?",
+        "options": [
+            "bottom",
+            "section",
+            "footer",
+            "end"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "question": "What is a CSS Grid layout primarily used for?",
+        "options": [
+            "Creating popup windows",
+            "Two-dimensional layout of elements in rows and columns",
+            "Animating page transitions",
+            "Validating form inputs"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "question": "Which of these is a JavaScript framework for building user interfaces?",
+        "options": [
+            "Apache",
+            "jQuery",
+            "React",
+            "Python"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "question": "What is the purpose of media queries in CSS?",
+        "options": [
+            "To embed videos in a webpage",
+            "To apply different styles based on device characteristics",
+            "To load external JavaScript files",
+            "To connect to databases"
+        ],
+        "correctAnswerIndex": 1
+    }
+]
