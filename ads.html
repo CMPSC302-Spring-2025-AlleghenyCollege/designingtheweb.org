@@ -1,31 +1,95 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <title>change picture</title>
-      <script type = "text/javascript">
-          function displayNextImage() {
-              x = (x === images.length - 1) ? 0 : x + 1;
-              document.getElementById("img").src = images[x];
-          }
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image Carousel</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
 
-          function displayPreviousImage() {
-              x = (x <= 0) ? images.length - 1 : x - 1;
-              document.getElementById("img").src = images[x];
-          }
+    #carousel {
+      width: 300px; /* Scaled down version */
+      height: 300px; /* Preserve original aspect ratio */
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-          function startTimer() {
-              setInterval(displayNextImage, 3000);
-          }
+    #carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 0.5s ease-in-out;
+    }
 
-          var images = [], x = -1;
-          images[0] = "ad1.png";
-          images[1] = "ad.png";
-      </script>
-   </head>
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
 
-   <body onload = "startTimer()">
-       <img id="img" src="image.png"/>
-       <button type="button" onclick="displayPreviousImage()">Previous</button>
-       <button type="button" onclick="displayNextImage()">Next</button>
-   </body>
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script>
+    const images = ["images/ad1.png", "images/ad2.png"];
+    let x = 0;
+
+    function updateImage() {
+      const img = document.getElementById("img");
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = images[x];
+        img.style.opacity = 1;
+      }, 150);
+    }
+
+    function displayNextImage() {
+      x = (x + 1) % images.length;
+      updateImage();
+    }
+
+    function displayPreviousImage() {
+      x = (x - 1 + images.length) % images.length;
+      updateImage();
+    }
+
+    function startTimer() {
+      updateImage();
+      setInterval(displayNextImage, 3000);
+    }
+  </script>
+</head>
+<body onload="startTimer()">
+  <div id="carousel">
+    <img id="img" src="" alt="carousel image" />
+  </div>
+  <div class="buttons">
+    <button onclick="displayPreviousImage()">Previous</button>
+    <button onclick="displayNextImage()">Next</button>
+  </div>
+</body>
 </html>
