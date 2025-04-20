@@ -996,3 +996,152 @@
         width: 85% !important;
     }
 }
+
+/* General responsiveness for smaller screens */
+@media (max-width: 768px) {
+    /* Adjust navigation bar for smaller screens */
+    .resource-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0.5rem;
+    }
+
+    .resource-nav a {
+        margin: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* Adjust hero section */
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    /* Adjust search bar */
+    .search-container {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .search-input {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    /* Adjust filter section */
+    .filter-section {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .filter-tags {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .filter-tag {
+        text-align: center;
+        padding: 0.5rem;
+    }
+
+    /* Adjust featured article */
+    .featured-article {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .featured-article h2 {
+        font-size: 1.8rem;
+    }
+
+    .featured-article p {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust resource sections */
+    .resource-section {
+        padding: 1rem;
+    }
+
+    .resource-cards {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .resource-card {
+        padding: 1rem;
+    }
+
+    /* Adjust carousel for smaller screens */
+    .carousel-wrapper {
+        padding: 0;
+    }
+
+    .resource-cards.carousel .resource-card {
+        flex: 0 0 80%;
+        min-width: 80%;
+    }
+
+    .carousel-arrow {
+        display: none;
+    }
+
+    .carousel-progress-container {
+        display: block;
+    }
+}
+
+/* Extra small screens (max-width: 480px) */
+@media (max-width: 480px) {
+    /* Adjust navigation bar */
+    .resource-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .resource-nav a {
+        font-size: 0.8rem;
+    }
+
+    /* Adjust hero section */
+    .hero-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-section p {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust filter section */
+    .filter-tags {
+        grid-template-columns: 1fr;
+    }
+
+    /* Adjust featured article */
+    .featured-article h2 {
+        font-size: 1.5rem;
+    }
+
+    .featured-article p {
+        font-size: 0.8rem;
+    }
+
+    /* Adjust resource cards */
+    .resource-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .resource-card {
+        padding: 0.8rem;
+    }
+}
