@@ -96,7 +96,7 @@
     </section>
 
     <!-- Footer -->
-    <div id="footer"></div>
+    <footer id="footer"></footer>
 
     <!-- JavaScript -->
     <script>
@@ -266,6 +266,13 @@
                 resourceTypeLinks.forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
                 filterResources();
+
+                // Scroll to the respective section
+                const sectionId = this.getAttribute('href').substring(1);
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
             }));
         });
     </script>
