@@ -2,10 +2,41 @@
 
 body {
     background-color: #D9D9D9;
+    font-family: 'Inconsolata', monospace;
+}
+
+.syllabus-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.syllabus-description {
+    width: 70%;
+    padding: 20px;
+    background-color: #1B3054;
+    color: white;
+    border-radius: 10px;
+    margin: 1rem
+}
+
+
+button {
+    background-color: #3577A3;
+    color: white;
+    border: 1px solid #1B3054;
+    font-family: 'Inconsolata', monospace;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #1B3054;
+    text-decoration: underline;
 }
 
 h1 {
-    font-family: 'Inconsolata', monospace;
     font-weight: bold;
 }
 
