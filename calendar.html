@@ -4,6 +4,25 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <div id="ad-left" class="ad-sidebar">
+        <div class="carousel">
+        <img id="img-left" src="" alt="Ad image">
+        <div class="buttons">
+            <button onclick="displayPreviousImage('left')">◀</button>
+            <button onclick="displayNextImage('left')">▶</button>
+        </div>
+        </div>
+    </div>
+    <div id="ad-right" class="ad-sidebar">
+        <div class="carousel">
+        <img id="img-right" src="" alt="Ad image">
+        <div class="buttons">
+            <button onclick="displayPreviousImage('right')">◀</button>
+            <button onclick="displayNextImage('right')">▶</button>
+        </div>
+        </div>
+    </div>
      
 </body>
+<script src="/scripts/ad-carousel.js" defer></script>
 </html>
