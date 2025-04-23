@@ -153,7 +153,17 @@ a /* Links */ {
     position: relative;
     padding: 5px;
   }
-  
+  body.dark-mode #date-grid {
+    background-color: black;
+  }
+  body.dark-mode #days-of-week > div {
+    background-color: black;
+    color: white;
+  }
+  body.dark-mode #date-grid > .day {
+    background-color: black;
+    color: white;
+  }
   /* Date Cells */
   #date-grid > .day {
     background-color: white;
