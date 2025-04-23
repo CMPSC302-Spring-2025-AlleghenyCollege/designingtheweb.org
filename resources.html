@@ -101,14 +101,14 @@
             featuredArticle: {
                 title: "What is CSS?",
                 content: "This course introduces the foundational principles and practices of web design...",
-                link: "https://www.learnenough.com/command-line-tutorial"
+                link: "https://github.com/hemanialaparthi/www.algorithmology.org"
             },
             courses: [
                 {
                     title: "Learn HTML",
                     tags: ["html"],
                     image: "/images/html-course.jpg",
-                    link: "https://www.codecademy.com/pages/learn-html-and-css-with-codecademy-pro?--&utm_id=t_aud-2014586126760:kwd-17983641:ag_102526215098:cp_10030170703:n_g:d_c&utm_source=google&utm_medium=paid-search&utm_term=learn%20html&utm_campaign=US_Language:_Basic_-_Exact&utm_content=598993485329&g_adtype=search&g_acctid=243-039-7011&gad_source=1&gbraid=0AAAAAon8KZHQr7T7TkoaIYMStAujazwQe&gclid=CjwKCAjwn6LABhBSEiwAsNJrjinrrH4bdo5OG4JQxEndKFAq4tEPcm8-8snsdNgLwAr9pl2IsgxdeBoCm4IQAvD_BwE"
+                    link: "https://github.com/hemanialaparthi/www.algorithmology.org"
                 },
                 {
                     title: "Introduction to CSS",
@@ -119,6 +119,12 @@
                     title: "Introduction to JavaScript",
                     tags: ["javascript"],
                     image: "/images/js-course.jpg"
+                },
+                {
+                    title: "Introduction to JavaScript",
+                    tags: ["javascript"],
+                    image: "/images/js-course.jpg",
+                    link: "https://www.codecademy.com/pages/learn-html-and-css-with-codecademy-pro?--&utm_id=t_aud-2014586126760:kwd-17983641:ag_102526215098:cp_10030170703:n_g:d_c&utm_source=google&utm_medium=paid-search&utm_term=learn%20html&utm_campaign=US_Language:_Basic_-_Exact&utm_content=598993485329&g_adtype=search&g_acctid=243-039-7011&gad_source=1&gbraid=0AAAAAon8KZHQr7T7TkoaIYMStAujazwQe&gclid=CjwKCAjwn6LABhBSEiwAsNJrjinrrH4bdo5OG4JQxEndKFAq4tEPcm8-8snsdNgLwAr9pl2IsgxdeBoCm4IQAvD_BwE"
                 }
             ],
             articles: [
@@ -161,7 +167,7 @@
         function renderCourses() {
             const container = document.querySelector('#courses .resource-cards');
             container.innerHTML = resources.courses.map(course => `
-                <a href="#" class="resource-card course-card" data-type="course" data-tags="${course.tags.join(',')}">
+                <a href="${course.link || '#'}" class="resource-card course-card" data-type="course" data-tags="${course.tags.join(',')}">
                     <div class="card-img" style="background-image: url('${course.image}')"></div>
                     <div class="card-title">${course.title}</div>
                 </a>
@@ -171,7 +177,7 @@
         function renderArticles() {
             const container = document.querySelector('#articles .resource-cards');
             container.innerHTML = resources.articles.map(article => `
-                <a href="${article.link}" class="resource-card article-card" data-type="article" data-tags="${article.tags.join(',')}">
+                <a href="${article.link || '#'}" class="resource-card article-card" data-type="article" data-tags="${article.tags.join(',')}">
                     <div class="article-content">
                         <h3>${article.title}</h3>
                         <p>${article.summary}</p>
@@ -186,7 +192,7 @@
         function renderVideos() {
             const container = document.querySelector('#videos .resource-cards');
             container.innerHTML = resources.videos.map(video => `
-                <a href="${video.link}" class="resource-card course-card" data-type="video" data-tags="${video.tags.join(',')}">
+                <a href="${video.link || '#'}" class="resource-card course-card" data-type="video" data-tags="${video.tags.join(',')}">
                     <div class="card-img video-img" style="background-image: url('${video.thumbnail}')">
                         <i class="fas fa-play-circle"></i>
                     </div>
@@ -201,6 +207,9 @@
             $("#header").load("/_includes/header.html");
             $("#footer").load("/_includes/footer.html");
 
+            // Set the featured article link
+            document.querySelector('.featured-article .btn').href = resources.featuredArticle.link;
+            
             // render all content
             renderCourses();
             renderArticles();
