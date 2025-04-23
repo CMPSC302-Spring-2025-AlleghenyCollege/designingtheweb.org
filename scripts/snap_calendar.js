@@ -1,53 +1,130 @@
-/* Days of the Week */
-const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+document.addEventListener('DOMContentLoaded', function () {
+    const monthYearElement = document.getElementById('month-year');
+    const dateGridElement = document.getElementById('date-grid');
+    const prevMonthButton = document.getElementById('prev-month');
+    const nextMonthButton = document.getElementById('next-month');
 
-/* Months */
-const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
+    let currentDate = new Date();
+    let eventsData = [];
+    const CSV_FILENAME = "SemesterYear_Class_Schedule.csv";
 
-/* Special Event Days */
-const specialEventDays = [
-    { day: 15, type: "Activity" },
-    { day: 24, type: "Sprint 2" }
-];
+    async function loadCalendarData() {
+        try {
+            const response = await fetch(CSV_FILENAME);
+            if (!response.ok) throw new Error('Schedule file not found');
+            const csvText = await response.text();
+            eventsData = parseCSV(csvText);
+            renderCalendar();
+        } catch (error) {
+            console.error('Error loading schedule:', error);
+            dateGridElement.innerHTML = `<div class="loading-message">Error loading schedule data. Please ensure ${CSV_FILENAME} exists.</div>`;
+        }
+    }
 
-/* Current Date Setup */
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth();
-const firstDay = new Date(year, month, 1);
-const lastDay = new Date(year, month + 1, 0);
+    function parseCSV(csvText) {
+        const lines = csvText.split('\n').filter(line => line.trim() !== '');
+        const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
 
-/* Render Month-Year */
-document.querySelector("#month-year").innerText = `${months[month]} ${year}`;
+        const dateIndex = headers.indexOf('date');
+        const titleIndex = headers.indexOf('title');
+        const colorIndex = headers.indexOf('color');
 
-/* Render Weekday Headers */
-const weekdayRow = daysOfWeek.map(day => `<div class="weekday">${day}</div>`).join("");
-document.querySelector("#date-grid").innerHTML = weekdayRow;
+        if (dateIndex === -1 || titleIndex === -1) {
+            throw new Error('CSV must contain "date" and "title" columns');
+        }
 
-/* Generate Date Grid */
-let dateCells = "";
-for (let i = 0; i < firstDay.getDay(); i++) {
-    dateCells += `<div class="empty"></div>`; // Empty slots
-}
+        return lines.slice(1).map(line => {
+            const values = line.split(',');
+            const event = {
+                date: values[dateIndex].trim(),
+                title: values[titleIndex].trim()
+            };
 
-for (let i = 1; i <= lastDay.getDate(); i++) {
-    const isToday = i === today.getDate();
-    const specialEvent = specialEventDays.find(event => event.day === i);
-    const classes = [
-        "day",
-        isToday ? "today" : "",
-        specialEvent ? "special" : ""
-    ].join(" ").trim();
+            if (colorIndex !== -1 && values[colorIndex]) {
+                event.color = values[colorIndex].trim();
+            }
 
-    const eventTag = specialEvent ? `<span class="event-type">${specialEvent.type}</span>` : "";
+            return event;
+        });
+    }
 
-    dateCells += `<div class="${classes}" data-date="${i}">
-        <span class="date-number">${i}</span>
-        ${eventTag}
-    </div>`;
-}
+    function renderCalendar() {
+        dateGridElement.innerHTML = '';
 
-document.querySelector("#date-grid").innerHTML += dateCells;
+
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'];
+        monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+
+
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const daysInMonth = lastDay.getDate();
+        const startingDay = firstDay.getDay();
+
+
+        for (let i = 0; i < startingDay; i++) {
+            dateGridElement.appendChild(document.createElement('div')).className = 'day';
+        }
+
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+
+
+            const dayNumber = document.createElement('div');
+            dayNumber.className = 'day-number';
+            dayNumber.textContent = day;
+            dayElement.appendChild(dayNumber);
+
+
+            const currentDateStr = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+
+            const dayEvents = eventsData.filter(event => event.date === currentDateStr);
+
+
+            if (dayEvents.length > 0) {
+                const eventsContainer = document.createElement('div');
+                eventsContainer.className = 'events-container';
+
+                dayEvents.forEach(event => {
+                    const eventElement = document.createElement('div');
+                    eventElement.className = 'event';
+                    eventElement.textContent = event.title;
+                    if (event.color) {
+                        eventElement.style.backgroundColor = event.color;
+                    }
+                    eventsContainer.appendChild(eventElement);
+                });
+
+                dayElement.appendChild(eventsContainer);
+            }
+
+
+            const today = new Date();
+            if (day === today.getDate() &&
+                currentDate.getMonth() === today.getMonth() &&
+                currentDate.getFullYear() === today.getFullYear()) {
+                dayElement.classList.add('today');
+            }
+
+            dateGridElement.appendChild(dayElement);
+        }
+    }
+
+
+    prevMonthButton.addEventListener('click', function () {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    nextMonthButton.addEventListener('click', function () {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+
+    loadCalendarData();
+});
