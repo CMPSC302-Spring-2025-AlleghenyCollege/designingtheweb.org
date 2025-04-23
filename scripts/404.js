@@ -121,8 +121,10 @@ function startGame() {
     gameSpeed = 5;
     scoreElement.textContent = '0';
     gameOverMessage.style.display = 'none';
-    instructionsOverlay.style.display = 'none';
-    dino.style.bottom = '0';
+    
+    // Add animation classes
+    gameContainer.classList.add('game-started');
+    instructionsOverlay.classList.add('fade-out');
 
     // Remove any existing cactuses
     const cactuses = document.querySelectorAll('.cactus');
@@ -136,6 +138,11 @@ function endGame() {
     console.log('Game over');
     isGameActive = false;
     isGameOver = true;
+    
+    // Remove animation classes
+    gameContainer.classList.remove('game-started');
+    instructionsOverlay.classList.remove('fade-out');
+    
     gameOverMessage.style.display = 'block';
     instructionsOverlay.style.display = 'block';
 
