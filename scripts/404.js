@@ -2,16 +2,23 @@ const dino = document.getElementById('dino');
 const gameContainer = document.querySelector('.game-container');
 const gameOverMessage = document.querySelector('.game-over-message');
 const scoreElement = document.getElementById('scoreValue');
+const highScoreElement = document.getElementById('highScoreValue');
 const instructionsOverlay = document.querySelector('.instructions-overlay');
+const scoreDisplay = document.querySelector('.score');
+const highScoreDisplay = document.querySelector('.high-score');
 
 // Game state variables
 let isJumping = false;
 let position = 0;
 let isGameOver = false;
 let score = 0;
+let highScore = parseInt(localStorage.getItem('dinoHighScore')) || 0;
 let isGameActive = false;
 let currentCactusInterval = null;
 let gameSpeed = 5;
+
+// Initialize high score display
+highScoreElement.textContent = highScore;
 
 // Debug logging
 console.log('Game elements:', {
@@ -19,7 +26,9 @@ console.log('Game elements:', {
     gameContainer: gameContainer,
     gameOverMessage: gameOverMessage,
     scoreElement: scoreElement,
-    instructionsOverlay: instructionsOverlay
+    instructionsOverlay: instructionsOverlay,
+    scoreDisplay: scoreDisplay,
+    highScoreDisplay: highScoreDisplay
 });
 
 // Listen for the SPACE key to trigger a jump
@@ -65,6 +74,33 @@ function jump() {
     timerId = setInterval(moveUp, 20);
 }
 
+function updateScore() {
+    score++;
+    scoreElement.textContent = score;
+    
+    // Animate score update
+    scoreDisplay.classList.remove('score-updated');
+    void scoreDisplay.offsetWidth; // Trigger reflow
+    scoreDisplay.classList.add('score-updated');
+
+    // Check for new high score
+    if (score > highScore) {
+        highScore = score;
+        highScoreElement.textContent = highScore;
+        localStorage.setItem('dinoHighScore', highScore);
+        
+        // Animate high score update
+        highScoreDisplay.classList.remove('new-high-score');
+        void highScoreDisplay.offsetWidth; // Trigger reflow
+        highScoreDisplay.classList.add('new-high-score');
+    }
+
+    // Increase game speed gradually
+    if (score % 5 === 0) {
+        gameSpeed += 0.5;
+    }
+}
+
 function generateCactus() {
     if (!isGameActive) return;
     console.log('Generating cactus');
@@ -92,12 +128,7 @@ function generateCactus() {
 
         if (cactusPosition < -60) {
             cactus.remove();
-            score++;
-            scoreElement.textContent = score;
-            // Increase game speed gradually
-            if (score % 5 === 0) {
-                gameSpeed += 0.5;
-            }
+            updateScore();
         } else {
             requestAnimationFrame(moveCactus);
         }
@@ -121,6 +152,10 @@ function startGame() {
     gameSpeed = 5;
     scoreElement.textContent = '0';
     gameOverMessage.style.display = 'none';
+    
+    // Reset score animations
+    scoreDisplay.classList.remove('score-updated');
+    highScoreDisplay.classList.remove('new-high-score');
     
     // Add animation classes
     gameContainer.classList.add('game-started');
