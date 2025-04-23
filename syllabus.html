@@ -12,6 +12,7 @@
             }
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div id="header"></div>
@@ -226,4 +227,10 @@
     </div>
     <footer id="footer"></footer>
 </body>
+<script>
+    $(document).ready(function(){
+        $("#header").load("/_includes/header.html");
+        $("#footer").load("/_includes/footer.html");
+    });
+</script>
 </html>
