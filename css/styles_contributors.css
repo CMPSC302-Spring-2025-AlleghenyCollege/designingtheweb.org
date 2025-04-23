@@ -1,0 +1,98 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400&display=swap');
+
+body {
+    font-family: 'Inconsolata', monospace;
+    margin: 20px;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #1B3054;
+    margin-bottom: 30px;
+}
+
+.project-lead-container {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #1B3054;
+    margin: 1rem;
+}
+
+.project-lead-header {
+    text-align: center;
+    color: #fff;
+}
+
+.contributor-grid-leads {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.lead-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.contributor-container {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #80BD41;
+    margin: 1rem;
+}
+
+.contributor-header {
+    text-align: center;
+    color: #fff;
+}
+
+.contributor-grid {
+    display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    background-color: #80BD41;
+}
+
+.contributor-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.contributor-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.contributor-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+.contributor-title {
+    color: #777;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+.contributor-links a {
+    display: inline-block;
+    margin: 0 5px;
+    color: #007bff;
+    text-decoration: none;
+}
+.contributor-links a:hover {
+    text-decoration: underline;
+}
