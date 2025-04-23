@@ -6,6 +6,17 @@
 </head>
 <body>
     <div id="header"></div>
+      <!-- left ad -->
+    <div id="ad-left" class="ad-sidebar">
+        <div class="carousel">
+        <img id="img-left" src="" alt="Ad image">
+        <div class="buttons">
+            <button onclick="displayPreviousImage('left')">◀</button>
+            <button onclick="displayNextImage('left')">▶</button>
+        </div>
+        </div>
+    </div>
+
     <div id="snap_calendar">
         <div id="month-year">
             <!-- See script -->
@@ -30,6 +41,17 @@
             /* See snap_calendar.js */
         </script>
     </div>
+      <!-- right ad -->
+    <div id="ad-right" class="ad-sidebar">
+        <div class="carousel">
+        <img id="img-right" src="" alt="Ad image">
+        <div class="buttons">
+            <button onclick="displayPreviousImage('right')">◀</button>
+            <button onclick="displayNextImage('right')">▶</button>
+        </div>
+        </div>
+    </div>
+
     <div id="featured">
         <!-- Syllabus Page -->
         <a href="https://designingtheweb.org/syllabus/" class="page">
@@ -50,6 +72,7 @@
             <p>Meet Our Website Contributors</p>
         </a>
     </div>
+    
     <div id="about">
         <!-- Class Logo -->
         <div class="logo-box">
@@ -69,4 +92,5 @@
         $("#footer").load("/_includes/footer.html");
     });
 </script>
+<script src="/scripts/ad-carousel.js" defer></script>
 </html>

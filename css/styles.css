@@ -483,7 +483,7 @@ a {
 .ad-sidebar {
   position: fixed;
   top: 5rem;               /* slide down below your header */
-  width: 200px;            /* adjust as you like */
+  width: 300px;            /* adjust as you like */
   z-index: 100;            
 }
 
