@@ -31,6 +31,7 @@ IMPORTANT FILE NAMING INSTRUCTIONS
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="/css/styles.css"> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>Class Schedule Calendar</title>
 </head>
@@ -48,6 +49,77 @@ IMPORTANT FILE NAMING INSTRUCTIONS
       background-color: #e6f2f0;
     }
 
+/* Header Styling */
+
+.navbar {
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #00274D !important; /* Force dark blue */
+  color: white;
+  padding: 15px 30px;
+  box-sizing: border-box;
+}
+  
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar a:hover {
+    color: #FFD700;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .navbar img {
+    max-height: 2em; /* Reduce size */
+    width: auto; /* Maintain aspect ratio */
+  }
+  
+  /* Footer */
+footer {
+  width: 100vw; /* Ensures it spans the full viewport width */
+  max-width: 100%;
+  background-color: #1B3054 !important; 
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.footer-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three equal-width columns for larger screens */
+  gap: 10px;
+  padding: 10px;
+  justify-items: center; /* Center the content within each column */
+}
+
+.footer-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+
+a {
+  color: #FFEB96;
+}
+
+    
     #calendar {
       width: 95vw;
       height: 95vh;
