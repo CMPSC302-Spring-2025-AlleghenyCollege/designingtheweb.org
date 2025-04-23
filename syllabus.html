@@ -14,18 +14,35 @@
     </script>
 </head>
 <body>
-    <h1>Syllabus</h1>
+    <div id="header">
+    <h2>Syllabus</h2>
+        <p>This page contains information about the Web Design course at Allegheny College, including the course objectives and outcomes, and its policies.</p>
+
+        <h3>Instructor</h3>
+        <p>
+            Dr. Janyl Jumadinova<br>
+            Office Location: Alden Hall 110<br>
+            Email: jjumadinova@allegheny.edu
+        </p>
+    </div>
+    
+    <h1>Course Details</h1>
+
     <div class="section">
         <div class="header" onclick="toggleContent(this)">Instructor</div>
         <div class="content">
-            <p>Professor John Doe<br>Email: john.doe@example.com<br>Office: Carr Hall 123</p>
+            <p>Dr. Janyl Jumadinova<br>Email: jjumadinova@allegheny.edu<br>Office: Alden Hall 110<br><a href="https://janyljumadinova.com/schedule/">Click here for Office Hours</a></p>
         </div>
     </div>
 
     <div class="section">
         <div class="header" onclick="toggleContent(this)">Description</div>
         <div class="content">
-            <p>This course provides an introduction to [Course Subject]. Students will explore fundamental concepts and develop practical skills in [Specific Skills].</p>
+            <p>An introduction to the principles and applications of web design with an emphasis on understanding intercultural perspectives that arise during the design, implementation, and maintenance of responsive, modern web sites. Participating in hands-on activities that often require teamwork, students learn the computational methods needed to create websites that are useful to people from different cultures and nationalities. Students also investigate approaches to developing efficient, accessible, and aesthetically pleasing web sites that adhere to the international standards set by the World Wide Web Consortium. During a weekly laboratory session students use industry-grade web development technologies to complete projects, reporting on their results through both written documents and oral presentations. Students are invited to use their own departmentally approved laptop in this course; a limited number of laptops are available for use during class and lab sessions.
+
+                Prerequisite: CMPSC 104.
+                
+                Distribution Requirements: IP, SP.</p>
         </div>
     </div>
 
@@ -33,10 +50,11 @@
         <div class="header" onclick="toggleContent(this)">Learning Outcomes</div>
         <div class="content">
             <ol>
-                <li>Understand the core principles of [Topic 1].</li>
-                <li>Apply [Skill 1] to solve real-world problems.</li>
-                <li>Analyze and interpret [Data/Information].</li>
-                <li>Communicate effectively about [Subject Matter].</li>
+                <li>Apply HTML, CSS, Markdown, and basic Javascript to develop well-structured, responsive World Wide Web Consortium (W3C) standards-compliant web sites.</li>
+                <li>Evaluate and implement web accessibility measures consistent with the Web Content Accessibility Guidelines (WCAG) version 2 specification.</li>
+                <li>Design front-end user experiences using accepted web design patterns, methods, and information structures.</li>
+                <li>Identify and use strategies of successful visual rhetoric for the web.</li>
+                <li>Compare and select web technologies such as static site generators or frameworks as appropriate candidates for building web sites.</li>
             </ol>
         </div>
     </div>
@@ -44,14 +62,153 @@
     <div class="section">
         <div class="header" onclick="toggleContent(this)">Policies</div>
         <div class="content">
-            <p>Attendance is mandatory. Late assignments will be penalized. Academic honesty is expected. Please refer to the syllabus for detailed policies.</p>
+
+
+        <h2>Communication</h2>
+        <p>The course website and Discord are the main digital channels used for communication. Students are responsible for regularly checking these platforms to ensure that important messages are not missed.</p>
+
+        <h2>Department Policies</h2>
+        <p>This course follows department policies regarding attendance, late assignment submissions, and AI use.</p>
+        <ul>
+            <li>Two weeks of missed attendance = six missed class sessions.</li>
+            <li>Non-participation in class/lab activity = missed attendance mark.</li>
+        </ul>
+
+        <h2>Grading Contract</h2>
+        <p>This course emphasizes <strong>process</strong> and <strong>growth</strong>. Your grade reflects not only assignment completion but also engagement, participation, and effort. Assignments are accompanied by formative feedback rather than traditional letter grades (except quizzes).</p>
+        <p>You are encouraged to experiment and even fail — as long as the effort is authentic. Failure only occurs through lack of engagement.</p>
+
+        <h3>Final Letter Grade Contract</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Final Grade</th>
+                <th>Portfolio (3 Projects)</th>
+                <th>Quiz Average</th>
+                <th>Technical Challenges</th>
+                <th>IP Presentation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td>A</td><td>All completed</td><td>≥ 90%</td><td>7</td><td>1</td></tr>
+            <tr><td>A-</td><td>All completed</td><td>≥ 85%</td><td>7</td><td>1</td></tr>
+            <tr><td>B+</td><td>All completed</td><td>≥ 80%</td><td>6</td><td>1</td></tr>
+            <tr><td>B</td><td>All completed</td><td>≥ 75%</td><td>6</td><td>1</td></tr>
+            <tr><td>B-</td><td>All completed</td><td>≥ 70%</td><td>6</td><td>1</td></tr>
+            <tr><td>C+</td><td>All completed</td><td>≥ 65%</td><td>5</td><td>1</td></tr>
+            <tr><td>C</td><td>All completed</td><td>≥ 60%</td><td>5</td><td>1</td></tr>
+            <tr><td>C-</td><td>2 completed</td><td>≥ 55%</td><td>5</td><td>0</td></tr>
+            <tr><td>D</td><td>2 completed</td><td>≥ 60%</td><td>4</td><td>0</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Assignment Types</h2>
+        <ul>
+            <li><strong>Quizzes:</strong> Closed-note quizzes every ~2 weeks assessing conceptual understanding.</li>
+            <li><strong>IP Presentation:</strong> One presentation that demonstrates international/intercultural web design perspectives.</li>
+            <li><strong>Technical Challenges:</strong> Weekly, pass/fail based on meeting rubric requirements.</li>
+            <li><strong>Web Portfolio:</strong> Three projects – course website (team), personal website (individual), and community project (team). All are pass/fail and follow a scaffolded development process.</li>
+        </ul>
+
+        <p><strong>Note on Team Contribution:</strong> Unequal contribution to team projects can result in a grade reduction of up to one full letter, based on feedback, version control activity, and engagement.</p>
+        <p>To request early feedback on a project, submit via the project review form.</p>
+
+        <h2>Incomplete and Ignored Assignments</h2>
+        <ul>
+            <li><strong>Incomplete:</strong> Work that doesn't meet basic requirements. Revisions may be requested.</li>
+            <li><strong>Ignored:</strong> No meaningful submission — results in no credit.</li>
+        </ul>
+
+        <h3>Tokens</h3>
+        <p>Students may use tokens to resubmit assignments (except final portfolio). Tokens can be used at any point in the semester before the last day of classes.</p>
+        <p><strong>Earn extra tokens (max 2):</strong></p>
+        <ul>
+            <li>Participate in 2 CIS-related events or the Hackathon (with contribution)</li>
+            <li>Submit a reflection via the Extra Token Request Form</li>
+        </ul>
+
+
         </div>
     </div>
 
     <div class="section">
         <div class="header" onclick="toggleContent(this)">Allegheny College Policy</div>
         <div class="content">
-            <p>Allegheny College is committed to providing a safe and inclusive learning environment. The college adheres to all applicable federal and state laws regarding non-discrimination and harassment. For more information, please visit the college's official website.</p>
+            
+
+        <h2>Statement of Community</h2>
+        <p>Allegheny students and employees are committed to creating an inclusive, respectful and safe residential learning community that will actively confront and challenge racism, sexism, heterosexism, religious bigotry, and other forms of harassment and discrimination. We encourage individual growth by promoting a free exchange of ideas in a setting that values diversity, trust and equality. So that the right of all to participate in a shared learning experience is upheld, Allegheny affirms its commitment to the principles of freedom of speech and inquiry, while at the same time fostering responsibility and accountability in the exercise of these freedoms.</p>
+
+        <h2>Academic Integrity</h2>
+        <p>Allegheny College has a student-run Honor Code designed to promote individual responsibility and integrity in academic affairs. Each student pledges the following: “I hereby recognize and pledge to fulfill my responsibilities, as defined in the Honor Code, and to maintain the integrity of both myself and the College community as a whole.”</p>
+        <p>Your professor will educate you about the meaning of academic integrity in this course, which may be different in some respects from other courses in which you are enrolled. Please ask the professor if you have questions. Please see the academic honor program’s website for more details.</p>
+
+        <h2>Midterm Grades</h2>
+        <p>Midterm grades will be submitted for all students in this course by Monday, March 17, but will not appear on academic transcripts. By giving you an early indication of your performance so far, midterm grades offer an opportunity to make adjustments, if necessary, before the end of the term. While midterm grades are primarily focused on first and second-year students, upper-level students may also receive them in some courses.</p>
+
+        <h2>Seeking Assistance</h2>
+        <p><strong>Assistance with Course Concepts:</strong> Students who struggle to understand knowledge and skills defined in this course are encouraged to seek assistance from the instructor during office hours or with Technical Leaders.</p>
+
+        <h2>Educational Accommodations (SASS)</h2>
+        <p>Students with disabilities who believe they may need accommodations in this class are encouraged to contact Student Accessibility and Support Services (SASS) at (814) 332-2898. Located in Pelletier Library. Please see the Student Accessibility website for more info.</p>
+
+        <h2>Religious Observance</h2>
+        <p>If you need to miss class or reschedule a final exam due to a religious observance, please speak with your professor in advance.</p>
+
+        <h2>Academic Alerts</h2>
+        <p>Allegheny College uses an Academic Alert system to connect students with their class dean and support resources when academic progress notices are submitted.</p>
+
+        <h2>Mental Health and Wellness</h2>
+        <p>Allegheny College encourages students to seek support when stress, trauma, or mental health challenges affect academic or daily life. Resources include:</p>
+        <ul>
+            <li>98.6 CampusCare app (24/7 free telehealth)</li>
+            <li>In-person therapy via ECPS partnership</li>
+            <li>Contact: (814) 332-4368 or wellness@allegheny.edu</li>
+            <li>Emergency: 988 Lifeline, Public Safety (814-332-3357), or 911</li>
+        </ul>
+
+        <h2>Gator Success Grants</h2>
+        <p>Designed to support unexpected financial needs, students can apply for assistance via studentsuccess@allegheny.edu.</p>
+
+        <h2>Writing and Speaking Consultants</h2>
+        <p>Peer consultants help with any stage of writing or speaking assignments. Appointments and drop-ins available at the Maytum Center for Student Success.</p>
+
+        <h2>Gator Days and Scholar Symposium</h2>
+        <p>Each semester includes a Gator Day (no classes) for workshops and programming. The spring semester also features a Scholar Symposium to celebrate student research.</p>
+
+        <h2>Class Deans</h2>
+        <p>Located in Pelletier Library, class deans help answer questions and support students:</p>
+        <ul>
+            <li>First-Year: Aacha Gregg</li>
+            <li>Second-Year: Amy Stearns</li>
+            <li>Third/Fourth-Year: Carene Shipley</li>
+            <li>DEI Associate Dean: Dom Turner (Schultz Hall)</li>
+        </ul>
+
+        <h2>Recording Policy</h2>
+        <p>Instructors may record sessions. Students must ask permission to record. Recorded content is protected under FERPA and may not be shared without consent.</p>
+
+        <h2>Harassment, Discrimination, and Sexual Misconduct Reporting (Title IX)</h2>
+        <p>Allegheny prohibits harassment, discrimination, and sexual misconduct. Employees must report incidents unless they are designated confidential resources. Contact:</p>
+        <ul>
+            <li>Joe Hall, Interim Title IX Coordinator – jhall@allegheny.edu – (814) 332-3085 – Campus Center 310A</li>
+        </ul>
+
+        <p><strong>Confidential Support:</strong></p>
+        <ul>
+            <li>Meadville Medical Center @ Winslow – (814) 332-4355</li>
+            <li>ECPS Counseling – (814) 332-4368</li>
+            <li>98point6 CampusCare App</li>
+            <li>Wellness Office – wellness@allegheny.edu – (814) 332-2782</li>
+        </ul>
+
+        <p><strong>Off-Campus:</strong></p>
+        <ul>
+            <li>Meadville Medical Center ER – (814) 333-5500</li>
+            <li>Meadville Crisis Line – (814) 724-2732</li>
+            <li>Women’s Services – (814) 724-4637 or (888) 881-0189</li>
+        </ul>
+
         </div>
     </div>
     <div class="section">
