@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/sy.css">
+</head>
+<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+      body {
+        font-family: 'Inconsolata', monospace;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      table {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto 20px;
+        border-collapse: collapse;
+        background-color: #FFEB96;
+      }
+      th, td {
+        border: 1px solid #000000;
+        padding: 10px;
+        text-align: center;
+      }
+      input[type="number"] {
+        width: 80px;
+      }
+      #results {
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Grade Calculator</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Grade (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Software Portfolio (0-3)</td>
+          <td><input type="number" id="portfolio" min="0" max="3"></td>
+        </tr>
+        <tr>
+          <td>Tech Challenges (0-6)</td>
+          <td><input type="number" id="challenges" min="0" max="6"></td>
+        </tr>
+        <tr>
+          <td>Quizzes (0-100%)</td>
+          <td><input type="number" id="quizzes" min="0" max="100"></td>
+        </tr>
+        <tr>
+          <td>IP Presentation (0 or 1)</td>
+          <td><input type="number" id="presentation" min="0" max="1"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center;">
+      <button onclick="calculateGrade()">Calculate</button>
+    </div>
+    <div id="results"></div>
+  
+    <script>
+      function calculateGrade() {
+        const portfolio = parseFloat(document.getElementById('portfolio').value) || 0;
+        const challenges = parseFloat(document.getElementById('challenges').value) || 0;
+        const quizzes = parseFloat(document.getElementById('quizzes').value) || 0;
+        const presentation = parseFloat(document.getElementById('presentation').value) || 0;
+  
+        const total = portfolio + challenges + quizzes + presentation;
+        const average = total / 4;
+  
+        let letter = '';
+        if (portfolio == 1 && challenges == 6 && quizzes >= 90 && presentation == 1) {
+          letter = 'A';
+        } else if (portfolio == 1 && challenges == 6 && quizzes >= 85 && presentation == 1) {
+          letter = 'A-';
+        } else if (portfolio == 1 && challenges == 5 && quizzes >= 80 && presentation == 1) {
+          letter = 'B+';
+        } else if (portfolio == 1 && challenges == 5 && quizzes >= 75 && presentation == 1) {
+          letter = 'B';
+        } else if (portfolio == 1 && challenges == 5 && quizzes >= 70 && presentation == 1) {
+          letter = 'B-';
+        } else if (portfolio == 1 && challenges == 4 && quizzes >= 65 && presentation == 1) {
+          letter = 'C+';
+        } else if (portfolio == 1 && challenges == 4 && quizzes >= 60 && presentation == 1) {
+          letter = 'C';
+        } else if (portfolio == 1 && challenges == 4 && quizzes >= 55 && presentation == 1) {
+          letter = 'C-';
+        } else if (portfolio == 1 && challenges == 3 && quizzes >= 60 && presentation == 0) {
+          letter = 'D';
+        }
+        else {
+          letter = 'F';
+        }
+        document.getElementById('results').textContent =
+          `Grade: ${letter}`;
+      }
+    </script>
+  </body>
+  </html>
+</body>
+</html>
