@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/ads.css">
-    <link rel="stylesheet" href="css/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <!-- Left Ad -->
@@ -10,11 +10,11 @@
     <div class="carousel">
         <a href="/home.html">
             <img id="img-left" src="" alt="Ad image">
+        </a>
             <div class="buttons">
                 <button onclick="displayPreviousImage('left')">◀</button>
                 <button onclick="displayNextImage('left')">▶</button>
             </div>
-        </a>
     </div>
 </div>
 
@@ -23,11 +23,11 @@
     <div class="carousel">
         <a href="/home.html">
             <img id="img-right" src="" alt="Ad image">
+        </a>
             <div class="buttons">
                 <button onclick="displayPreviousImage('right')">◀</button>
                 <button onclick="displayNextImage('right')">▶</button>
             </div>
-        </a>
     </div>
 </div>
 
@@ -64,19 +64,19 @@
         <!-- Syllabus Page -->
         <a href="https://designingtheweb.org/syllabus/" class="page">
             <h1> Syllabus </h1>
-            <img src="/assets/images/syllabus.png" alt="Icon of person in classroom pointing to blackboard">
+            <img src="/_includes/images/syllabus.png" alt="Icon of person in classroom pointing to blackboard">
             <p>Learn More About Our Class With Our Syllabus</p>
         </a>
         <!-- Resources Page -->
         <a href="https://designingtheweb.org/resources/" class="page">
             <h1> Resources </h1>
-            <img src="/assets/images/resources.png" alt="Stack of books">
+            <img src="/_includes/images/resources.png" alt="Stack of books">
             <p>Check Out Resources For The Class</p>
         </a>
         <!-- Contributors Page -->
         <a href="https://designingtheweb.org/contributors/" class="page">
             <h1> Contributors </h1>
-            <img src="/assets/images/contributors.png" alt="3 People">
+            <img src="/_includes/images/contributors.png" alt="3 People">
             <p>Meet Our Website Contributors</p>
         </a>
     </div>
@@ -84,7 +84,7 @@
     <div id="about">
         <!-- Class Logo -->
         <div class="logo-box">
-            <img src="/assets/images/logo.png" alt="Web Gators Logo">
+            <img src="/_includes/images/logo.png" alt="Web Gators Logo">
         </div>
         <!-- About Text Content -->
         <div class="content">
@@ -96,8 +96,8 @@
 </body>
 <script>
     $(document).ready(function(){
-        $("#header").load("_includes/header.html");
-        $("#footer").load("_includes/footer.html");
+        $("#header").load("/_includes/header.html");
+        $("#footer").load("/_includes/footer.html");
     });
 </script>
 <script src="/scripts/ad-carousel.js" defer></script>
