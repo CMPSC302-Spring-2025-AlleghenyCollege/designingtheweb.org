@@ -1,0 +1,70 @@
+/* ========== Ad sidebars ========== */
+.ad-sidebar {
+    position: fixed;
+    top: 5rem;               /* slide down below your header */
+    width: 200px;            /* adjust as you like */
+    z-index: 100;            
+  }
+  
+  #ad-left  { left:  0; }
+  #ad-right { right: 0; }
+  
+  /* Make sure the calendar/content doesn’t get covered */
+  #snap_calendar,
+  #featured,
+  #about {
+    max-width: calc(100% - 440px);  /* adjust if you change sidebar width */
+    margin: 0 auto;
+  }
+  
+  /* Scoped carousel styles */
+  .ad-sidebar .carousel {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ad-sidebar .carousel img {
+    width: 100%;        /* fill sidebar width */
+    height: auto;       /* let height scale naturally */
+    object-fit: contain;/* fit entire image inside its box */
+    aspect-ratio: unset;/* remove the 1:1 constraint */
+  }
+  
+  .ad-sidebar .buttons {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .ad-sidebar button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .ad-sidebar button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* hide ads on small screens */
+  @media (max-width: 1024px) {
+    .ad-sidebar {
+      display: none;
+    }
+    #snap_calendar,
+    #featured,
+    #about {
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+  }
+  

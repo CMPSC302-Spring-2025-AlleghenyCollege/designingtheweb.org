@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Results</title>
+  <link rel="stylesheet" href="css/quiz-results.css" />
+  <script src="scripts/quiz_results.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+
+  <main>
+    <div id="results-container">
+      <h1>Quiz Results</h1>
+      
+      <!-- Score display -->
+      <p id="quiz-results" class="result-score">Loading your score...</p>
+
+      <!-- Incorrect questions display -->
+      <div id="incorrect-questions" class="incorrect-questions">
+        <!-- This will be filled in dynamically by JS -->
+      </div>
+
+      <div class="result-details">
+        <a href="quizzes.html" class="button-link">Try Again</a>
+      </div>
+    </div>
+  </main>
+  <footer id="footer"></footer>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#header").load("_includes/header.html");
+        $("#footer").load("_includes/footer.html");
+    });
+</script>
+</html>
