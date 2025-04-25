@@ -64,6 +64,7 @@ h1 {
     background-color: #80BD41;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 20px;
 }
 
 .contributor-card {
