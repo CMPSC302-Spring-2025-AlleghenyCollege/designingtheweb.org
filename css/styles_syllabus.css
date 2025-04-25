@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+
+body {
+    background-color: #D9D9D9;
+    font-family: 'Inconsolata', monospace;
+}
+
+.syllabus-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.syllabus-description {
+    width: 70%;
+    padding: 20px;
+    background-color: #1B3054;
+    color: white;
+    border-radius: 10px;
+    margin: 1rem
+}
+
+
+button {
+    background-color: #3577A3;
+    color: white;
+    border: 1px solid #1B3054;
+    font-family: 'Inconsolata', monospace;
+    justify-content: space-between;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #1B3054;
+    text-decoration: underline;
+}
+
+.button_container {
+    display: flex;
+    flex-direction: row;
+    margin-right: 1rem;
+    gap: 10px;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.section {
+    font-family: 'Inconsolata', monospace;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.header {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #80BD41;
+
+}
+
+.content {
+    padding: 10px;
+    display: none; /* Initially hide the content */
+    background-color: #CEF7A0;
+}
+
+@media (max-width: 600px) {
+    .syllabus-info {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .syllabus-description, .instructor {
+        width: 90%;
+    }
+
+    .button_container {
+        justify-content: center;
+    }
+}
