@@ -21,6 +21,23 @@ CSS Table of Contents
   --accent-color: #FFEB96;
   --gray: #D9D9D9;
   --font-family: 'Inconsolata', monospace;
+  --toggle-bg: #ccc;
+  --toggle-circle: #FFFDFA;
+  --toggle-icon-size: 12px;
+  --toggle-border-color: #050505;
+}
+
+/*Switch this up */
+body.dark-mode {
+  --background-color: #050505;
+  --primary-color: #80BD41;
+  --secondary-color: #1B3054;
+  --tertiary-color: #FFEB96;
+  --toggle-border-color: #80BD41;
+  --toggle-bg: #050505;
+  --toggle-circle: #FFFDFA;
+  --toggle-icon-size: 12px;
+  --toggle-border-color: #FFEB96;
 }
 
 /* Base Styles */
@@ -37,10 +54,17 @@ body {
   align-items: center;
 }
 
-a
+body.dark-mode img {
+  filter: invert(1);
+}
+
+img {
+  filter: invert(1);
+}
 
 /* Links */
-  {
+
+a {
   color: var(--accent-color);
   text-decoration: none;
 }
@@ -176,6 +200,36 @@ a
     min-height: 80px;
     padding: 5px;
   }
+
+  body.dark-mode #date-grid {
+    background-color: black;
+  }
+  
+  body.dark-mode #days-of-week > div {
+    background-color: black;
+    color: white;
+  }
+  
+  body.dark-mode #date-grid > .day {
+    background-color: black;
+    color: white;
+  }
+  
+  /* Date Cells */
+  #date-grid > .day {
+    background-color: white;
+    border: 1px solid var(--gray);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: center;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: bold;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    min-height: 100px;
+    overflow: hidden;
+    position: relative;
 
   #date-grid>.day.special {
     font-size: clamp(1rem, 2vw, 1.2rem);
@@ -419,8 +473,20 @@ a:hover {
   color: white;
   padding: 15px 30px;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
-
+ 
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar a:hover {
+    color: #FFD700;
+    
 .navbar a {
   text-decoration: none;
   color: white;
@@ -458,9 +524,93 @@ a:hover {
     gap: 0.5rem;
   }
 
-  .navbar a {
-    font-size: 1rem;
-  }
+  .switch {
+    width: 3em;
+    height: 1.5em;
+    position: relative;
+    display: inline-block;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent; /* Make background transparent */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border-radius: 30px;
+  border: 2px solid var(--secondary-color);
+}
+
+body.dark-mode .slider {
+  border-color: var(--toggle-border-color); /* Use the bright yellow in dark mode */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    left: 8%;
+    bottom: 10%;
+    box-shadow: inset 6px -4px 0px 0px var(--secondary-color);
+    background: var(--background);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .slider:before {
+  box-shadow: inset 6px -4px 0px 0px var(--tertiary-color); /* use bright yellow for moon */
+}
+
+input:checked + .slider:before {
+  transform: translateX(120%);
+  box-shadow: inset 15px -4px 0px 15px var(--secondary-color);
+}
+
+body.dark-mode input:checked + .slider:before {
+  box-shadow: inset 15px -4px 0px 15px var(--tertiary-color); /* use bright yellow for sun in dark mode */
+}
+
+input:checked + .slider {
+    background-color: #1B305400;
+}
+
+input:checked + .slider:before {
+    transform: translateX(120%);
+    box-shadow: inset 15px -4px 0px 15px var(--secondary-color);
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+  
+  /* Responsive Navbar */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  
+    .navbar a {
+      font-size: 1rem;
+    }
 }
 
 
