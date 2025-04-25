@@ -1,9 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Learn New Skills</title>
+    <link rel="stylesheet" href="css/resources.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    
+    <!-- nav-bar -->
+    <div id="header"></div>
+
+    <!-- resource type navigation -->
+    <div class="resource-nav">
+        <a href="#" class="active" data-type="all">All resources</a>
+        <a href="#articles" data-type="article"><i class="fas fa-file-alt"></i> Articles</a>
+        <a href="#courses" data-type="course"><i class="fas fa-graduation-cap"></i> Courses</a>
+        <a href="#videos" data-type="video"><i class="fa-solid fa-video"></i>Videos</a>
+    </div>
+
+    <!-- hero section -->
+    <div class="hero-section">
+        <h1>All resources</h1>
+        <p>Learn new skills, get unstuck, and find resources for building powerful websites.</p>
+    </div>
+
+    <!-- filter section -->
+    <div class="filter-section">
+        <span class="filter-label">Filter by:</span>
+        <div class="filter-tags">
+            <button class="filter-tag" data-tag="html">HTML</button>
+            <button class="filter-tag" data-tag="css">CSS</button>
+            <button class="filter-tag" data-tag="javascript">JavaScript</button>
+            <button class="filter-tag" data-tag="layout">Layout</button>
+            <button class="filter-tag" data-tag="performance">Performance</button>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- featured article -->
+    <div class="featured-article">
+        <div class="content">
+            <span class="badge">FEATURED ARTICLE</span>
+            <h2>What is CSS?</h2>
+            <p>This course introduces the foundational principles and practices of web design. Students develop the skills to create responsive, accessible, and aesthetically engaging websites that adhere to web standards and design principles. This course introduces the foundational principles and practices of web design [...]</p>
+            <a href="#" class="btn">Read the article</a>
+        </div>
+    </div>
+
+    <!-- sections which will be dynamically populated -->
+    <section id="courses" class="resource-section">
+        <div class="section-header">
+            <h2>Getting started</h2>
+            <p>Build a good foundation with web development with these courses.</p>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left"><i class="fas fa-chevron-left"></i></button>
+            <div class="resource-cards carousel"></div>
+            <button class="carousel-arrow right"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-progress-container">
+                <div class="carousel-progress"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="articles" class="resource-section">
+        <div class="section-header">
+            <h2>Articles</h2>
+            <p>Learn web development from folks who know them best.</p>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left"><i class="fas fa-chevron-left"></i></button>
+            <div class="resource-cards carousel"></div>
+            <button class="carousel-arrow right"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-progress-container">
+                <div class="carousel-progress"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="videos" class="resource-section">
+        <div class="section-header">
+            <h2>Videos</h2>
+            <p>Watch tutorials and learn through visual instruction.</p>
+        </div>
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left"><i class="fas fa-chevron-left"></i></button>
+            <div class="resource-cards carousel"></div>
+            <button class="carousel-arrow right"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-progress-container">
+                <div class="carousel-progress"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- JavaScript -->
+    <script>
+        // central data store
+        const resources = {
+            featuredArticle: {
+                title: "What is CSS?",
+                content: "This course introduces the foundational principles and practices of web design...",
+                link: "https://github.com/hemanialaparthi/www.algorithmology.org"
+            },
+            courses: [
+                {
+                    title: "Learn HTML",
+                    tags: ["html"],
+                    image: "/images/html-course.jpg",
+                    link: "https://github.com/hemanialaparthi/www.algorithmology.org"
+                },
+                {
+                    title: "Introduction to CSS",
+                    tags: ["css"],
+                    image: "/images/css-course.jpg"
+                },
+                {
+                    title: "Introduction to JavaScript",
+                    tags: ["javascript"],
+                    image: "/images/js-course.jpg"
+                },
+                {
+                    title: "Introduction to JavaScript",
+                    tags: ["javascript"],
+                    image: "/images/js-course.jpg",
+                    link: "https://www.codecademy.com/pages/learn-html-and-css-with-codecademy-pro?--&utm_id=t_aud-2014586126760:kwd-17983641:ag_102526215098:cp_10030170703:n_g:d_c&utm_source=google&utm_medium=paid-search&utm_term=learn%20html&utm_campaign=US_Language:_Basic_-_Exact&utm_content=598993485329&g_adtype=search&g_acctid=243-039-7011&gad_source=1&gbraid=0AAAAAon8KZHQr7T7TkoaIYMStAujazwQe&gclid=CjwKCAjwn6LABhBSEiwAsNJrjinrrH4bdo5OG4JQxEndKFAq4tEPcm8-8snsdNgLwAr9pl2IsgxdeBoCm4IQAvD_BwE"
+                }
+            ],
+            articles: [
+                {
+                    title: "Core Web Vitals workflows with Google tools",
+                    summary: "With the growing importance of Core Web Vitals...",
+                    tags: ["performance", "html"],
+                    link: "https://adaptivewebdesign.info/1st-edition/read/"
+                },
+                {
+                    title: "Debug layout shifts",
+                    summary: "Learn how to identify and fix layout shifts.",
+                    tags: ["css"],
+                    link: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design"
+                },
+                {
+                    title: "CSS scrollbar-gutter",
+                    summary: "CSS scrollbar-gutter and scrollbar-width have landed...",
+                    tags: ["css", "layout"],
+                    link: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/What_is_CSS"
+                }
+            ],
+            videos: [
+                {
+                    title: "HTML Basics Tutorial",
+                    tags: ["html"],
+                    thumbnail: "/images/html-video.jpg",
+                    link: "https://www.youtube.com/watch?v=FQdaUv95mR8"
+                },
+                {
+                    title: "CSS Layout Techniques",
+                    tags: ["css", "layout"],
+                    thumbnail: "/images/css-layout.jpg",
+                    link: "https://www.youtube.com/watch?v=vHuSz4fRM88"
+                }
+            ]
+        };
+
+        // rendering functions for courses, articles and videos
+        function renderCourses() {
+            const container = document.querySelector('#courses .resource-cards');
+            container.innerHTML = resources.courses.map(course => `
+                <a href="${course.link || '#'}" class="resource-card course-card" data-type="course" data-tags="${course.tags.join(',')}">
+                    <div class="card-img" style="background-image: url('${course.image}')"></div>
+                    <div class="card-title">${course.title}</div>
+                </a>
+            `).join('');
+        }
+
+        function renderArticles() {
+            const container = document.querySelector('#articles .resource-cards');
+            container.innerHTML = resources.articles.map(article => `
+                <a href="${article.link || '#'}" class="resource-card article-card" data-type="article" data-tags="${article.tags.join(',')}">
+                    <div class="article-content">
+                        <h3>${article.title}</h3>
+                        <p>${article.summary}</p>
+                    </div>
+                    <div class="arrow-icon">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function renderVideos() {
+            const container = document.querySelector('#videos .resource-cards');
+            container.innerHTML = resources.videos.map(video => `
+                <a href="${video.link || '#'}" class="resource-card course-card" data-type="video" data-tags="${video.tags.join(',')}">
+                    <div class="card-img video-img" style="background-image: url('${video.thumbnail}')">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="card-title">${video.title}</div>
+                </a>
+            `).join('');
+        }
+
+        // initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // load header and footer
+            $("#header").load("/_includes/header.html");
+            $("#footer").load("/_includes/footer.html");
+
+            // Set the featured article link
+            document.querySelector('.featured-article .btn').href = resources.featuredArticle.link;
+            
+            // render all content
+            renderCourses();
+            renderArticles();
+            renderVideos();
+
+            // Setup carousel for all sections
+            function setupCarousel(sectionId) {
+                const container = document.querySelector(`#${sectionId} .resource-cards`);
+                const leftArrow = document.querySelector(`#${sectionId} .carousel-arrow.left`);
+                const rightArrow = document.querySelector(`#${sectionId} .carousel-arrow.right`);
+                const progressBar = document.querySelector(`#${sectionId} .carousel-progress`);
+
+                if (!container || !leftArrow || !rightArrow || !progressBar) return;
+
+                // Arrow navigation
+                [leftArrow, rightArrow].forEach(arrow => {
+                    arrow.addEventListener('click', () => {
+                        const scrollAmount = arrow === rightArrow ?
+                            container.clientWidth :
+                            -container.clientWidth;
+                        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    });
+                });
+
+                // Progress bar update
+                container.addEventListener('scroll', () => {
+                    const scrollPercentage = (container.scrollLeft /
+                        (container.scrollWidth - container.clientWidth)) * 100;
+                    progressBar.style.width = `${scrollPercentage}%`;
+                });
+
+                // Initialize progress bar on load
+                progressBar.style.width = `${(container.scrollLeft /
+                    (container.scrollWidth - container.clientWidth)) * 100}%`;
+            }
+
+            setupCarousel('articles');
+            setupCarousel('courses');
+            setupCarousel('videos');
+
+            // initialize search/filter functionality
+            const searchInput = document.querySelector('.search-input');
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const resourceTypeLinks = document.querySelectorAll('.resource-nav a');
+
+            // filtering logic
+            function filterResources() {
+                const activeFilters = Array.from(document.querySelectorAll('.filter-tag.active'))
+                    .map(btn => btn.dataset.tag);
+                const activeType = document.querySelector('.resource-nav a.active').dataset.type;
+                
+                console.log("Active filters:", activeFilters);
+                
+                // Get all resource cards
+                const allCards = document.querySelectorAll('.resource-card');
+                
+                allCards.forEach(card => {
+                    // Get tags as an array 
+                    let cardTags = [];
+                    if (card.hasAttribute('data-tags')) {
+                        cardTags = card.getAttribute('data-tags').split(',');
+                    }
+                    
+                    const cardType = card.getAttribute('data-type');
+                    console.log(`Card: ${card.textContent.trim().substring(0, 20)}... | Tags: ${cardTags} | Type: ${cardType}`);
+                    
+                    // Check if card matches current filters
+                    const matchesTags = activeFilters.length === 0 || 
+                        activeFilters.some(filter => cardTags.indexOf(filter) !== -1);
+                    const matchesType = activeType === 'all' || cardType === activeType;
+                    
+                    // Show/hide card based on matches
+                    const shouldShow = matchesTags && matchesType;
+                    card.style.display = shouldShow ? (card.closest('.carousel') ? 'flex' : 'block') : 'none';
+                });
+                
+                // Update carousel progress
+                updateCarouselProgress();
+            }
+
+            // Add a function to update carousel progress
+            function updateCarouselProgress() {
+                const articlesContainer = document.querySelector('#articles .resource-cards');
+                if (articlesContainer) {
+                    const scrollPercentage = (articlesContainer.scrollLeft / 
+                        (articlesContainer.scrollWidth - articlesContainer.clientWidth)) * 100;
+                    const progressBar = document.querySelector('#articles .carousel-progress');
+                    if (progressBar) {
+                        progressBar.style.width = `${scrollPercentage}%`;
+                    }
+                }
+            }
+
+            // event listeners
+            searchInput.addEventListener('input', filterResources);
+            filterTags.forEach(tag => tag.addEventListener('click', function() {
+                this.classList.toggle('active');
+                filterResources();
+            }));
+            resourceTypeLinks.forEach(link => link.addEventListener('click', function(e) {
+                e.preventDefault();
+                resourceTypeLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                filterResources();
+
+                // Scroll to the respective section
+                const sectionId = this.getAttribute('href').substring(1);
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }));
+        });
+    </script>
 </body>
 </html>
