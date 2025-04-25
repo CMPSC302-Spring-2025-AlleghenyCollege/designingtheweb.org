@@ -101,6 +101,15 @@
     background-color: #e0e0e0;
   }
   
+  .filter-tag.active {
+    background-color: var(--secondary-color);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
   .divider {
     border: none;
     height: 1px;
@@ -480,8 +489,12 @@
   .filter-tag.active {
     background-color: var(--secondary-color);
     color: white;
-  }
-  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
   /* Hide filtered-out resources */
   .resource-card.hidden {
     display: none;
@@ -587,8 +600,12 @@
   .filter-tag.active {
     background-color: var(--secondary-color);
     color: white;
-  }
-  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
   .divider {
     border: none;
     height: 1px;

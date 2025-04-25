@@ -32,9 +32,10 @@
         <span class="filter-label">Filter by:</span>
         <div class="filter-tags">
             <button class="filter-tag" data-tag="html">HTML</button>
-            <button class="filter-tag" data-tag="tailwindcss">TailwindCSS</button>
-            <button class="filter-tag" data-tag="react">React</button>
-            <button class="filter-tag" data-tag="agile">Agile Development</button>
+            <button class="filter-tag" data-tag="css">CSS</button>
+            <button class="filter-tag" data-tag="javascript">JavaScript</button>
+            <button class="filter-tag" data-tag="layout">Layout</button>
+            <button class="filter-tag" data-tag="performance">Performance</button>
         </div>
     </div>
 
@@ -56,9 +57,6 @@
             <h2>Getting started</h2>
             <p>Build a good foundation with web development with these courses.</p>
         </div>
-        <div class="see-more">
-            <a href="#" class="btn-outline">See more courses</a>
-        </div>
         <div class="resource-cards"></div>
     </section>
 
@@ -66,9 +64,6 @@
         <div class="section-header">
             <h2>Articles</h2>
             <p>Learn web development from folks who know them best.</p>
-        </div>
-        <div class="see-more">
-            <a href="#" class="btn-outline">See more articles</a>
         </div>
         <div class="carousel-wrapper">
             <button class="carousel-arrow left"><i class="fas fa-chevron-left"></i></button>
@@ -84,9 +79,6 @@
         <div class="section-header">
             <h2>Videos</h2>
             <p>Watch tutorials and learn through visual instruction.</p>
-        </div>
-        <div class="see-more">
-            <a href="#" class="btn-outline">See more videos</a>
         </div>
         <div class="resource-cards"></div>
     </section>
@@ -245,20 +237,50 @@
 
             // filtering logic
             function filterResources() {
-                const searchTerm = searchInput.value.toLowerCase();
                 const activeFilters = Array.from(document.querySelectorAll('.filter-tag.active'))
                     .map(btn => btn.dataset.tag);
                 const activeType = document.querySelector('.resource-nav a.active').dataset.type;
-
-                document.querySelectorAll('.resource-card').forEach(card => {
-                    const matchesSearch = card.textContent.toLowerCase().includes(searchTerm);
+                
+                console.log("Active filters:", activeFilters);
+                
+                // Get all resource cards
+                const allCards = document.querySelectorAll('.resource-card');
+                
+                allCards.forEach(card => {
+                    // Get tags as an array 
+                    let cardTags = [];
+                    if (card.hasAttribute('data-tags')) {
+                        cardTags = card.getAttribute('data-tags').split(',');
+                    }
+                    
+                    const cardType = card.getAttribute('data-type');
+                    console.log(`Card: ${card.textContent.trim().substring(0, 20)}... | Tags: ${cardTags} | Type: ${cardType}`);
+                    
+                    // Check if card matches current filters
                     const matchesTags = activeFilters.length === 0 || 
-                        activeFilters.some(tag => card.dataset.tags.includes(tag));
-                    const matchesType = activeType === 'all' || card.dataset.type === activeType;
-
-                    card.style.display = (matchesSearch && matchesTags && matchesType) ? 
-                        'block' : 'none';
+                        activeFilters.some(filter => cardTags.indexOf(filter) !== -1);
+                    const matchesType = activeType === 'all' || cardType === activeType;
+                    
+                    // Show/hide card based on matches
+                    const shouldShow = matchesTags && matchesType;
+                    card.style.display = shouldShow ? (card.closest('.carousel') ? 'flex' : 'block') : 'none';
                 });
+                
+                // Update carousel progress
+                updateCarouselProgress();
+            }
+
+            // Add a function to update carousel progress
+            function updateCarouselProgress() {
+                const articlesContainer = document.querySelector('#articles .resource-cards');
+                if (articlesContainer) {
+                    const scrollPercentage = (articlesContainer.scrollLeft / 
+                        (articlesContainer.scrollWidth - articlesContainer.clientWidth)) * 100;
+                    const progressBar = document.querySelector('#articles .carousel-progress');
+                    if (progressBar) {
+                        progressBar.style.width = `${scrollPercentage}%`;
+                    }
+                }
             }
 
             // event listeners
