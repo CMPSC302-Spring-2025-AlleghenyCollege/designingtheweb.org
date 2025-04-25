@@ -27,6 +27,7 @@ button {
     border: 1px solid #1B3054;
     font-family: 'Inconsolata', monospace;
     justify-content: space-between;
+
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
@@ -43,6 +44,7 @@ button:hover {
     margin-right: 1rem;
     gap: 10px;
 }
+
 
 h1 {
     font-weight: bold;
@@ -65,6 +67,7 @@ h1 {
     padding: 10px;
     display: none; /* Initially hide the content */
     background-color: #CEF7A0;
+
 }
 
 @media (max-width: 600px) {
