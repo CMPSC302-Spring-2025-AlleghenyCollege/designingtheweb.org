@@ -2,14 +2,16 @@
 
 /* Resource Navigation Bar */
 .resource-nav {
-    width: 100%;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; /* Always center horizontally */
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .resource-nav a {
@@ -452,6 +454,9 @@
       -webkit-overflow-scrolling: touch;
       white-space: nowrap;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* Ensure center alignment on mobile */
     }
     
     .resource-nav a {
@@ -988,7 +993,7 @@
 .carousel-progress {
     width: 0%;
     height: 100%;
-    background-color: var(--secondary-color);
+    background-color: #22c55e !important; /* Tailwind green-500 */
     transition: width 0.3s;
 }
 
@@ -1161,4 +1166,225 @@
     .resource-card {
         padding: 0.8rem;
     }
+}
+
+/* Extra responsiveness for iPhone SE and small screens */
+@media (max-width: 400px) {
+  .resource-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.3rem 0.5rem;
+  }
+  .resource-nav a {
+    margin: 0.2rem 0;
+    font-size: 0.85rem;
+    padding: 0.3rem 0;
+  }
+  .hero-section {
+    padding: 1.2rem 0.2rem;
+  }
+  .hero-section h1 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .hero-section p {
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    padding: 0 0.2rem;
+  }
+  .featured-article {
+    margin: 0.5rem;
+    padding: 0.7rem;
+    width: 98%;
+  }
+  .featured-article h2 {
+    font-size: 1.1rem;
+  }
+  .featured-article p {
+    font-size: 0.75rem;
+  }
+  .filter-section {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem 0.2rem;
+    gap: 0.2rem;
+  }
+  .filter-label {
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+  }
+  .filter-tags {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+  .filter-tag {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  .resource-section {
+    padding: 0.5rem 0.2rem;
+  }
+  .section-header h2 {
+    font-size: 1.1rem;
+  }
+  .section-header p {
+    font-size: 0.8rem;
+  }
+  .resource-cards {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .resource-card {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .card-img {
+    height: 90px;
+  }
+  .card-title {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+  .article-card {
+    padding: 0.7rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .article-content h3 {
+    font-size: 1rem;
+  }
+  .article-content p {
+    font-size: 0.75rem;
+  }
+  .arrow-icon {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+  .carousel-wrapper {
+    padding: 0;
+  }
+  .resource-cards.carousel .resource-card {
+    flex: 0 0 98% !important;
+    min-width: 98% !important;
+    width: 98% !important;
+  }
+}
+
+/* Hide carousel arrows and show progress bar on very small screens */
+@media (max-width: 400px) {
+  .carousel-arrow {
+    display: none !important;
+  }
+  .carousel-progress-container {
+    display: block;
+  }
+}
+
+/* Prevent horizontal scrolling on small screens */
+@media (max-width: 400px) {
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  #main, .main, .container, .resource-section, .resource-cards, .featured-article, .hero-section {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}
+
+.resource-section {
+  margin-bottom: 2.5rem; /* Adds space below each section */
+}
+
+footer {
+  padding: 2rem 1rem 2.5rem 1rem; /* Adds space above and below footer content */
+  background: #fafafa; /* Optional: subtle background for separation */
+}
+
+.resource-section {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (max-width: 640px) {
+  .resource-section {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .resource-section {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+}
+
+/* Prevent horizontal scrolling everywhere except carousel */
+html, body {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  max-width: 100vw;
+}
+
+/* Remove overflow-x: hidden from .resource-cards so carousel can scroll */
+#main, .main, .container, .resource-section, .featured-article, .hero-section {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+/* .resource-cards: DO NOT set overflow-x: hidden or max-width here! */
+.resource-cards {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Carousel: allow horizontal scroll */
+.resource-cards.carousel {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* For extra safety, prevent horizontal scroll on small screens except carousel */
+@media (max-width: 400px) {
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  #main, .main, .container, .resource-section, .featured-article, .hero-section {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  /* .resource-cards: do not set overflow-x here */
+}
+
+.resource-nav {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .resource-nav {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
+.carousel-progress {
+  background-color: #22c55e !important; /* Tailwind green-500 or use your preferred green */
 }

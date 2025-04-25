@@ -57,7 +57,14 @@
             <h2>Getting started</h2>
             <p>Build a good foundation with web development with these courses.</p>
         </div>
-        <div class="resource-cards"></div>
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left"><i class="fas fa-chevron-left"></i></button>
+            <div class="resource-cards carousel"></div>
+            <button class="carousel-arrow right"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-progress-container">
+                <div class="carousel-progress"></div>
+            </div>
+        </div>
     </section>
 
     <section id="articles" class="resource-section">
@@ -80,7 +87,14 @@
             <h2>Videos</h2>
             <p>Watch tutorials and learn through visual instruction.</p>
         </div>
-        <div class="resource-cards"></div>
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left"><i class="fas fa-chevron-left"></i></button>
+            <div class="resource-cards carousel"></div>
+            <button class="carousel-arrow right"><i class="fas fa-chevron-right"></i></button>
+            <div class="carousel-progress-container">
+                <div class="carousel-progress"></div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -207,28 +221,40 @@
             renderArticles();
             renderVideos();
 
-            // initialize carousel functionality
-            const articlesContainer = document.querySelector('#articles .resource-cards');
-            const leftArrow = document.querySelector('#articles .carousel-arrow.left');
-            const rightArrow = document.querySelector('#articles .carousel-arrow.right');
-            const progressBar = document.querySelector('#articles .carousel-progress');
+            // Setup carousel for all sections
+            function setupCarousel(sectionId) {
+                const container = document.querySelector(`#${sectionId} .resource-cards`);
+                const leftArrow = document.querySelector(`#${sectionId} .carousel-arrow.left`);
+                const rightArrow = document.querySelector(`#${sectionId} .carousel-arrow.right`);
+                const progressBar = document.querySelector(`#${sectionId} .carousel-progress`);
 
-            // carousel controls
-            [leftArrow, rightArrow].forEach(arrow => {
-                arrow.addEventListener('click', () => {
-                    const scrollAmount = arrow === rightArrow ? 
-                        articlesContainer.clientWidth : 
-                        -articlesContainer.clientWidth;
-                    articlesContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                if (!container || !leftArrow || !rightArrow || !progressBar) return;
+
+                // Arrow navigation
+                [leftArrow, rightArrow].forEach(arrow => {
+                    arrow.addEventListener('click', () => {
+                        const scrollAmount = arrow === rightArrow ?
+                            container.clientWidth :
+                            -container.clientWidth;
+                        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    });
                 });
-            });
 
-            // progress bar update
-            articlesContainer.addEventListener('scroll', () => {
-                const scrollPercentage = (articlesContainer.scrollLeft / 
-                    (articlesContainer.scrollWidth - articlesContainer.clientWidth)) * 100;
-                progressBar.style.width = `${scrollPercentage}%`;
-            });
+                // Progress bar update
+                container.addEventListener('scroll', () => {
+                    const scrollPercentage = (container.scrollLeft /
+                        (container.scrollWidth - container.clientWidth)) * 100;
+                    progressBar.style.width = `${scrollPercentage}%`;
+                });
+
+                // Initialize progress bar on load
+                progressBar.style.width = `${(container.scrollLeft /
+                    (container.scrollWidth - container.clientWidth)) * 100}%`;
+            }
+
+            setupCarousel('articles');
+            setupCarousel('courses');
+            setupCarousel('videos');
 
             // initialize search/filter functionality
             const searchInput = document.querySelector('.search-input');
