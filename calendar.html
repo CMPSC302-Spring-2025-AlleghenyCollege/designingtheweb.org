@@ -29,6 +29,42 @@ IMPORTANT FILE NAMING INSTRUCTIONS
 <html lang="en">
 
 <head>
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/ads.css">
+</head>
+<!-- Left Ad -->
+<div id="ad-left" class="ad-sidebar">
+    <div class="carousel">
+        <a href="/home.html">
+            <img id="img-left" src="" alt="Ad image">
+        </a>
+            <div class="buttons">
+                <button onclick="displayPreviousImage('left')">◀</button>
+                <button onclick="displayNextImage('left')">▶</button>
+            </div>
+    </div>
+</div>
+
+<!-- Right Ad -->
+<div id="ad-right" class="ad-sidebar">
+    <div class="carousel">
+        <a href="/home.html">
+            <img id="img-right" src="" alt="Ad image">
+        </a>
+            <div class="buttons">
+                <button onclick="displayPreviousImage('right')">◀</button>
+                <button onclick="displayNextImage('right')">▶</button>
+            </div>
+    </div>
+</div>
+<body>
+    
+     
+</body>
+<script src="/scripts/ad-carousel.js" defer></script>
+</html>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <link rel="stylesheet" href="/css/styles.css"> -->
@@ -398,5 +434,3 @@ a {
   });
 </script>
 </html>
-
-
