@@ -1,4 +1,4 @@
-/* 
+/*
 CSS Table of Contents
 
 - CSS Variables
@@ -475,7 +475,12 @@ a:hover {
   box-sizing: border-box;
   transition: background-color 0.3s ease;
 }
- 
+
+  .navbar search {
+    position: relative;
+  }
+
+
   .navbar a {
     text-decoration: none;
     color: white;
@@ -483,7 +488,90 @@ a:hover {
     margin: 0 1rem;
     transition: color 0.3s ease;
   }
-  
+
+  .navbar a:hover {
+    color: #FFD700;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .navbar img {
+    max-height: 2em; /* Reduce size */
+    width: auto; /* Maintain aspect ratio */
+  }
+
+  /* Responsive Navbar */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .navbar a {
+      font-size: 1rem;
+    }
+  }
+
+/* Search Bar Styling */
+#search-bar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 500px;
+  overflow: hidden;
+  margin: 0 1rem;
+}
+
+#search-input {
+  border: none;
+  padding: 8px 12px;
+  font-size: 1rem;
+  outline: none;
+  width: 100px;
+  text-align: center;
+}
+
+#search-button {
+  background-color: #FFD700;
+  border: none;
+  padding: 8px 8px;
+  color: #00274D;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 500px;
+  margin-right: 5px;
+}
+
+#search-button:hover {
+  background-color: #e6c200;
+}
+
+/* Responsive search bar */
+@media (max-width: 768px) {
+  #search-bar {
+    margin: 1rem 0;
+    width: 100%;
+    justify-content: center;
+  }
+
+  #search-input {
+    width: 60%;
+  }
+
+  #search-button {
+    padding: 8px;
+  }
+
   .navbar a:hover {
     color: #FFD700;
     
@@ -524,6 +612,9 @@ a:hover {
     gap: 0.5rem;
   }
 
+  .navbar a {
+    font-size: 1rem;
+  }
   .switch {
     width: 3em;
     height: 1.5em;
@@ -649,6 +740,12 @@ footer {
 
 a {
   color: #FFEB96;
+}
+
+/* Search */
+
+.highlight {
+    background-color: yellow;
 }
 
 /* Responsive Styles for Small Screens */
