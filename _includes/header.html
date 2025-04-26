@@ -25,12 +25,16 @@
                     <a href="/contributors.html">Contributors</a>
                 </div>
                 <div id="search-bar">
-                    <input
-                        type="text"
-                        id="search-input"
-                        placeholder="Search..."
-                    />
-                    <button id="search-button">Search</button>
+                    <form id="search-form" onsubmit="return handleSearch(event)">
+                        <input
+                            type="text"
+                            id="search-input"
+                            name="q"
+                            placeholder="Search..."
+                            aria-label="Search the site"
+                        />
+                        <button id="search-button" type="submit">Search</button>
+                    </form>
                 </div>
                 <!-- Light/Dark Toggle Switch -->
                 <div class="toggle-container">
@@ -44,24 +48,47 @@
         <script src="/scripts/theme_toggle.js"></script>
         <script>
             // Handle search form submission
-            document.addEventListener('DOMContentLoaded', function() {
+            function handleSearch(event) {
+                event.preventDefault();
                 const searchInput = document.getElementById('search-input');
-                const searchButton = document.getElementById('search-button');
+                const query = searchInput.value.trim();
                 
-                function performSearch() {
-                    const query = searchInput.value.trim();
-                    if (query) {
-                        window.location.href = '/search-results.html?q=' + encodeURIComponent(query);
-                    }
+                // Only proceed if search has content
+                if (!query) {
+                    // Highlight the input field to indicate error
+                    searchInput.classList.add('error');
+                    searchInput.focus();
+                    
+                    // Remove error class after a delay
+                    setTimeout(() => {
+                        searchInput.classList.remove('error');
+                    }, 1500);
+                    
+                    return false;
                 }
                 
-                if (searchButton && searchInput) {
-                    searchButton.addEventListener('click', performSearch);
-                    searchInput.addEventListener('keyup', function(e) {
-                        if (e.key === 'Enter') {
-                            performSearch();
-                        }
-                    });
+                // Create URL with search parameter
+                const currentUrl = window.location.pathname;
+                const searchUrl = `${currentUrl}?q=${encodeURIComponent(query)}`;
+                
+                // Navigate to search URL
+                window.location.href = searchUrl;
+                
+                return false;
+            }
+            
+            // Initialize search on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Check if we have a search query in the URL already
+                const urlParams = new URLSearchParams(window.location.search);
+                const searchTerm = urlParams.get('q');
+                
+                if (searchTerm) {
+                    // Pre-fill the search input with the current search term
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) {
+                        searchInput.value = searchTerm;
+                    }
                 }
             });
         </script>
