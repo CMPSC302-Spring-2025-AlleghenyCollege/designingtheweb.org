@@ -4,19 +4,26 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Header</title>
-        <link rel="stylesheet" href="..\css\styles.css" />
+        <link rel="stylesheet" href="/css/styles.css" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="../scripts/search.js"></script>
     </head>
     <body>
         <header>
             <nav class="navbar">
-                <a href="home.html">
+                <a href="/home.html">
                     <img
-                        src="../assets/images/logosimple.png"
+                        src="/assets/images/logosimple.png"
                         alt="Site Logo"
                     />
                 </a>
+                <div class="nav-links">
+                    <a href="/home.html">Home</a>
+                    <a href="/quizzes.html">Quizzes</a>
+                    <a href="/syllabus.html">Syllabus</a>
+                    <a href="/calendar.html">Calendar</a>
+                    <a href="/resources.html">Resources</a>
+                    <a href="/contributors.html">Contributors</a>
+                </div>
                 <div id="search-bar">
                     <input
                         type="text"
@@ -25,48 +32,38 @@
                     />
                     <button id="search-button">Search</button>
                 </div>
-                <div class="nav-links">
-                    <a href="../home.html">Home</a>
-                    <a href="../quizzes.html">Quizzes</a>
-                    <a href="../syllabus.html">Syllabus</a>
-                    <a href="../calendar.html">Calendar</a>
-                    <a href="../resources.html">Resources</a>
-                    <a href="../contributors.html">Contributors</a>
+                <!-- Light/Dark Toggle Switch -->
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
                 </div>
             </nav>
         </header>
+        <script src="/scripts/theme_toggle.js"></script>
+        <script>
+            // Handle search form submission
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('search-input');
+                const searchButton = document.getElementById('search-button');
+                
+                function performSearch() {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        window.location.href = '/search-results.html?q=' + encodeURIComponent(query);
+                    }
+                }
+                
+                if (searchButton && searchInput) {
+                    searchButton.addEventListener('click', performSearch);
+                    searchInput.addEventListener('keyup', function(e) {
+                        if (e.key === 'Enter') {
+                            performSearch();
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
-    <link rel="stylesheet" href="..\css\styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <a href="home.html">
-                <img src="../assets/images/logosimple.png" alt="Site Logo">
-            </a>
-            <div class="nav-links">
-                <a href="../home.html">Home</a>
-                <a href="../quizzes.html">Quizzes</a>
-                <a href="../syllabus.html">Syllabus</a>
-                <a href="../calendar.html">Calendar</a>
-                <a href="../resources.html">Resources</a>
-                <a href="../contributors.html">Contributors</a>
-            </div>
-            <!-- Light/Dark Toggle Switch -->
-            <div class="toggle-container">
-                <label class="switch">
-                    <input type="checkbox" id="darkModeToggle">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </nav>
-    </header>
-
-    <script src="/scripts/theme_toggle.js"></script>
-</body>
 </html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Results - Designing the Web</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    /* Search Results Styling */
+    .search-results-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .search-summary {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .search-results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .search-result-item {
+      padding: 1.5rem;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      border-left: 4px solid var(--secondary-color);
+      transition: all 0.2s ease;
+    }
+    
+    .search-result-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .search-result-item h2 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+    }
+    
+    .search-result-item h2 a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .search-result-item h2 a:hover {
+      color: var(--secondary-color);
+    }
+    
+    .result-url {
+      color: #0077cc;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .result-content {
+      line-height: 1.6;
+      color: #444;
+    }
+    
+    mark {
+      background-color: var(--accent-color);
+      padding: 2px 0;
+    }
+    
+    .no-results {
+      padding: 2rem;
+      text-align: center;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+    }
+    
+    .no-results h2 {
+      color: var(--primary-color);
+    }
+    
+    .no-results ul {
+      display: inline-block;
+      text-align: left;
+      margin-top: 1rem;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .loading:after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      border: 3px solid var(--secondary-color);
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .back-to-home {
+      display: inline-block;
+      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      background-color: var(--secondary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+    
+    .back-to-home:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    /* Dark mode styles */
+    body.dark-mode .search-results-container {
+      background-color: #222;
+      color: white;
+    }
+    
+    body.dark-mode .search-summary {
+      background-color: #333;
+    }
+    
+    body.dark-mode .search-result-item {
+      background-color: #333;
+    }
+    
+    body.dark-mode .search-result-item h2 a {
+      color: var(--accent-color);
+    }
+    
+    body.dark-mode .result-content {
+      color: #ddd;
+    }
+    
+    body.dark-mode .result-url {
+      color: #5aa9ff;
+    }
+    
+    body.dark-mode mark {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    
+    body.dark-mode .no-results {
+      background-color: #333;
+    }
+    
+    body.dark-mode .loading:after {
+      border-color: var(--accent-color);
+      border-top-color: transparent;
+    }
+    
+    body.dark-mode .back-to-home {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    
+    body.dark-mode .back-to-home:hover {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+    }
+    
+    @media (max-width: 768px) {
+      .search-results-container {
+        padding: 1rem;
+        margin: 1rem;
+      }
+      
+      .search-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .search-result-item {
+        padding: 1rem;
+      }
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="search-results-container">
+        <h1>Search Results</h1>
+        <div class="search-summary">
+            <p>Showing results for: <strong id="search-term">Loading...</strong></p>
+            <p><span id="result-count">0</span> results found</p>
+            <a href="/home.html" class="back-to-home">Back to Home</a>
+        </div>
+
+        <div id="content-area">
+            <!-- Search results will be displayed here -->
+            <div class="loading">
+                <p>Loading search results...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <script>
+        $(document).ready(function(){
+            $("#header").load("/_includes/header.html", function() {
+                // After header is loaded, check if theme_toggle.js was loaded
+                if (typeof darkModeToggle === 'undefined') {
+                    $.getScript("/scripts/theme_toggle.js");
+                }
+                
+                // Also load search script after header is loaded
+                $.getScript("/scripts/search.js")
+                    .fail(function() {
+                        console.error("Failed to load search script");
+                        document.getElementById('content-area').innerHTML = `
+                            <div class="no-results">
+                                <h2>Search Error</h2>
+                                <p>There was an error loading the search functionality.</p>
+                                <p><a href="/home.html">Return to home page</a></p>
+                            </div>
+                        `;
+                    });
+            });
+            
+            $("#footer").load("/_includes/footer.html");
+        });
+    </script>
+</body>
+</html> 
