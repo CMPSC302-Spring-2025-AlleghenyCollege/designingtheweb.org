@@ -87,8 +87,8 @@ function startAds() {
         // Start rotation with slight delay to ensure initial images load
         setTimeout(() => {
             // Set intervals to exactly 5 seconds for both ads as requested
-            const leftInterval = setInterval(() => displayNextImage("left"), 5000);
-            const rightInterval = setInterval(() => displayNextImage("right"), 5000);
+            const leftInterval = setInterval(() => displayNextImage("left"), 3000);
+            const rightInterval = setInterval(() => displayNextImage("right"), 3000);
             
             // Store intervals in window object to be able to clear them if needed
             window.adIntervals = {
@@ -111,8 +111,8 @@ document.addEventListener("visibilitychange", function() {
     } else {
         // Restart intervals when page becomes visible again
         if (window.adIntervals) {
-            window.adIntervals.left = setInterval(() => displayNextImage("left"), 5000);
-            window.adIntervals.right = setInterval(() => displayNextImage("right"), 5000);
+            window.adIntervals.left = setInterval(() => displayNextImage("left"), 3000);
+            window.adIntervals.right = setInterval(() => displayNextImage("right"), 3000);
         }
     }
 });
