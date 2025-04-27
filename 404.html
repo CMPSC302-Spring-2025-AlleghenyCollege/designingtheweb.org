@@ -10,9 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Kablammo&family=Love+Ya+Like+A+Sister&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="error-page">
+  <div id="header"></div>
   <div class="error-container">
     <h1 class="kablammo">404</h1>
     <p>Oops! Page not found. While you're here, try our mini-game!</p>
@@ -30,6 +32,13 @@
       <p>Click anywhere to start, or click after game over to restart</p>
     </div>
   </div>
+  <script>
+    $(function(){
+      $("#header").load("/_includes/header.html", function(){
+        $.getScript("/scripts/theme_toggle.js");
+      });
+    });
+  </script>
   <script src="scripts/404.js"></script>
 </body>
 

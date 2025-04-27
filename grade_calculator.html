@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/css/sy.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <div id="header"></div>
+    <footer id="footer"></footer>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grade Calculator</title>
@@ -107,6 +110,14 @@
         document.getElementById('results').textContent =
           `Grade: ${letter}`;
       }
+    </script>
+    <script>
+      $(function(){
+        $("#header").load("/_includes/header.html", function(){
+          $.getScript("/scripts/theme_toggle.js");
+        });
+        $("#footer").load("/_includes/footer.html");
+      });
     </script>
   </body>
   </html>

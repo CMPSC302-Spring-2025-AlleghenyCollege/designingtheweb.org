@@ -431,7 +431,9 @@ IMPORTANT FILE NAMING INSTRUCTIONS
     <script src="/scripts/ad-carousel.js" defer></script>
     <script>
         $(document).ready(function(){
-            $("#header").load("/_includes/header.html");
+            $("#header").load("/_includes/header.html", function() {
+                $.getScript("/scripts/theme_toggle.js");
+            });
             $("#footer").load("/_includes/footer.html");
         });
         

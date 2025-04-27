@@ -210,7 +210,9 @@
         // initialization
         document.addEventListener('DOMContentLoaded', function() {
             // load header and footer
-            $("#header").load("/_includes/header.html");
+            $("#header").load("/_includes/header.html", function() {
+                $.getScript("/scripts/theme_toggle.js");
+            });
             $("#footer").load("/_includes/footer.html");
 
             // Set the featured article link
