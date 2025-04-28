@@ -29,408 +29,719 @@ IMPORTANT FILE NAMING INSTRUCTIONS
 <html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule Calendar</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/ads.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Fix horizontal overflow */
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        
+        /* Calendar specific styles that enhance the site's styles */
+        #calendar {
+            width: 90%;
+            max-width: 1200px;
+            min-height: 80vh;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #month-year {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            background-color: var(--accent-color);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        #view-toggle {
+            text-align: center;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        #view-toggle button {
+            padding: 8px 16px;
+            font-size: 1rem;
+            background-color: var(--tertiary-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-weight: bold;
+        }
+
+        #view-toggle button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #view-toggle button.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        #line {
+            border-bottom: 2px solid var(--secondary-color);
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        #days-of-week {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 0;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #date-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-auto-rows: minmax(100px, auto);
+            gap: 4px;
+            flex-grow: 1;
+            margin-top: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .day {
+            padding: 10px;
+            border: 1px solid var(--tertiary-color);
+            text-align: right;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+            border-radius: 6px;
+            transition: transform 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day:hover {
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 4px;
+            background-color: rgba(128, 189, 65, 0.2);
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .day-number {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .special {
+            background-color: rgba(255, 235, 150, 0.15);
+        }
+
+        .event {
+            margin-top: 6px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            color: white;
+            font-size: 0.9rem;
+            text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .event:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s ease;
+        }
+
+        .today {
+            box-shadow: inset 0 0 0 3px var(--accent-color);
+        }
+
+        .today .day-header {
+            background-color: var(--accent-color);
+        }
+
+        .nav-button {
+            padding: 8px 16px;
+            font-size: 1rem;
+            background-color: var(--tertiary-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        .nav-button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading-message {
+            grid-column: span 7;
+            text-align: center;
+            padding: 2rem;
+            font-style: italic;
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .no-events {
+            padding: 8px;
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            font-size: 0.9rem;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .events-container {
+            max-height: 150px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
+
+        /* Week view specific styles */
+        .week-view .day {
+            min-height: 150px;
+        }
+
+        /* Month view specific styles */
+        .month-view .day {
+            min-height: 120px;
+        }
+
+        /* Empty day cells */
+        .day.empty {
+            background-color: rgba(255, 255, 255, 0.5);
+            height: 100%;
+            min-height: 100px;
+        }
+
+        /* Dark mode compatibility */
+        body.dark-mode #calendar {
+            background-color: #1a1a1a;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .day {
+            background-color: #2c2c2c;
+            color: white;
+            border-color: #444;
+        }
+
+        body.dark-mode .day.empty {
+            background-color: #222;
+        }
+
+        body.dark-mode .day-header {
+            background-color: rgba(128, 189, 65, 0.3);
+            border-bottom-color: var(--secondary-color);
+        }
+
+        body.dark-mode .day-name {
+            color: var(--tertiary-color);
+        }
+
+        body.dark-mode .day-number {
+            color: white;
+        }
+
+        body.dark-mode .no-events {
+            color: #aaa;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            #calendar {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            #month-year {
+                font-size: 1.4rem;
+                padding: 0.8rem 1.5rem;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .nav-button, #view-toggle button {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+
+            .navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #date-grid {
+                grid-auto-rows: minmax(80px, auto);
+            }
+
+            .day-header {
+                padding: 4px;
+            }
+
+            .day-name {
+                font-size: 0.8rem;
+            }
+
+            .event {
+                font-size: 0.8rem;
+                padding: 4px 6px;
+            }
+        }
+    </style>
 </head>
-<!-- Left Ad -->
-<div id="ad-left" class="ad-sidebar">
-    <div class="carousel">
-        <a href="/home.html">
-            <img id="img-left" src="" alt="Ad image">
-        </a>
+
+<body>
+    <div id="header"></div>
+
+    <!-- Left Ad -->
+    <div id="ad-left" class="ad-sidebar">
+        <div class="carousel">
+            <a href="/home.html">
+                <img id="img-left" src="/images/ad1.png" alt="Ad image">
+            </a>
             <div class="buttons">
                 <button onclick="displayPreviousImage('left')">◀</button>
                 <button onclick="displayNextImage('left')">▶</button>
             </div>
+        </div>
     </div>
-</div>
 
-<!-- Right Ad -->
-<div id="ad-right" class="ad-sidebar">
-    <div class="carousel">
-        <a href="/home.html">
-            <img id="img-right" src="" alt="Ad image">
-        </a>
+    <!-- Right Ad -->
+    <div id="ad-right" class="ad-sidebar">
+        <div class="carousel">
+            <a href="/home.html">
+                <img id="img-right" src="/images/ad2.png" alt="Ad image">
+            </a>
             <div class="buttons">
                 <button onclick="displayPreviousImage('right')">◀</button>
                 <button onclick="displayNextImage('right')">▶</button>
             </div>
-    </div>
-</div>
-<body>
-    
-     
-</body>
-<script src="/scripts/ad-carousel.js" defer></script>
-</html>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="/css/styles.css"> -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <title>Class Schedule Calendar</title>
-</head>
-
-<style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #e6f2f0;
-    }
-
-/* Header Styling */
-
-.navbar {
-  width: 100vw;
-  max-width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #00274D !important; /* Force dark blue */
-  color: white;
-  padding: 15px 30px;
-  box-sizing: border-box;
-}
-  
-  .navbar a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2rem;
-    margin: 0 1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar a:hover {
-    color: #FFD700;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .navbar img {
-    max-height: 2em; /* Reduce size */
-    width: auto; /* Maintain aspect ratio */
-  }
-  
-  /* Footer */
-footer {
-  width: 100vw; /* Ensures it spans the full viewport width */
-  max-width: 100%;
-  background-color: #1B3054 !important; 
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  margin: 0;
-  box-sizing: border-box;
-  flex-shrink: 0;
-}
-
-.footer-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Three equal-width columns for larger screens */
-  gap: 10px;
-  padding: 10px;
-  justify-items: center; /* Center the content within each column */
-}
-
-.footer-col {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-align: center;
-}
-
-a {
-  color: #FFEB96;
-}
-
-    
-    #calendar {
-      width: 95vw;
-      height: 95vh;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1rem;
-      border-radius: 12px;
-      background-color: #ffffff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .navigation {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-
-    #month-year {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #0a4686;
-    }
-
-    #view-toggle {
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    #view-toggle button {
-      margin: 0 4px;
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      background-color: #80BD41;
-      color: #ffffff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    #view-toggle button:hover {
-      background-color: #80BD41;
-    }
-
-    #line {
-      border-bottom: 2px solid #0a4686;
-      margin-bottom: 8px;
-    }
-
-    #days-of-week {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: center;
-      font-weight: bold;
-      background-color: #0a4686;
-      color: white;
-      padding: 6px 0;
-      border-radius: 6px;
-    }
-
-    #date-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      grid-auto-rows: 1fr;
-      gap: 2px;
-      flex-grow: 1;
-    }
-
-    .day {
-      padding: 8px;
-      border: 1px solid #ddd;
-      text-align: right;
-      font-size: 0.85rem;
-      position: relative;
-      background-color: white;
-      border-radius: 5px;
-    }
-
-    .special {
-      background-color: #e8f9f0; /* soft green tone for weekends */
-    }
-
-    .event-type {
-      position: absolute;
-      bottom: 4px;
-      left: 4px;
-      font-size: 0.6rem;
-      background: #cce5ff;
-      padding: 1px 4px;
-      border-radius: 3px;
-      color: #004085;
-    }
-
-    .today {
-      background-color: #d1ecf1;
-      border: 2px solid #0a4686;
-    }
-
-    .nav-button {
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      background-color: #0a4686;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .nav-button:hover {
-      background-color: #0056b3;
-    }
-
-    .loading-message {
-      grid-column: span 7;
-      text-align: center;
-      padding: 10px;
-      font-style: italic;
-    }
-</style>
-
-<body>
-  <div id="header"></div>
-  <div id="calendar">
-    <div class="navigation">
-      <button class="nav-button" id="prev-month">Previous</button>
-      <div id="month-year">Month Year</div>
-      <button class="nav-button" id="next-month">Next</button>
+        </div>
     </div>
 
-    <div id="view-toggle">
-      <button id="month-view-btn">Month View</button>
-      <button id="week-view-btn">Week View</button>
+    <div id="calendar">
+        <div class="navigation">
+            <button class="nav-button" id="prev-month">◀ Previous</button>
+            <div id="month-year">Month Year</div>
+            <button class="nav-button" id="next-month">Next ▶</button>
+        </div>
+
+        <div id="view-toggle" class="button-group">
+            <button id="month-view-btn" class="active">Month View</button>
+            <button id="week-view-btn">Week View</button>
+        </div>
+
+        <div id="line"></div>
+
+        <div id="days-of-week">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+
+        <div id="date-grid">
+            <div class="loading-message">Loading schedule from CSV file...</div>
+        </div>
     </div>
 
-    <div id="line"></div>
-
-    <div id="days-of-week">
-      <div>Sun</div>
-      <div>Mon</div>
-      <div>Tue</div>
-      <div>Wed</div>
-      <div>Thu</div>
-      <div>Fri</div>
-      <div>Sat</div>
-    </div>
-
-    <div id="date-grid">
-      <div class="loading-message">Loading schedule...</div>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const monthYearElement = document.getElementById("month-year");
-      const dateGridElement = document.getElementById("date-grid");
-      const prevMonthButton = document.getElementById("prev-month");
-      const nextMonthButton = document.getElementById("next-month");
-      const monthViewBtn = document.getElementById("month-view-btn");
-      const weekViewBtn = document.getElementById("week-view-btn");
-
-      let currentDate = new Date();
-      let currentView = 'month';
-
-      function renderCalendar() {
-        dateGridElement.innerHTML = "";
-
-        const monthNames = [
-          "January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"
-        ];
-        monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-
-        const today = new Date();
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-
-        if (currentView === 'month') {
-          const firstDay = new Date(year, month, 1).getDay();
-          const totalDays = new Date(year, month + 1, 0).getDate();
-
-          for (let i = 0; i < firstDay; i++) {
-            const emptyCell = document.createElement("div");
-            emptyCell.className = "day";
-            dateGridElement.appendChild(emptyCell);
-          }
-
-          for (let day = 1; day <= totalDays; day++) {
-            const date = new Date(year, month, day);
-            const cell = document.createElement("div");
-            cell.className = "day";
-            cell.textContent = day;
-
-            if (date.getDay() === 0 || date.getDay() === 6) {
-              cell.classList.add("special");
-              const event = document.createElement("div");
-              event.className = "event-type";
-              event.textContent = "Weekend";
-              cell.appendChild(event);
-            }
-
-            if (
-              day === today.getDate() &&
-              month === today.getMonth() &&
-              year === today.getFullYear()
-            ) {
-              cell.classList.add("today");
-            }
-
-            dateGridElement.appendChild(cell);
-          }
-        } else {
-          const currentDayOfWeek = currentDate.getDay();
-          const weekStart = new Date(currentDate);
-          weekStart.setDate(currentDate.getDate() - currentDayOfWeek);
-
-          for (let i = 0; i < 7; i++) {
-            const date = new Date(weekStart);
-            date.setDate(weekStart.getDate() + i);
-
-            const cell = document.createElement("div");
-            cell.className = "day";
-            cell.textContent = date.getDate();
-
-            if (date.getDay() === 0 || date.getDay() === 6) {
-              cell.classList.add("special");
-              const event = document.createElement("div");
-              event.className = "event-type";
-              event.textContent = "Weekend";
-              cell.appendChild(event);
-            }
-
-            if (
-              date.getDate() === today.getDate() &&
-              date.getMonth() === today.getMonth() &&
-              date.getFullYear() === today.getFullYear()
-            ) {
-              cell.classList.add("today");
-            }
-
-            dateGridElement.appendChild(cell);
-          }
-        }
-      }
-
-      prevMonthButton.addEventListener("click", () => {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        renderCalendar();
-      });
-
-      nextMonthButton.addEventListener("click", () => {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        renderCalendar();
-      });
-
-      monthViewBtn.addEventListener("click", () => {
-        currentView = "month";
-        renderCalendar();
-      });
-
-      weekViewBtn.addEventListener("click", () => {
-        currentView = "week";
-        renderCalendar();
-      });
-
-      renderCalendar();
-    });
-  </script>
     <div id="footer"></div>
+
+    <script src="/scripts/ad-carousel.js" defer></script>
+    <script>
+        $(document).ready(function(){
+            $("#header").load("/_includes/header.html", function() {
+                $.getScript("/scripts/theme_toggle.js");
+            });
+            $("#footer").load("/_includes/footer.html");
+        });
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const monthYearElement = document.getElementById("month-year");
+            const dateGridElement = document.getElementById("date-grid");
+            const prevMonthButton = document.getElementById("prev-month");
+            const nextMonthButton = document.getElementById("next-month");
+            const monthViewBtn = document.getElementById("month-view-btn");
+            const weekViewBtn = document.getElementById("week-view-btn");
+            const calendarElement = document.getElementById("calendar");
+
+            // Calendar configuration
+            let currentDate = new Date(2025, 2, 1); // Start with March 2025
+            let currentView = 'month'; // Default to month view
+            let events = [];
+            const CSV_FILENAME = "SemesterYear_Class_Schedule.csv";
+
+            // Site color palette for events (from CSS variables)
+            const defaultColors = [
+                "var(--primary-color)",    // #1B3054
+                "var(--secondary-color)",  // #80BD41
+                "var(--tertiary-color)",   // #CEF7A0
+                "var(--accent-color)"      // #FFEB96
+            ];
+
+            // Set view class
+            calendarElement.className = currentView === 'week' ? 'week-view' : 'month-view';
+
+            // Load the CSV file 
+            async function loadEvents() {
+                try {
+                    const response = await fetch(CSV_FILENAME);
+                    if (!response.ok) {
+                        throw new Error(`Could not find ${CSV_FILENAME}`);
+                    }
+                    
+                    const csv = await response.text();
+                    const lines = csv.split('\n').filter(line => line.trim() !== '');
+                    
+                    // Parse header and find indices
+                    const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+                    const dateIndex = headers.indexOf('date');
+                    const titleIndex = headers.indexOf('title');
+                    const colorIndex = headers.indexOf('color');
+                    
+                    if (dateIndex === -1 || titleIndex === -1) {
+                        throw new Error('CSV must contain "date" and "title" columns');
+                    }
+                    
+                    // Parse events
+                    events = lines.slice(1)
+                        .filter(line => line.trim() !== '')
+                        .map((line, index) => {
+                            const values = line.split(',').map(val => val.trim());
+                            
+                            if (!values[dateIndex] || !values[titleIndex]) {
+                                return null; // Skip incomplete entries
+                            }
+                            
+                            // Use color from CSV or use site color palette
+                            let eventColor = values[colorIndex] || defaultColors[index % defaultColors.length];
+                            
+                            return {
+                                date: values[dateIndex], 
+                                title: values[titleIndex],
+                                color: eventColor
+                            };
+                        })
+                        .filter(event => event !== null);
+                    
+                    // Sort events by date for easier processing
+                    events.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    
+                    // If we have events, render the calendar
+                    renderCalendar();
+                } catch (error) {
+                    console.error('Error loading schedule:', error);
+                    dateGridElement.innerHTML = `
+                        <div class="loading-message">
+                            <p>${error.message}</p>
+                            <p>Please make sure ${CSV_FILENAME} exists in the same directory as this HTML file and has the correct format.</p>
+                            <p>The CSV should have columns for "date" (YYYY-MM-DD) and "title" at minimum.</p>
+                        </div>
+                    `;
+                }
+            }
+
+            // Format date to YYYY-MM-DD for event matching
+            function formatDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            // Get the first day of the week (Sunday) for a given date
+            function getStartOfWeek(date) {
+                const result = new Date(date);
+                const day = result.getDay();
+                result.setDate(result.getDate() - day);
+                return result;
+            }
+
+            // Main calendar rendering function
+            function renderCalendar() {
+                monthViewBtn.classList.toggle('active', currentView === 'month');
+                weekViewBtn.classList.toggle('active', currentView === 'week');
+                calendarElement.className = currentView === 'week' ? 'week-view' : 'month-view';
+                
+                const today = new Date();
+                const monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                
+                // Clear the grid
+                dateGridElement.innerHTML = "";
+                
+                if (currentView === 'month') {
+                    // Set the month and year in the header
+                    monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+                    
+                    // Render month view
+                    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                    const daysInMonth = lastDay.getDate();
+                    const startingDayOfWeek = firstDay.getDay();
+                    
+                    // Add empty cells for days before the 1st of the month
+                    for (let i = 0; i < startingDayOfWeek; i++) {
+                        const emptyCell = document.createElement("div");
+                        emptyCell.className = "day empty";
+                        dateGridElement.appendChild(emptyCell);
+                    }
+                    
+                    // Add cells for each day of the month
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+                        const dateString = formatDate(date);
+                        const isToday = 
+                            date.getDate() === today.getDate() &&
+                            date.getMonth() === today.getMonth() &&
+                            date.getFullYear() === today.getFullYear();
+                        
+                        const cell = document.createElement("div");
+                        cell.className = "day";
+                        
+                        if (isToday) {
+                            cell.classList.add("today");
+                        }
+                        
+                        if (date.getDay() === 0 || date.getDay() === 6) {
+                            cell.classList.add("special");
+                        }
+                        
+                        // Add day number
+                        const dayHeader = document.createElement("div");
+                        dayHeader.className = "day-header";
+                        dayHeader.textContent = day;
+                        cell.appendChild(dayHeader);
+                        
+                        // Add events for this day
+                        const dayEvents = events.filter(event => event.date === dateString);
+                        
+                        if (dayEvents.length > 0) {
+                            const eventsContainer = document.createElement("div");
+                            eventsContainer.className = "events-container";
+                            
+                            dayEvents.forEach(event => {
+                                const eventEl = document.createElement("div");
+                                eventEl.className = "event";
+                                eventEl.textContent = event.title;
+                                eventEl.style.backgroundColor = event.color;
+                                eventsContainer.appendChild(eventEl);
+                            });
+                            
+                            cell.appendChild(eventsContainer);
+                        }
+                        
+                        dateGridElement.appendChild(cell);
+                    }
+                    
+                    // Add empty cells after the last day of the month
+                    const totalCells = startingDayOfWeek + daysInMonth;
+                    const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+                    
+                    for (let i = 0; i < remainingCells; i++) {
+                        const emptyCell = document.createElement("div");
+                        emptyCell.className = "day empty";
+                        dateGridElement.appendChild(emptyCell);
+                    }
+                    
+                } else {
+                    // Week view
+                    const weekStart = getStartOfWeek(currentDate);
+                    const weekEnd = new Date(weekStart);
+                    weekEnd.setDate(weekEnd.getDate() + 6);
+                    
+                    // Set the week range in the header
+                    if (weekStart.getMonth() === weekEnd.getMonth()) {
+                        monthYearElement.textContent = `${monthNames[weekStart.getMonth()]} ${weekStart.getDate()}-${weekEnd.getDate()}, ${weekStart.getFullYear()}`;
+                    } else {
+                        monthYearElement.textContent = `${monthNames[weekStart.getMonth()]} ${weekStart.getDate()} - ${monthNames[weekEnd.getMonth()]} ${weekEnd.getDate()}, ${weekStart.getFullYear()}`;
+                    }
+                    
+                    // Create a cell for each day of the week
+                    for (let i = 0; i < 7; i++) {
+                        const date = new Date(weekStart);
+                        date.setDate(date.getDate() + i);
+                        const dateString = formatDate(date);
+                        
+                        const isToday = 
+                            date.getDate() === today.getDate() &&
+                            date.getMonth() === today.getMonth() &&
+                            date.getFullYear() === today.getFullYear();
+                        
+                        const cell = document.createElement("div");
+                        cell.className = "day week-day";
+                        
+                        if (isToday) {
+                            cell.classList.add("today");
+                        }
+                        
+                        if (date.getDay() === 0 || date.getDay() === 6) {
+                            cell.classList.add("special");
+                        }
+                        
+                        // Add day header with name and date
+                        const dayHeader = document.createElement("div");
+                        dayHeader.className = "day-header";
+                        
+                        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                        const dayNameEl = document.createElement("span");
+                        dayNameEl.className = "day-name";
+                        dayNameEl.textContent = dayNames[date.getDay()];
+                        
+                        const dayNumEl = document.createElement("span");
+                        dayNumEl.className = "day-number";
+                        dayNumEl.textContent = date.getDate();
+                        
+                        dayHeader.appendChild(dayNameEl);
+                        dayHeader.appendChild(dayNumEl);
+                        cell.appendChild(dayHeader);
+                        
+                        // Add events for this day
+                        const dayEvents = events.filter(event => event.date === dateString);
+                        
+                        if (dayEvents.length > 0) {
+                            const eventsContainer = document.createElement("div");
+                            eventsContainer.className = "events-container";
+                            
+                            dayEvents.forEach(event => {
+                                const eventEl = document.createElement("div");
+                                eventEl.className = "event";
+                                eventEl.textContent = event.title;
+                                eventEl.style.backgroundColor = event.color;
+                                eventsContainer.appendChild(eventEl);
+                            });
+                            
+                            cell.appendChild(eventsContainer);
+                        } else {
+                            const noEventsEl = document.createElement("div");
+                            noEventsEl.className = "no-events";
+                            noEventsEl.textContent = "No events";
+                            cell.appendChild(noEventsEl);
+                        }
+                        
+                        dateGridElement.appendChild(cell);
+                    }
+                }
+            }
+
+            // Event listeners for navigation buttons
+            prevMonthButton.addEventListener("click", () => {
+                if (currentView === 'month') {
+                    currentDate.setMonth(currentDate.getMonth() - 1);
+                } else {
+                    // In week view, go back one week
+                    currentDate.setDate(currentDate.getDate() - 7);
+                }
+                renderCalendar();
+            });
+
+            nextMonthButton.addEventListener("click", () => {
+                if (currentView === 'month') {
+                    currentDate.setMonth(currentDate.getMonth() + 1);
+                } else {
+                    // In week view, go forward one week
+                    currentDate.setDate(currentDate.getDate() + 7);
+                }
+                renderCalendar();
+            });
+
+            // View toggle buttons
+            monthViewBtn.addEventListener("click", () => {
+                currentView = "month";
+                renderCalendar();
+            });
+
+            weekViewBtn.addEventListener("click", () => {
+                currentView = "week";
+                renderCalendar();
+            });
+
+            // Initialize the calendar
+            loadEvents();
+        });
+    </script>
 </body>
-<script>
-  $(document).ready(function(){
-      $("#header").load("/_includes/header.html");
-      $("#footer").load("/_includes/footer.html");
-  });
-</script>
 </html>

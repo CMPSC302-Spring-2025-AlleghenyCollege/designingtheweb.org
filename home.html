@@ -1,239 +1,504 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/styles.css" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Designing the Web</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="/css/ads.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        />
+        <!-- <script src="/scripts/search.js"></script> -->
+        <style>
+            /* Fix horizontal overflow */
+            html, body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            
+            *, *:before, *:after {
+                box-sizing: inherit;
+            }
+            
+            .highlight {
+                background-color: var(--accent-color);
+                color: var(--primary-color);
+                font-weight: bold;
+                padding: 0 2px;
+            }
+            
+            /* Add styles for search highlights */
+            .search-highlight {
+                background-color: var(--accent-color);
+                color: var(--primary-color);
+                font-weight: bold;
+                padding: 0 2px;
+            }
+        </style>
     </head>
     <body>
-        <div id="header">
-            <header>
-                <nav class="navbar">
-                    <a href="index.html">
-                        <img
-                            src="assets/images/logosimple.png"
-                            alt="Site Logo"
-                        />
-                    </a>
-                    <div class="nav-links">
-                        <a href="../home.html">Home</a>
-                        <a href="../quizzes.html">Quizzes</a>
-                        <a href="../syllabus.html">Syllabus</a>
-                        <a href="../calendar.html">Calendar</a>
-                        <a href="../resources.html">Resources</a>
-                        <a href="../contributors.html">Contributors</a>
-                    </div>
-                    <div id="search-bar">
-                        <input
-                            type="text"
-                            id="search-input"
-                            placeholder="Search"
-                        />
-                        <button id="search-button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </nav>
-            </header>
+        <div id="header"></div>
 
-<head>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/ads.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<!-- Left Ad -->
-<div id="ad-left" class="ad-sidebar">
-    <div class="carousel">
-        <a href="/home.html">
-            <img id="img-left" src="" alt="Ad image">
-        </a>
-            <div class="buttons">
-                <button onclick="displayPreviousImage('left')">◀</button>
-                <button onclick="displayNextImage('left')">▶</button>
+        <!-- Calendar Section - Week View Only -->
+        <div id="home_calendar" class="week-view">
+            <div id="home-month-year">
+                <!-- Will be populated by script -->
+                Loading calendar...
             </div>
-    </div>
-</div>
-
-<!-- Right Ad -->
-<div id="ad-right" class="ad-sidebar">
-    <div class="carousel">
-        <a href="/home.html">
-            <img id="img-right" src="" alt="Ad image">
-        </a>
-            <div class="buttons">
-                <button onclick="displayPreviousImage('right')">◀</button>
-                <button onclick="displayNextImage('right')">▶</button>
-            </div>
-    </div>
-</div>
-
-<body>
-    <div id="header"></div>
-
-    
-    <div id="snap_calendar">
-        <div id="month-year">
-            <!-- See script -->
-        </div>
-        <div id="snap_calendar">
-            <div id="month-year">
-                <!-- See script -->
+            <div class="calendar-nav">
+                <button id="prev-week-button" class="calendar-nav-button">◀ Previous Week</button>
+                <button id="next-week-button" class="calendar-nav-button">Next Week ▶</button>
             </div>
             <div id="days-of-week">
                 <!-- Days of the Week -->
                 <div>Sun</div>
                 <div>Mon</div>
-                <div>Tues</div>
+                <div>Tue</div>
                 <div>Wed</div>
-                <div>Thurs</div>
+                <div>Thu</div>
                 <div>Fri</div>
                 <div>Sat</div>
             </div>
             <div id="line">
                 <!-- Green line under days of the week -->
             </div>
-            <div id="date-grid">
-                <!-- See script -->
+            <div id="home-date-grid">
+                <!-- Will be populated by script -->
+                <div class="loading-message">Loading events...</div>
             </div>
-            <script src="/scripts/snap_calendar.js">
-                /* See snap_calendar.js */
-            </script>
         </div>
+
+        <!-- Left Ad -->
+        <div id="ad-left" class="ad-sidebar">
+            <div class="carousel">
+                <a href="/home.html">
+                    <img id="img-left" src="/images/ad1.png" alt="Ad image">
+                </a>
+                <div class="buttons">
+                    <button onclick="displayPreviousImage('left')">◀</button>
+                    <button onclick="displayNextImage('left')">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Ad -->
+        <div id="ad-right" class="ad-sidebar">
+            <div class="carousel">
+                <a href="/home.html">
+                    <img id="img-right" src="/images/ad2.png" alt="Ad image">
+                </a>
+                <div class="buttons">
+                    <button onclick="displayPreviousImage('right')">◀</button>
+                    <button onclick="displayNextImage('right')">▶</button>
+                </div>
+            </div>
+        </div>
+
         <div id="featured">
             <!-- Syllabus Page -->
-            <a href="https://designingtheweb.org/syllabus/" class="page">
+            <a href="/syllabus.html" class="page">
                 <h1>Syllabus</h1>
                 <img
-                    src="/assets/images/syllabus.png"
+                    src="/images/syllabus.png"
                     alt="Icon of person in classroom pointing to blackboard"
+                    onerror="this.src='/assets/images/syllabus.png'"
                 />
                 <p>Learn More About Our Class With Our Syllabus</p>
             </a>
             <!-- Resources Page -->
-            <a href="https://designingtheweb.org/resources/" class="page">
+            <a href="/resources.html" class="page">
                 <h1>Resources</h1>
-                <img src="/assets/images/resources.png" alt="Stack of books" />
+                <img 
+                    src="/images/resources.png" 
+                    alt="Stack of books"
+                    onerror="this.src='/assets/images/resources.png'" 
+                />
                 <p>Check Out Resources For The Class</p>
             </a>
-            <!-- Contributors Page -->
-            <a href="https://designingtheweb.org/contributors/" class="page">
-                <h1>Contributors</h1>
-                <img src="/assets/images/contributors.png" alt="3 People" />
-                <p>Meet Our Website Contributors</p>
+            <!-- Quizzes Page -->
+            <a href="/quizzes.html" class="page">
+                <h1>Quizzes</h1>
+                <img 
+                    src="/images/ad.png" 
+                    alt="Quiz Icon"
+                    onerror="this.src='/assets/images/quiz.png'" 
+                />
+                <p>Test Your Knowledge with Interactive Quizzes</p>
             </a>
         </div>
+        
         <div id="about">
             <!-- Class Logo -->
             <div class="logo-box">
-                <img src="/assets/images/logo.png" alt="Web Gators Logo" />
+                <img 
+                    src="/images/logo.png" 
+                    alt="Web Gators Logo"
+                    onerror="this.src='/assets/images/logo.png'" 
+                >
             </div>
             <!-- About Text Content -->
             <div class="content">
                 <h1>About The Class</h1>
-                <p>
-                    This course introduces the foundational principles and
-                    practices of web design. Students develop the skills to
-                    create responsive, accessible, and aesthetically engaging
-                    websites that adhere to web standards and design principles.
-                    Students explore web technologies, including HTML, CSS,
-                    JavaScript, Markdown, React, and 11ty (Eleventy) static site
-                    generators, while learning about web accessibility, design
-                    patterns, and wireframing with Figma.
-                </p>
+                <p>This course introduces the foundational principles and practices of web design. Students develop the skills to create responsive, accessible, and aesthetically engaging websites that adhere to web standards and design principles. Students explore web technologies, including HTML, CSS, JavaScript, Markdown, React, and 11ty (Eleventy) static site generators, while learning about web accessibility, design patterns, and wireframing with Figma.</p>
             </div>
         </div>
-        <footer id="footer">
-            <div class="footer-container">
-                <div class="footer-col">
-                    <div>
-                        <img
-                            src="assets/images/location.png"
-                            alt="Location Icon"
-                        />
-                    </div>
-                    <div>
-                        <p>
-                            475 N Main St,<br />Meadville, PA 16335<br />Alden
-                            Room 109
-                        </p>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <div>
-                        <img src="assets/images/mail.png" alt="Mail Icon" />
-                    </div>
-                    <div>
-                        <p>
-                            Email the professor <br /><a
-                                href="mailto:jjumadinova@allegheny.edu"
-                                >here</a
-                            >
-                        </p>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <div>
-                        <img src="assets/images/github.png" alt="GitHub Icon" />
-                    </div>
-                    <div>
-                        <p>Check out the GitHub repo <a href="#">here</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-row">
-                <p>&copy; 2025 All Rights Reserved | Allegheny College</p>
-            </div>
-        </footer>
-    </body>
-    <script src="../scripts/search.js"></script>
-        <script src="/scripts/snap_calendar.js">
-            /* See snap_calendar.js */
-        </script>
-    </div>
 
-    <div id="featured">
-        <!-- Syllabus Page -->
-        <a href="https://designingtheweb.org/syllabus/" class="page">
-            <h1> Syllabus </h1>
-            <img src="/_includes/images/syllabus.png" alt="Icon of person in classroom pointing to blackboard">
-            <p>Learn More About Our Class With Our Syllabus</p>
-        </a>
-        <!-- Resources Page -->
-        <a href="https://designingtheweb.org/resources/" class="page">
-            <h1> Resources </h1>
-            <img src="/_includes/images/resources.png" alt="Stack of books">
-            <p>Check Out Resources For The Class</p>
-        </a>
-        <!-- Contributors Page -->
-        <a href="https://designingtheweb.org/contributors/" class="page">
-            <h1> Contributors </h1>
-            <img src="/_includes/images/contributors.png" alt="3 People">
-            <p>Meet Our Website Contributors</p>
-        </a>
-    </div>
-    
-    <div id="about">
-        <!-- Class Logo -->
-        <div class="logo-box">
-            <img src="/_includes/images/logo.png" alt="Web Gators Logo">
-        </div>
-        <!-- About Text Content -->
-        <div class="content">
-            <h1>About The Class</h1>
-            <p>This course introduces the foundational principles and practices of web design. Students develop the skills to create responsive, accessible, and aesthetically engaging websites that adhere to web standards and design principles. Students explore web technologies, including HTML, CSS, JavaScript, Markdown, React, and 11ty (Eleventy) static site generators, while learning about web accessibility, design patterns, and wireframing with Figma.</p>
-        </div>
-    </div>
-    <footer id="footer"></footer>
-</body>
-<script>
-    $(document).ready(function(){
-        $("#header").load("/_includes/header.html");
-        $("#footer").load("/_includes/footer.html");
-    });
-</script>
-<script src="/scripts/ad-carousel.js" defer></script>
+        <footer id="footer"></footer>
+
+        <script>
+            // Wait for jQuery to be ready
+            $(document).ready(function() {
+                // Load header first
+                $("#header").load("/_includes/header.html", function() {
+                    // After header loads, load theme toggle
+                    $.getScript("/scripts/theme_toggle.js")
+                        .then(function() {
+                            // After theme toggle loads, load search
+                            return $.getScript("/scripts/search.js");
+                        })
+                        .then(function() {
+                            // After search loads, load ad carousel and initialize home calendar
+                            return $.getScript("/scripts/ad-carousel.js");
+                        })
+                        .then(function() {
+                            // Initialize home calendar
+                            initHomeCalendar();
+                        })
+                        .catch(function(error) {
+                            console.error('Error loading scripts:', error);
+                        });
+                });
+                
+                // Load footer
+                $("#footer").load("/_includes/footer.html");
+                
+                // Failsafe for ad images
+                $(".ad-sidebar img").on("error", function() {
+                    $(this).attr("src", "/images/ad1.png");
+                });
+                
+                // Make sure search works to scroll to first instance of searched term
+                function handleSearch() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const searchTerm = urlParams.get('q');
+                    
+                    if (searchTerm) {
+                        // Wait for page content to load
+                        setTimeout(() => {
+                            // Find all text nodes in the document
+                            const walker = document.createTreeWalker(
+                                document.body,
+                                NodeFilter.SHOW_TEXT,
+                                null,
+                                false
+                            );
+                            
+                            const textNodes = [];
+                            let node;
+                            
+                            while (node = walker.nextNode()) {
+                                // Skip script and style tags
+                                if (
+                                    node.parentNode.tagName === 'SCRIPT' ||
+                                    node.parentNode.tagName === 'STYLE' ||
+                                    node.nodeValue.trim() === ''
+                                ) {
+                                    continue;
+                                }
+                                
+                                if (node.nodeValue.toLowerCase().includes(searchTerm.toLowerCase())) {
+                                    textNodes.push(node);
+                                }
+                            }
+                            
+                            // If any matches found, scroll to the first one
+                            if (textNodes.length > 0) {
+                                // Highlight all matches but scroll to the first one
+                                textNodes.forEach((node, index) => {
+                                    const matchText = node.nodeValue;
+                                    const regex = new RegExp(escapeRegExp(searchTerm), 'gi');
+                                    
+                                    // Use a wrapper element to process the HTML
+                                    const wrapper = document.createElement('div');
+                                    wrapper.innerHTML = matchText.replace(regex, '<mark class="highlight">$&</mark>');
+                                    
+                                    // Replace the text node with the highlighted version
+                                    const fragment = document.createDocumentFragment();
+                                    Array.from(wrapper.childNodes).forEach(child => {
+                                        if (child.nodeType === Node.TEXT_NODE) {
+                                            fragment.appendChild(child);
+                                        } else {
+                                            // For each element node (should be the mark elements)
+                                            const mark = document.createElement('mark');
+                                            mark.className = 'highlight';
+                                            mark.textContent = child.textContent;
+                                            fragment.appendChild(mark);
+                                        }
+                                    });
+                                    
+                                    // Replace the original node
+                                    node.parentNode.replaceChild(fragment, node);
+                                });
+                                
+                                // Scroll to the first match after a small delay
+                                setTimeout(() => {
+                                    const firstHighlight = document.querySelector('.highlight');
+                                    if (firstHighlight) {
+                                        firstHighlight.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'center'
+                                        });
+                                    }
+                                }, 300);
+                                
+                                // Add a small message showing how many matches were found
+                                const searchCountContainer = document.createElement('div');
+                                searchCountContainer.id = 'search-count-container';
+                                searchCountContainer.style.cssText = `
+                                    position: fixed;
+                                    top: 10px;
+                                    right: 10px;
+                                    background-color: var(--accent-color);
+                                    color: var(--primary-color);
+                                    padding: 8px 12px;
+                                    border-radius: 4px;
+                                    font-size: 14px;
+                                    z-index: 1000;
+                                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                                `;
+                                searchCountContainer.innerHTML = `Found <b>${textNodes.length}</b> match${textNodes.length === 1 ? '' : 'es'} for "${escapeHtml(searchTerm)}"`;
+                                document.body.appendChild(searchCountContainer);
+                                
+                                // Auto-remove the message after 5 seconds
+                                setTimeout(() => {
+                                    searchCountContainer.style.opacity = '0';
+                                    searchCountContainer.style.transition = 'opacity 0.5s';
+                                    setTimeout(() => {
+                                        if (searchCountContainer.parentNode) {
+                                            searchCountContainer.parentNode.removeChild(searchCountContainer);
+                                        }
+                                    }, 500);
+                                }, 5000);
+                            }
+                        }, 1000);
+                    }
+                }
+                
+                // Helper functions for search
+                function escapeRegExp(text) {
+                    return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                }
+                
+                function escapeHtml(text) {
+                    const div = document.createElement('div');
+                    div.textContent = text;
+                    return div.innerHTML;
+                }
+                
+                // Call search handler after page loads
+                $(window).on('load', handleSearch);
+            });
+
+            // Home Calendar Function
+            function initHomeCalendar() {
+                // Elements
+                const monthYearElement = document.getElementById('home-month-year');
+                const dateGridElement = document.getElementById('home-date-grid');
+                const prevWeekButton = document.getElementById('prev-week-button');
+                const nextWeekButton = document.getElementById('next-week-button');
+
+                // State variables - Start with March 2025
+                let currentDate = new Date(2025, 2, 10); // March 10, 2025 (starts with a Monday class)
+                let events = [];
+                const CSV_FILENAME = "SemesterYear_Class_Schedule.csv";
+
+                // Color options that match site's palette
+                const defaultColors = [
+                    "var(--primary-color)",    // #1B3054
+                    "var(--secondary-color)",  // #80BD41
+                    "var(--tertiary-color)",   // #CEF7A0
+                    "var(--accent-color)"      // #FFEB96
+                ];
+
+                // Load events from CSV file
+                async function loadEvents() {
+                    try {
+                        const response = await fetch(CSV_FILENAME);
+                        if (!response.ok) {
+                            throw new Error(`Could not find ${CSV_FILENAME}`);
+                        }
+                        
+                        const csv = await response.text();
+                        const lines = csv.split('\n').filter(line => line.trim() !== '');
+                        
+                        // Parse header and find indices
+                        const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+                        const dateIndex = headers.indexOf('date');
+                        const titleIndex = headers.indexOf('title');
+                        const colorIndex = headers.indexOf('color');
+                        
+                        if (dateIndex === -1 || titleIndex === -1) {
+                            throw new Error('CSV must contain "date" and "title" columns');
+                        }
+                        
+                        // Parse events
+                        events = lines.slice(1)
+                            .filter(line => line.trim() !== '')
+                            .map((line, index) => {
+                                const values = line.split(',').map(val => val.trim());
+                                
+                                if (!values[dateIndex] || !values[titleIndex]) {
+                                    return null; // Skip incomplete entries
+                                }
+                                
+                                return {
+                                    date: values[dateIndex], 
+                                    title: values[titleIndex],
+                                    color: (colorIndex !== -1 && values[colorIndex]) 
+                                        ? values[colorIndex] 
+                                        : defaultColors[index % defaultColors.length]
+                                };
+                            })
+                            .filter(event => event !== null);
+                        
+                        // Sort events by date
+                        events.sort((a, b) => new Date(a.date) - new Date(b.date));
+                            
+                        // If we have events, render the calendar
+                        renderCalendar();
+                    } catch (error) {
+                        console.error('Error loading schedule:', error);
+                        dateGridElement.innerHTML = `
+                            <div class="loading-message">
+                                <p>${error.message}</p>
+                                <p>Please make sure ${CSV_FILENAME} exists and has the correct format.</p>
+                            </div>
+                        `;
+                    }
+                }
+
+                // Format date to YYYY-MM-DD for event matching
+                function formatDate(date) {
+                    const year = date.getFullYear();
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const day = String(date.getDate()).padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                }
+
+                // Get the first day of the week (Sunday) for a given date
+                function getStartOfWeek(date) {
+                    const result = new Date(date);
+                    const day = result.getDay();
+                    result.setDate(result.getDate() - day);
+                    return result;
+                }
+
+                // Render week view calendar
+                function renderCalendar() {
+                    const today = new Date();
+                    const monthNames = [
+                        "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+                    ];
+                    
+                    // Get the week range
+                    const weekStart = getStartOfWeek(currentDate);
+                    const weekEnd = new Date(weekStart);
+                    weekEnd.setDate(weekEnd.getDate() + 6);
+                    
+                    // Set the week range in the header
+                    if (weekStart.getMonth() === weekEnd.getMonth()) {
+                        monthYearElement.textContent = `${monthNames[weekStart.getMonth()]} ${weekStart.getDate()}-${weekEnd.getDate()}, ${weekStart.getFullYear()}`;
+                    } else {
+                        monthYearElement.textContent = `${monthNames[weekStart.getMonth()]} ${weekStart.getDate()} - ${monthNames[weekEnd.getMonth()]} ${weekEnd.getDate()}, ${weekStart.getFullYear()}`;
+                    }
+                    
+                    // Clear the grid
+                    dateGridElement.innerHTML = "";
+                    
+                    // Create a cell for each day of the week
+                    for (let i = 0; i < 7; i++) {
+                        const date = new Date(weekStart);
+                        date.setDate(date.getDate() + i);
+                        const dateString = formatDate(date);
+                        
+                        const isToday = 
+                            date.getDate() === today.getDate() &&
+                            date.getMonth() === today.getMonth() &&
+                            date.getFullYear() === today.getFullYear();
+                        
+                        const cell = document.createElement("div");
+                        cell.className = "day week-day";
+                        
+                        if (isToday) {
+                            cell.classList.add("today");
+                        }
+                        
+                        if (date.getDay() === 0 || date.getDay() === 6) {
+                            cell.classList.add("special");
+                        }
+                        
+                        // Add day header with name and date
+                        const dayHeader = document.createElement("div");
+                        dayHeader.className = "day-header";
+                        
+                        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                        const dayNameEl = document.createElement("span");
+                        dayNameEl.className = "day-name";
+                        dayNameEl.textContent = dayNames[date.getDay()];
+                        
+                        const dayNumEl = document.createElement("span");
+                        dayNumEl.className = "day-number";
+                        dayNumEl.textContent = date.getDate();
+                        
+                        dayHeader.appendChild(dayNameEl);
+                        dayHeader.appendChild(dayNumEl);
+                        cell.appendChild(dayHeader);
+                        
+                        // Add events for this day
+                        const dayEvents = events.filter(event => event.date === dateString);
+                        
+                        if (dayEvents.length > 0) {
+                            const eventsContainer = document.createElement("div");
+                            eventsContainer.className = "events-container";
+                            
+                            dayEvents.forEach(event => {
+                                const eventEl = document.createElement("div");
+                                eventEl.className = "event";
+                                eventEl.textContent = event.title;
+                                eventEl.style.backgroundColor = event.color;
+                                eventsContainer.appendChild(eventEl);
+                            });
+                            
+                            cell.appendChild(eventsContainer);
+                        } else {
+                            const noEventsEl = document.createElement("div");
+                            noEventsEl.className = "no-events";
+                            noEventsEl.textContent = "No events";
+                            cell.appendChild(noEventsEl);
+                        }
+                        
+                        dateGridElement.appendChild(cell);
+                    }
+                }
+
+                // Event listeners for navigation buttons
+                prevWeekButton.addEventListener("click", () => {
+                    currentDate.setDate(currentDate.getDate() - 7);
+                    renderCalendar();
+                });
+
+                nextWeekButton.addEventListener("click", () => {
+                    currentDate.setDate(currentDate.getDate() + 7);
+                    renderCalendar();
+                });
+
+                // Initialize the calendar
+                loadEvents();
+            }
+        </script>
+    </body>
 </html>

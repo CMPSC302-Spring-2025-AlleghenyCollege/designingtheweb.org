@@ -1,7 +1,23 @@
 date,title,color
-2025-04-05,First Day of Classes,#4CAF50
-2025-04-12,Project 1: Sprint 1,
-2025-04-14,Quiz 2,#2196F3
-2025-04-19,REACT Components,
-2025-04-21,Project 2: Sprint 3,#2196F3
-2025-04-26,Professor of Practice Talk,#FF9800
+2025-03-03,Spring Semester Begins,#4285F4
+2025-03-05,Introduction to HTML,#EA4335
+2025-03-10,CSS Basics,#FBBC05
+2025-03-12,JavaScript Fundamentals,#34A853
+2025-03-17,Responsive Design Workshop,#9C27B0
+2025-03-19,Web Accessibility Guidelines,#FF9800
+2025-03-24,Version Control with Git,#00BCD4
+2025-03-26,Framework Introduction,#795548
+2025-03-31,Spring Break - No Class,#4285F4
+2025-04-02,Spring Break - No Class,#EA4335
+2025-04-07,React Components,#FBBC05
+2025-04-09,State Management,#34A853
+2025-04-14,API Integration,#9C27B0
+2025-04-16,Testing Web Applications,#FF9800
+2025-04-21,Project Planning Workshop,#00BCD4
+2025-04-23,Design Systems,#795548
+2025-04-28,Final Project Work Session,#4285F4
+2025-04-30,Deployment Strategies,#EA4335
+2025-05-05,Student Presentations,#FBBC05
+2025-05-07,Final Exam Review,#34A853
+2025-05-12,Final Exams Week,#9C27B0
+2025-05-14,Semester Ends,#FF9800

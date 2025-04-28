@@ -4,69 +4,93 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Header</title>
-        <link rel="stylesheet" href="..\css\styles.css" />
+        <link rel="stylesheet" href="/css/styles.css" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="../scripts/search.js"></script>
     </head>
     <body>
         <header>
             <nav class="navbar">
-                <a href="home.html">
+                <a href="/home.html">
                     <img
-                        src="../assets/images/logosimple.png"
+                        src="/assets/images/logosimple.png"
                         alt="Site Logo"
                     />
                 </a>
-                <div id="search-bar">
-                    <input
-                        type="text"
-                        id="search-input"
-                        placeholder="Search..."
-                    />
-                    <button id="search-button">Search</button>
-                </div>
                 <div class="nav-links">
-                    <a href="../home.html">Home</a>
-                    <a href="../quizzes.html">Quizzes</a>
-                    <a href="../syllabus.html">Syllabus</a>
-                    <a href="../calendar.html">Calendar</a>
-                    <a href="../resources.html">Resources</a>
-                    <a href="../contributors.html">Contributors</a>
+                    <a href="/home.html">Home</a>
+                    <a href="/quizzes.html">Quizzes</a>
+                    <a href="/syllabus.html">Syllabus</a>
+                    <a href="/calendar.html">Calendar</a>
+                    <a href="/resources.html">Resources</a>
+                    <a href="/contributors.html">Contributors</a>
+                </div>
+                <div id="search-bar">
+                    <form id="search-form" onsubmit="return handleSearch(event)">
+                        <input
+                            type="text"
+                            id="search-input"
+                            name="q"
+                            placeholder="Search..."
+                            aria-label="Search the site"
+                        />
+                        <button id="search-button" type="submit">Search</button>
+                    </form>
+                </div>
+                <!-- Light/Dark Toggle Switch -->
+                <div class="toggle-container">
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
                 </div>
             </nav>
         </header>
+        <script src="/scripts/theme_toggle.js"></script>
+        <script>
+            // Handle search form submission
+            function handleSearch(event) {
+                event.preventDefault();
+                const searchInput = document.getElementById('search-input');
+                const query = searchInput.value.trim();
+                
+                // Only proceed if search has content
+                if (!query) {
+                    // Highlight the input field to indicate error
+                    searchInput.classList.add('error');
+                    searchInput.focus();
+                    
+                    // Remove error class after a delay
+                    setTimeout(() => {
+                        searchInput.classList.remove('error');
+                    }, 1500);
+                    
+                    return false;
+                }
+                
+                // Create URL with search parameter
+                const currentUrl = window.location.pathname;
+                const searchUrl = `${currentUrl}?q=${encodeURIComponent(query)}`;
+                
+                // Navigate to search URL
+                window.location.href = searchUrl;
+                
+                return false;
+            }
+            
+            // Initialize search on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Check if we have a search query in the URL already
+                const urlParams = new URLSearchParams(window.location.search);
+                const searchTerm = urlParams.get('q');
+                
+                if (searchTerm) {
+                    // Pre-fill the search input with the current search term
+                    const searchInput = document.getElementById('search-input');
+                    if (searchInput) {
+                        searchInput.value = searchTerm;
+                    }
+                }
+            });
+        </script>
     </body>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
-    <link rel="stylesheet" href="..\css\styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <a href="home.html">
-                <img src="../assets/images/logosimple.png" alt="Site Logo">
-            </a>
-            <div class="nav-links">
-                <a href="../home.html">Home</a>
-                <a href="../quizzes.html">Quizzes</a>
-                <a href="../syllabus.html">Syllabus</a>
-                <a href="../calendar.html">Calendar</a>
-                <a href="../resources.html">Resources</a>
-                <a href="../contributors.html">Contributors</a>
-            </div>
-            <!-- Light/Dark Toggle Switch -->
-            <div class="toggle-container">
-                <label class="switch">
-                    <input type="checkbox" id="darkModeToggle">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </nav>
-    </header>
-
-    <script src="/scripts/theme_toggle.js"></script>
-</body>
 </html>

@@ -1,24 +1,36 @@
 /* ========== Ad sidebars ========== */
 .ad-sidebar {
     position: fixed;
-    top: 5rem;               /* slide down below your header */
-    width: 200px;            /* adjust as you like */
-    z-index: 100;            
-  }
+    top: 5rem;         /* Position below header */
+    width: 200px;      /* Consistent width */
+    z-index: 100;      /* Above main content but below header/footer */
+    transition: all 0.3s ease;
+}
   
-  #ad-left  { left:  0; }
-  #ad-right { right: 0; }
+#ad-left  { 
+    left: 0;
+}
+
+#ad-right { 
+    right: 0;
+}
   
-  /* Make sure the calendar/content doesn’t get covered */
-  #snap_calendar,
-  #featured,
-  #about {
-    max-width: calc(100% - 440px);  /* adjust if you change sidebar width */
+/* Make sure the calendar/content doesn't get covered by ads */
+#snap_calendar,
+#featured,
+#about {
+    max-width: calc(100% - 440px);  /* Adjust for sidebar width */
     margin: 0 auto;
-  }
+    transition: max-width 0.3s ease;
+}
+
+/* Week view is default now */
+#snap_calendar.week-view {
+    max-width: calc(100% - 440px);
+}
   
-  /* Scoped carousel styles */
-  .ad-sidebar .carousel {
+/* Scoped carousel styles */
+.ad-sidebar .carousel {
     background: white;
     border-radius: 10px;
     overflow: hidden;
@@ -26,45 +38,110 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+/* Handle dark mode */
+body.dark-mode .ad-sidebar .carousel {
+    background: #222;
+    border-color: #444;
+}
   
-  .ad-sidebar .carousel img {
-    width: 100%;        /* fill sidebar width */
-    height: auto;       /* let height scale naturally */
-    object-fit: contain;/* fit entire image inside its box */
-    aspect-ratio: unset;/* remove the 1:1 constraint */
-  }
+.ad-sidebar .carousel img {
+    width: 100%;       
+    height: auto;      
+    object-fit: contain;
+    aspect-ratio: 2/3;
+    transition: opacity 0.3s ease;
+    max-height: 300px;
+}
   
-  .ad-sidebar .buttons {
+.ad-sidebar .buttons {
     display: flex;
     gap: 0.5rem;
-    padding: 0.5rem;
-  }
+    padding: 0.8rem;
+    justify-content: center;
+    width: 100%;
+    background-color: #f8f8f8;
+    border-top: 1px solid #eee;
+}
+
+body.dark-mode .ad-sidebar .buttons {
+    background-color: #333;
+    border-top-color: #444;
+}
   
-  .ad-sidebar button {
+.ad-sidebar button {
     padding: 0.3rem 0.6rem;
     font-size: 0.9rem;
-    background-color: #007bff;
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+    transition: all 0.2s ease;
+}
   
-  .ad-sidebar button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* hide ads on small screens */
-  @media (max-width: 1024px) {
+.ad-sidebar button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Loading state for ads */
+.ad-sidebar img[src=""] {
+    min-height: 200px;
+    background-color: #f0f0f0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="rgba(0,0,0,0.2)" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path fill="rgba(0,0,0,0.2)" d="M20 12h2A10 10 0 0 0 12 2v2a8 8 0 0 1 8 8z"><animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></path></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px;
+}
+
+/* Responsive adjustments - larger tablets */
+@media (max-width: 1200px) {
     .ad-sidebar {
-      display: none;
+        width: 150px; /* Smaller on medium screens */
     }
+    
     #snap_calendar,
     #featured,
     #about {
-      max-width: 100%;
-      padding: 0 1rem;
+        max-width: calc(100% - 340px);
     }
-  }
+    
+    #snap_calendar.week-view {
+        max-width: calc(100% - 340px);
+    }
+    
+    .ad-sidebar .carousel img {
+        max-height: 250px;
+    }
+    
+    .ad-sidebar .buttons {
+        padding: 0.5rem;
+    }
+    
+    .ad-sidebar button {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* hide ads on small screens */
+@media (max-width: 1024px) {
+    .ad-sidebar {
+        display: none;
+    }
+    
+    #snap_calendar,
+    #featured,
+    #about,
+    #snap_calendar.week-view {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+}
   
