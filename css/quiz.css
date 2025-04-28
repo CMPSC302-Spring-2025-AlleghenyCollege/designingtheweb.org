@@ -91,7 +91,8 @@ body {
 }
 
 #flex-container {
-    font-size: calc(5px + 1vw)
+    font-size: calc(5px + 1vw);
+    width: 60%;
 }
 
 
@@ -174,4 +175,73 @@ body {
         width: 90%
     }
 
+}
+
+/* Dark mode fixes for quiz page */
+
+/* General text color */
+body.dark-mode {
+    color: white; /* Ensure all text is white */
+    background-color: #1a1a1a; /* Dark background for the page */
+}
+
+/* Navbar */
+body.dark-mode .navbar {
+    background: #333; /* Dark background for navbar */
+    color: white; /* White text */
+}
+
+body.dark-mode .navbar a {
+    color: white; /* White text for links */
+}
+
+body.dark-mode .navbar a:hover {
+    color: var(--accent-color); /* Highlight links on hover */
+}
+
+/* Quiz start section */
+body.dark-mode #quiz-start {
+    background-color: #2c2c2c; /* Dark background for quiz start */
+    color: white; /* White text */
+}
+
+/* Quiz box */
+body.dark-mode #quiz-box {
+    background-color: #2c2c2c; /* Dark background for quiz box */
+    color: white; /* White text */
+}
+
+/* Start button */
+body.dark-mode #start-button {
+    background-color: var(--primary-color); /* Darker button background */
+    color: white; /* White text */
+    border: 1px solid #444; /* Adjust border color */
+}
+
+body.dark-mode #start-button:hover {
+    background-color: var(--secondary-color); /* Highlight button on hover */
+    color: black; /* Ensure contrast */
+}
+
+/* Flex container */
+body.dark-mode #flex-container {
+    background-color: #2c2c2c; /* Dark background for flex container */
+    border: solid 2px #444; /* Adjust border color */
+}
+
+/* Question choice */
+body.dark-mode #question-choice {
+    background-color: #333; /* Dark background for question choice */
+    color: white; /* White text */
+}
+
+/* Responsive adjustments for dark mode */
+@media (max-width: 600px) {
+    body.dark-mode #flex-container {
+        background-color: #2c2c2c; /* Ensure consistent dark background */
+    }
+
+    body.dark-mode #question-choice {
+        background-color: #333; /* Dark background for smaller screens */
+    }
 }
