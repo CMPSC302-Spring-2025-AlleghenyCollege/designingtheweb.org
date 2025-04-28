@@ -87,3 +87,58 @@ h1 {
         justify-content: center;
     }
 }
+
+/* Dark mode fixes for syllabus page */
+
+/* General text color */
+body.dark-mode {
+    color: white; /* Ensure all text is white */
+    background-color: #1a1a1a; /* Dark background for the page */
+}
+
+/* Syllabus description */
+body.dark-mode .syllabus-description {
+    background-color: #2c2c2c; /* Dark background for the syllabus description */
+    color: white; /* White text */
+}
+
+/* Buttons */
+body.dark-mode button {
+    background-color: #444; /* Darker button background */
+    color: white; /* White text */
+    border: 1px solid #666; /* Adjust border color */
+}
+
+body.dark-mode button:hover {
+    background-color: #555; /* Slightly lighter background on hover */
+    text-decoration: underline;
+}
+
+/* Section headers */
+body.dark-mode .header {
+    background-color: #333; /* Dark background for section headers */
+    color: white; /* White text */
+}
+
+/* Section content */
+body.dark-mode .content {
+    background-color: #444; /* Dark background for section content */
+    color: white; /* White text */
+}
+
+/* Button container */
+body.dark-mode .button_container {
+    background-color: transparent; /* Ensure no background color conflicts */
+}
+
+/* Responsive adjustments for dark mode */
+@media (max-width: 600px) {
+    body.dark-mode .syllabus-info {
+        background-color: #1a1a1a; /* Ensure consistent dark background */
+    }
+
+    body.dark-mode .syllabus-description,
+    body.dark-mode .instructor {
+        background-color: #2c2c2c; /* Dark background for smaller screens */
+    }
+}

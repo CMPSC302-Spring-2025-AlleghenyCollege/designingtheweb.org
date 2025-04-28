@@ -39,6 +39,22 @@ body.dark-mode {
   --toggle-circle: #FFFDFA;
   --toggle-icon-size: 12px;
   --toggle-border-color: #FFEB96;
+  color: white; /* Set default text color to white */
+}
+
+/* Update specific elements if needed */
+body.dark-mode a {
+  color: white; /* Ensure links are white in dark mode */
+}
+
+body.dark-mode p,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: white; /* Ensure all headings and paragraphs are white */
 }
 
 /* Base Styles */
@@ -1014,7 +1030,7 @@ a:hover {
 }
 
 /* Responsive Navbar */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .navbar {
     flex-direction: column;
     align-items: center;
@@ -1024,6 +1040,7 @@ a:hover {
   .nav-links {
     flex-direction: column;
     gap: 0.5rem;
+    margin-bottom: 5px;
   }
 
   .navbar a {
@@ -1066,22 +1083,6 @@ a:hover {
   background-color: #e6c200;
 }
 
-/* Responsive search bar */
-@media (max-width: 768px) {
-  #search-bar {
-    margin: 1rem 0;
-    width: 100%;
-    justify-content: center;
-  }
-
-  #search-input {
-    width: 60%;
-  }
-
-  #search-button {
-    padding: 8px;
-  }
-}
 
 /* Dark Mode Toggle */
 .switch {
