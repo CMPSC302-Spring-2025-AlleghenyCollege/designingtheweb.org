@@ -129,6 +129,68 @@ h1 {
     text-decoration: underline;
 }
 
+/* Dark mode fixes for contributors page */
+
+/* General text color */
+body.dark-mode {
+    color: white; /* Ensure all text is white */
+    background-color: #1a1a1a; /* Dark background for the page */
+}
+
+/* Project lead container */
+body.dark-mode .project-lead-container {
+    background-color: #2c2c2c; /* Dark background for project leads */
+    color: white; /* White text */
+}
+
+body.dark-mode .lead-card {
+    background-color: #333; /* Dark background for lead cards */
+    color: white; /* White text */
+    border: 1px solid #444; /* Adjust border color */
+}
+
+/* Contributor container */
+body.dark-mode .contributor-container {
+    background-color: #2c2c2c; /* Dark background for contributors section */
+    color: white; /* White text */
+}
+
+body.dark-mode .contributor-card {
+    background-color: #333; /* Dark background for contributor cards */
+    color: white; /* White text */
+    border: 1px solid #444; /* Adjust border color */
+}
+
+body.dark-mode .contributor-name {
+    color: white; /* Ensure contributor names are white */
+}
+
+body.dark-mode .contributor-title {
+    color: #ccc; /* Slightly lighter text for titles */
+}
+
+body.dark-mode .contributor-links a {
+    color: var(--tertiary-color); /* Highlight links in dark mode */
+}
+
+body.dark-mode .contributor-links a:hover {
+    text-decoration: underline; /* Add underline on hover for better visibility */
+}
+
+/* Header and footer */
+body.dark-mode h1,
+body.dark-mode h2 {
+    color: white; /* Ensure all headings are white */
+}
+
+/* Responsive adjustments for dark mode */
+@media screen and (max-width: 768px) {
+    body.dark-mode .lead-card,
+    body.dark-mode .contributor-card {
+        background-color: #333; /* Ensure cards remain dark on smaller screens */
+    }
+}
+
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
     .project-lead-container,
